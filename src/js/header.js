@@ -1,14 +1,24 @@
 ﻿const header = document.querySelector('.site-header');
 const nav = document.querySelector('.primary-nav');
+const navLinks = document.querySelectorAll('.nav-menu a');
 
-function syncStickyNav() {
+function syncCollapsedMenu() {
   if (!header || !nav) return;
 
-  const shouldStick = window.scrollY > 0;
-  nav.classList.toggle('is-stuck', shouldStick);
-  header.classList.toggle('nav-is-stuck', shouldStick);
+  const collapseAt = header.offsetHeight - nav.offsetHeight;
+  nav.classList.toggle('is-collapsed', window.scrollY >= collapseAt);
 }
 
-window.addEventListener('scroll', syncStickyNav, { passive: true });
-window.addEventListener('resize', syncStickyNav);
-syncStickyNav();
+navLinks.forEach((link) => {
+  link.addEventListener('click', (event) => {
+    const target = document.querySelector(link.getAttribute('href'));
+    if (!target) return;
+
+    event.preventDefault();
+    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+});
+
+window.addEventListener('scroll', syncCollapsedMenu, { passive: true });
+window.addEventListener('resize', syncCollapsedMenu);
+syncCollapsedMenu();

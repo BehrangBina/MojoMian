@@ -26,7 +26,7 @@ body {
   margin: 0;
   min-height: 100vh;
   color: var(--ink);
-  background: #fbf6f6;
+  background: #f5f7f7 url("../img/Background-Blured.jpg") center top / cover fixed no-repeat;
   font-family: Barlow, Arial, Helvetica, sans-serif;
 }
 
@@ -66,16 +66,16 @@ body {
   z-index: 20;
 }
 
-.primary-nav.is-stuck {
+.primary-nav.is-collapsed {
   position: fixed;
   top: 0;
+  left: 0;
+  right: 0;
   bottom: auto;
+  height: var(--nav-height);
   box-shadow: 0 4px 25px var(--shadow);
 }
 
-.site-header.nav-is-stuck {
-  padding-bottom: calc(var(--nav-height) + var(--header-padding));
-}
 
 .back-to-top {
   position: absolute;
@@ -125,15 +125,69 @@ body {
   outline: none;
 }
 
+.home-section {
+  position: relative;
+  min-height: 690px;
+  padding: 0;
+  background: transparent;
+}
+
+.home-content {
+  position: absolute;
+  top: 91px;
+  right: 310px;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  width: 524px;
+}
+
+.home-content h1 {
+  width: 524px;
+  margin: 0;
+  color: var(--ink);
+  font-size: 90px;
+  font-weight: 400;
+  line-height: 80px;
+  letter-spacing: -0.05em;
+  text-transform: uppercase;
+}
+
+.main-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 271px;
+  height: 56px;
+  padding: 12px 24px;
+  border-radius: 22px;
+  color: var(--white);
+  background: #76acb2;
+  box-shadow: 0 4px 20px rgba(214, 216, 224, 0.25);
+  font-size: 30px;
+  font-weight: 300;
+  line-height: 1;
+  letter-spacing: 0;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background 160ms ease, transform 160ms ease;
+}
+
+.main-button:hover,
+.main-button:focus-visible {
+  background: #6da3aa;
+  outline: none;
+  transform: translateY(-1px);
+}
+
 .placeholder-section {
   min-height: 72vh;
-  background: #fbf6f6;
+  background: transparent;
 }
 
 .placeholder-section.alt {
-  background: #ffffff;
+  background: transparent;
 }
-
 @media (max-width: 900px) {
   :root {
     --header-height: 280px;
@@ -168,4 +222,34 @@ body {
   .nav-menu a {
     font-size: 14px;
   }
+
+  .home-section {
+    min-height: 560px;
+    padding: 54px 24px 64px;
+  }
+
+  .home-content {
+    position: static;
+    width: min(100%, 524px);
+    margin-left: 0;
+  }
+
+  .home-content h1 {
+    width: min(100%, 524px);
+    font-size: clamp(54px, 14vw, 90px);
+    line-height: 0.9;
+  }
+
+  .main-button {
+    width: 271px;
+    max-width: 100%;
+    font-size: 28px;
+  }
 }
+
+
+
+
+
+
+
