@@ -317,7 +317,7 @@ body {
   top: 42px;
   width: 390px;
   height: auto;
-  opacity: 0.18;
+  opacity: 1;
   pointer-events: none;
 }
 
