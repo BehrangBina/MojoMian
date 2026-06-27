@@ -180,6 +180,102 @@ body {
   transform: translateY(-1px);
 }
 
+.about-section {
+  display: grid;
+  grid-template-columns: 470px 430px;
+  column-gap: 120px;
+  justify-content: center;
+  min-height: 860px;
+  padding: 64px 24px 80px;
+  background: transparent;
+}
+
+.about-left {
+  width: 470px;
+}
+
+.profile-photo {
+  display: block;
+  width: 390px;
+  height: auto;
+  margin: 0 0 38px;
+}
+
+.about-left h2 {
+  margin: 0 0 28px;
+  color: var(--ink);
+  font-size: 56px;
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+}
+
+.about-copy {
+  width: 360px;
+  color: #000000;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 122%;
+}
+
+.about-copy p {
+  margin: 0 0 8px;
+}
+
+.about-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  max-width: 430px;
+  padding-top: 8px;
+  color: #000000;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 122%;
+}
+
+.about-panel section {
+  margin: 0;
+}
+
+.about-panel h3 {
+  margin: 0 0 8px;
+  color: #000000;
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 122%;
+}
+
+.about-panel p {
+  margin: 0;
+}
+
+.about-panel ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.pill-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 10px;
+}
+
+.pill-list span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 34px;
+  padding: 4px 16px 6px;
+  border: 1px solid rgba(0, 0, 0, 0.72);
+  border-radius: 18px;
+  color: rgba(0, 0, 0, 0.64);
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 122%;
+}
 .placeholder-section {
   min-height: 72vh;
   background: transparent;
@@ -245,7 +341,31 @@ body {
     max-width: 100%;
     font-size: 28px;
   }
+
+  .about-section {
+    grid-template-columns: 1fr;
+    row-gap: 48px;
+    padding: 56px 24px 72px;
+  }
+
+  .about-left,
+  .about-copy,
+  .about-panel {
+    width: min(100%, 470px);
+    max-width: 100%;
+  }
+
+  .profile-photo {
+    width: min(100%, 390px);
+  }
+
+  .about-left h2 {
+    font-size: clamp(42px, 12vw, 56px);
+  }
 }
+
+
+
 
 
 
