@@ -304,6 +304,73 @@ body {
   font-weight: 400;
   line-height: 122%;
 }
+.portfolio-section {
+  position: relative;
+  min-height: 720px;
+  overflow: hidden;
+  background: transparent;
+}
+
+.portfolio-floral {
+  position: absolute;
+  left: 0;
+  top: 42px;
+  width: 390px;
+  height: auto;
+  opacity: 0.18;
+  pointer-events: none;
+}
+
+.portfolio-inner {
+  position: relative;
+  display: grid;
+  grid-template-columns: 360px 430px;
+  column-gap: 100px;
+  justify-content: center;
+  align-items: center;
+  min-height: 720px;
+  padding: 80px 24px;
+}
+
+.portfolio-inner h2 {
+  margin: 0;
+  color: var(--ink);
+  font-size: 60px;
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
+}
+
+.portfolio-list {
+  margin: 0;
+  padding: 0;
+  color: var(--ink);
+  font-size: 43px;
+  font-weight: 400;
+  line-height: 1.25;
+  list-style: none;
+  counter-reset: portfolio;
+}
+
+.portfolio-list li {
+  display: grid;
+  grid-template-columns: 74px auto;
+  align-items: baseline;
+  column-gap: 10px;
+  counter-increment: portfolio;
+}
+
+.portfolio-list li::before {
+  content: counter(portfolio, decimal-leading-zero);
+  color: transparent;
+  -webkit-text-stroke: 1px var(--ink);
+  text-stroke: 1px var(--ink);
+}
+
+.portfolio-list span {
+  color: var(--ink);
+}
 .placeholder-section {
   min-height: 72vh;
   background: transparent;
@@ -390,7 +457,33 @@ body {
   .about-left h2 {
     font-size: clamp(42px, 12vw, 56px);
   }
+
+  .portfolio-section,
+  .portfolio-inner {
+    min-height: 560px;
+  }
+
+  .portfolio-floral {
+    width: 260px;
+  }
+
+  .portfolio-inner {
+    grid-template-columns: 1fr;
+    row-gap: 40px;
+    justify-content: stretch;
+    align-items: center;
+    padding: 72px 24px;
+  }
+
+  .portfolio-inner h2 {
+    font-size: clamp(44px, 12vw, 60px);
+  }
+
+  .portfolio-list {
+    font-size: clamp(32px, 9vw, 43px);
+  }
 }
+
 
 
 
