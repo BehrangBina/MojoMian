@@ -223,6 +223,34 @@ body {
   margin: 0 0 8px;
 }
 
+.social-links {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: 32px;
+}
+
+.social-links a {
+  display: inline-flex;
+  width: 46px;
+  height: 46px;
+  color: #a3c6cb;
+  text-decoration: none;
+  transition: color 160ms ease, transform 160ms ease;
+}
+
+.social-links svg {
+  display: block;
+  width: 46px;
+  height: 46px;
+}
+
+.social-links a:hover,
+.social-links a:focus-visible {
+  color: #76acb2;
+  outline: none;
+  transform: translateY(-1px);
+}
 .about-panel {
   display: flex;
   flex-direction: column;
@@ -363,6 +391,8 @@ body {
     font-size: clamp(42px, 12vw, 56px);
   }
 }
+
+
 
 
 
