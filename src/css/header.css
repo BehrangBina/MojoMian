@@ -381,9 +381,9 @@ body {
 
 .logos-header {
   display: grid;
-  grid-template-columns: 296px 1fr;
+  grid-template-columns: 374px 1fr;
   align-items: start;
-  column-gap: 28px;
+  column-gap: 24px;
 }
 
 .logos-header h2 {
@@ -409,7 +409,7 @@ body {
 .logos-rule {
   display: block;
   height: 1px;
-  margin-top: 96px;
+  margin-top: 86px;
   background: var(--ink);
 }
 
@@ -624,6 +624,7 @@ body {
     height: auto;
   }
 }
+
 
 
 
