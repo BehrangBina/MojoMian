@@ -415,9 +415,9 @@ body {
 
 .logo-carousel {
   position: relative;
-  width: min(760px, 70vw);
-  height: 480px;
-  margin: 90px auto 28px;
+  width: min(920px, 72vw);
+  height: 500px;
+  margin: 72px auto 28px;
 }
 
 .logo-slide {
@@ -425,6 +425,7 @@ body {
   inset: 0;
   display: grid;
   place-items: center;
+  margin: 0;
   opacity: 0;
   transform: translateX(18px);
   transition: opacity 220ms ease, transform 220ms ease;
@@ -435,74 +436,45 @@ body {
   transform: translateX(0);
 }
 
-.logo-placeholder {
-  display: grid;
-  place-items: center;
-  width: 360px;
-  height: 260px;
-  border: 1px solid rgba(65, 64, 66, 0.24);
-  color: rgba(65, 64, 66, 0.72);
-  background: rgba(255, 255, 255, 0.34);
-  font-size: 32px;
-  font-weight: 300;
-  text-transform: uppercase;
+.logo-slide img {
+  display: block;
+  width: min(760px, 100%);
+  height: auto;
+  max-height: 500px;
+  object-fit: contain;
 }
-
-.logo-placeholder.alt {
-  border-radius: 50%;
-  width: 300px;
-  height: 300px;
-}
-
-.logo-placeholder.minimal {
-  width: 420px;
-  height: 180px;
-}
-
 .carousel-controls {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 10px;
+  gap: 8px;
 }
 
 .carousel-button {
   display: inline-grid;
   place-items: center;
-  width: 42px;
-  height: 42px;
-  border: 2px solid rgba(65, 64, 66, 0.25);
-  border-radius: 50%;
-  color: rgba(65, 64, 66, 0.34);
+  width: 72px;
+  height: 72px;
+  padding: 0;
+  border: 0;
   background: transparent;
-  font-size: 26px;
-  line-height: 1;
   cursor: pointer;
 }
 
-.carousel-button.is-primary {
-  border-color: #76acb2;
-  color: #76acb2;
+.carousel-button:disabled {
+  cursor: default;
 }
 
-.carousel-track {
-  position: relative;
-  width: 196px;
-  height: 12px;
-  border-radius: 999px;
-  background: rgba(65, 64, 66, 0.2);
-  overflow: hidden;
+.carousel-button img {
+  display: block;
+  width: 72px;
+  height: 72px;
 }
 
-.carousel-track span {
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 33.333%;
-  height: 100%;
-  border-radius: inherit;
-  background: #76acb2;
-  transition: transform 220ms ease;
+.carousel-bar {
+  display: block;
+  width: 288px;
+  height: 19px;
 }
 .placeholder-section {
   min-height: 72vh;
@@ -636,13 +608,24 @@ body {
     margin-top: 56px;
   }
 
-  .logo-placeholder,
-  .logo-placeholder.minimal {
-    width: min(100%, 340px);
-    height: 220px;
-    font-size: 24px;
+  .logo-slide img {
+    width: min(100%, 620px);
+    max-height: 360px;
+  }
+
+  .carousel-button,
+  .carousel-button img {
+    width: 54px;
+    height: 54px;
+  }
+
+  .carousel-bar {
+    width: 216px;
+    height: auto;
   }
 }
+
+
 
 
 
