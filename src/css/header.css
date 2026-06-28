@@ -417,7 +417,7 @@ body {
 .back-to-index {
   position: absolute;
   /* left: 1235px; */
-  right:15%;
+  right:225px;
   top: 160px;
   display: flex;
   flex-direction: column;
