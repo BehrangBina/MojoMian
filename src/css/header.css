@@ -415,9 +415,9 @@ body {
 
 .logo-carousel {
   position: relative;
-  width: min(920px, 72vw);
-  height: 500px;
-  margin: 72px auto 28px;
+  width: 1062px;
+  height: 692px;
+  margin: 72px 0 28px;
 }
 
 .logo-slide {
@@ -438,9 +438,8 @@ body {
 
 .logo-slide img {
   display: block;
-  width: min(760px, 100%);
-  height: auto;
-  max-height: 500px;
+  width: 1062px;
+  height: 692px;
   object-fit: contain;
 }
 .carousel-controls {
@@ -448,6 +447,7 @@ body {
   align-items: center;
   justify-content: center;
   gap: 8px;
+  width: 1062px;
 }
 
 .carousel-button {
@@ -624,6 +624,7 @@ body {
     height: auto;
   }
 }
+
 
 
 
