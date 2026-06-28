@@ -374,6 +374,7 @@ body {
   text-decoration: none;
 }
 .logos-section {
+  position: relative;
   min-height: 850px;
   padding: 56px 90px 76px;
   background: transparent;
@@ -413,6 +414,32 @@ body {
   background: var(--ink);
 }
 
+.back-to-index {
+  position: absolute;
+  /* left: 1235px; */
+  right:15%;
+  top: 160px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 47px;
+  color: var(--ink);
+  font-size: 13px;
+  font-weight: 300;
+  line-height: 1;
+  text-decoration: none;
+  z-index: 2;
+}
+
+.back-to-index img {
+  display: block;
+  
+  height: auto;
+  margin-bottom: 4px;
+}
+
 .logo-carousel {
   position: relative;
   width: 1062px;
@@ -442,6 +469,7 @@ body {
   height: 692px;
   object-fit: contain;
 }
+
 .carousel-controls {
   display: flex;
   align-items: center;
@@ -476,6 +504,7 @@ body {
   width: 288px;
   height: 19px;
 }
+
 .placeholder-section {
   min-height: 72vh;
   background: transparent;
@@ -484,6 +513,7 @@ body {
 .placeholder-section.alt {
   background: transparent;
 }
+
 @media (max-width: 900px) {
   :root {
     --header-height: 280px;
@@ -569,7 +599,9 @@ body {
   }
 
   .portfolio-floral {
-    width: 260px;
+    left: 18px;
+    width: 320px;
+    opacity: 0.28;
   }
 
   .portfolio-inner {
@@ -598,6 +630,12 @@ body {
     row-gap: 28px;
   }
 
+  .back-to-index {
+    left: auto;
+    right: 24px;
+    top: 164px;
+  }
+
   .logos-header h2 {
     font-size: clamp(92px, 22vw, 151px);
   }
@@ -611,6 +649,7 @@ body {
   .logo-slide img {
     width: min(100%, 620px);
     max-height: 360px;
+    height: auto;
   }
 
   .carousel-button,
@@ -624,23 +663,3 @@ body {
     height: auto;
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
