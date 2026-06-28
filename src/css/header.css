@@ -376,7 +376,7 @@ body {
 .logos-section {
   position: relative;
   min-height: 850px;
-  padding: 56px 90px 76px;
+  padding: 56px 225px 76px;
   background: transparent;
 }
 
@@ -416,8 +416,7 @@ body {
 
 .back-to-index {
   position: absolute;
-  /* left: 1235px; */
-  right:225px;
+  right: 225px;
   top: 160px;
   display: flex;
   flex-direction: column;
@@ -435,7 +434,7 @@ body {
 
 .back-to-index img {
   display: block;
-  
+ 
   height: auto;
   margin-bottom: 4px;
 }
@@ -663,3 +662,6 @@ body {
     height: auto;
   }
 }
+
+
+
