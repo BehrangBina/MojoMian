@@ -109,12 +109,45 @@
       <div class="portfolio-inner">
         <h2>Portfolio:</h2>
         <ol class="portfolio-list">
-          <li><span>Logos</span></li>
+          <li><a href="#logos">Logos</a></li>
           <li><span>Branding</span></li>
           <li><span>Posters</span></li>
           <li><span>Illustration</span></li>
           <li><span>Nixie Dolls</span></li>
         </ol>
+      </div>
+    </section>
+    <section id="logos" class="logos-section" aria-labelledby="logos-title">
+      <div class="logos-header">
+        <div>
+          <h2 id="logos-title">Logos</h2>
+          <p>A curated selection of final logo designs created for a range of projects, focusing on clarity, balance, and strong visual identity.</p>
+        </div>
+        <span class="logos-rule" aria-hidden="true"></span>
+      </div>
+
+      <div class="logo-carousel" data-logo-carousel>
+        <div class="logo-slide is-active">
+          <div class="logo-placeholder">
+            <span>Logo placeholder</span>
+          </div>
+        </div>
+        <div class="logo-slide">
+          <div class="logo-placeholder alt">
+            <span>Logo placeholder</span>
+          </div>
+        </div>
+        <div class="logo-slide">
+          <div class="logo-placeholder minimal">
+            <span>Logo placeholder</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="carousel-controls" aria-label="Logo carousel controls">
+        <button class="carousel-button" type="button" data-carousel-prev aria-label="Previous logo">&#8592;</button>
+        <div class="carousel-track" aria-hidden="true"><span></span></div>
+        <button class="carousel-button is-primary" type="button" data-carousel-next aria-label="Next logo">&#8594;</button>
       </div>
     </section>
     <section id="contact" class="placeholder-section"></section>
@@ -123,6 +156,8 @@
   <script src="src/js/header.js"></script>
 </body>
 </html>
+
+
 
 
 
