@@ -1,4 +1,4 @@
-﻿const header = document.querySelector('.site-header');
+const header = document.querySelector('.site-header');
 const nav = document.querySelector('.primary-nav');
 const internalLinks = document.querySelectorAll('.nav-menu a, .portfolio-list a, .back-to-index, .main-button');
 const barBasePath = 'src/Logos/Bar-Logo';
@@ -185,8 +185,9 @@ function initBrandingCarousel() {
     fallbackEl.textContent = `${project.project} image pending`;
 
     if (bar) {
-      bar.src = `${barBasePath}/${slideNumber}.png`;
-      bar.alt = `Slide ${activeProject + 1} of ${brandingProjects.length}`;
+      bar.style.setProperty('--branding-active', activeProject);
+      bar.style.setProperty('--branding-steps', brandingProjects.length);
+      bar.setAttribute('aria-label', `Slide ${activeProject + 1} of ${brandingProjects.length}`);
     }
 
     root.querySelectorAll('.branding-index-button').forEach((button, buttonIndex) => {

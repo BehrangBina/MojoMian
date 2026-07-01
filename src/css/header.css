@@ -1,4 +1,4 @@
-﻿:root {
+:root {
   --header-height: 380px;
   --header-padding: 8px;
   --nav-height: 70px;
@@ -414,6 +414,21 @@ body {
   background: var(--ink);
 }
 
+
+.branding-section .logos-header {
+  display: flex;
+  align-items: flex-start;
+  column-gap: 32px;
+}
+
+.branding-rule {
+  display: block;
+  flex: 1 1 auto;
+  min-width: 0;
+  height: 1px;
+  margin-top: 86px;
+  background: var(--ink);
+}
 .back-to-index {
   position: absolute;
   right: 225px;
@@ -434,7 +449,7 @@ body {
 
 .back-to-index img {
   display: block;
-  width: 10.62px;
+  width: 56px;
   height: auto;
   margin-bottom: 4px;
 }
@@ -632,6 +647,40 @@ body {
   margin-top: 26px;
 }
 
+
+.branding-progress {
+  --branding-steps: 6;
+  --branding-active: 0;
+  position: relative;
+  display: block;
+  flex: 0 0 288px;
+  width: 288px;
+  height: 16px;
+}
+
+.branding-progress::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  height: 11px;
+  border-radius: 999px;
+  background: #d9d9d9;
+  transform: translateY(-50%);
+}
+
+.branding-progress-thumb {
+  position: absolute;
+  top: 50%;
+  left: calc((100% - 39px) * var(--branding-active) / (var(--branding-steps) - 1));
+  width: 39px;
+  height: 16px;
+  border-radius: 999px;
+  background: #a3c6cb;
+  transform: translateY(-50%);
+  transition: left 180ms ease;
+}
 .branding-description {
   width: 960px;
   margin: 28px 0 0;
@@ -764,8 +813,9 @@ body {
     grid-template-columns: 1fr;
     row-gap: 28px;
   }
+
 
-  .back-to-index {
+.back-to-index {
     left: auto;
     right: 24px;
     top: 164px;
@@ -773,6 +823,16 @@ body {
 
   .logos-header h2 {
     font-size: clamp(92px, 22vw, 151px);
+  }
+  .branding-section .logos-header {
+    flex-wrap: wrap;
+    row-gap: 28px;
+  }
+
+  .branding-rule {
+    flex-basis: 100%;
+    width: 100%;
+    margin-top: 0;
   }
 
   .logo-carousel {
@@ -821,6 +881,11 @@ body {
   .branding-controls,
   .branding-description {
     width: 100%;
+  }
+
+  .branding-progress {
+    flex-basis: 216px;
+    width: 216px;
   }
 
   .branding-index {
