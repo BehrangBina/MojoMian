@@ -171,7 +171,6 @@
       <div class="logos-header">
         <div>
           <h2 id="branding-title">Branding</h2>
-          <!-- <p>A curated selection of brand identity work created for cohesive, memorable, and adaptable visual systems.</p> -->
         </div>
         <span class="logos-rule" aria-hidden="true"></span>
       </div>
@@ -179,6 +178,38 @@
         <img src="src/img/Icon-Back-To-Index.png" alt="">
         <span>Index</span>
       </a>
+
+      <div class="branding-projects" data-branding-carousel>
+        <aside class="branding-meta" aria-live="polite">
+          <p><strong>Project :</strong><span data-branding-project></span></p>
+          <p><strong>Industry:</strong><span data-branding-industry></span></p>
+          <div class="branding-swatches" data-branding-swatches aria-label="Brand colors"></div>
+        </aside>
+
+        <div class="branding-main">
+          <div class="branding-index" aria-label="Branding project selector">
+            <span>See more Projects</span>
+            <div class="branding-index-buttons" data-branding-index></div>
+          </div>
+
+          <figure class="branding-frame">
+            <img data-branding-image src="" alt="">
+            <figcaption class="branding-image-fallback" data-branding-fallback>Branding image pending</figcaption>
+          </figure>
+
+          <div class="carousel-controls branding-controls" aria-label="Branding carousel controls">
+            <button class="carousel-button" type="button" data-branding-prev aria-label="Previous branding project">
+              <img src="src/Logos/Bar-Logo/Arrow-Lef-inactive.png" alt="">
+            </button>
+            <img class="carousel-bar" src="src/Logos/Bar-Logo/01.png" alt="Slide 1 of 6" data-branding-bar>
+            <button class="carousel-button" type="button" data-branding-next aria-label="Next branding project">
+              <img src="src/Logos/Bar-Logo/Arrow-Right-Active.png" alt="">
+            </button>
+          </div>
+
+          <p class="branding-description" data-branding-description></p>
+        </div>
+      </div>
     </section>
     <section id="contact" class="placeholder-section"></section>
   </main>
@@ -186,6 +217,7 @@
   <script src="src/js/header.js"></script>
 </body>
 </html>
+
 
 
 

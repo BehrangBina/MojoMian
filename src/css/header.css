@@ -504,6 +504,142 @@ body {
   height: 19px;
 }
 
+.branding-section {
+  min-height: 1080px;
+}
+
+.branding-projects {
+  display: grid;
+  grid-template-columns: 150px 960px;
+  column-gap: 48px;
+  align-items: start;
+  margin-top: 78px;
+}
+
+.branding-meta {
+  padding-top: 180px;
+  color: var(--ink);
+  font-size: 18px;
+  font-weight: 300;
+  line-height: 1.2;
+}
+
+.branding-meta p {
+  margin: 0 0 28px;
+}
+
+.branding-meta strong,
+.branding-meta span {
+  display: block;
+}
+
+.branding-meta strong {
+  font-weight: 500;
+}
+
+.branding-swatches {
+  display: flex;
+  flex-direction: column;
+  gap: 21px;
+  margin-top: 8px;
+}
+
+.branding-swatch {
+  width: 42px;
+  height: 35px;
+  border: 1px solid transparent;
+}
+
+.branding-swatch.is-light {
+  border-color: rgba(65, 64, 66, 0.72);
+}
+
+.branding-main {
+  width: 960px;
+}
+
+.branding-index {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 22px;
+  min-height: 35px;
+  margin-bottom: 29px;
+  color: var(--ink);
+  font-size: 18px;
+  font-weight: 300;
+}
+
+.branding-index-buttons {
+  display: flex;
+  align-items: center;
+  gap: 17px;
+}
+
+.branding-index-button {
+  padding: 0;
+  border: 0;
+  color: #c4c4c4;
+  background: transparent;
+  font-family: inherit;
+  font-size: 35.71px;
+  font-weight: 500;
+  line-height: 0.75;
+  letter-spacing: -0.05em;
+  cursor: pointer;
+}
+
+.branding-index-button.is-active {
+  color: #a3c6cb;
+}
+
+.branding-frame {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 960px;
+  height: 560px;
+  margin: 0;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.48);
+}
+
+.branding-frame img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.branding-frame img.is-missing {
+  display: none;
+}
+
+.branding-image-fallback {
+  display: none;
+  color: rgba(65, 64, 66, 0.54);
+  font-size: 32px;
+  font-weight: 300;
+  text-transform: uppercase;
+}
+
+.branding-frame img.is-missing + .branding-image-fallback {
+  display: block;
+}
+
+.branding-controls {
+  width: 960px;
+  margin-top: 26px;
+}
+
+.branding-description {
+  width: 960px;
+  margin: 28px 0 0;
+  color: var(--ink);
+  font-size: 18px;
+  font-weight: 300;
+  line-height: 1.35;
+}
 .placeholder-section {
   min-height: 72vh;
   background: transparent;
@@ -661,7 +797,46 @@ body {
     width: 216px;
     height: auto;
   }
+  .branding-section {
+    min-height: 760px;
+  }
+
+  .branding-projects {
+    grid-template-columns: 1fr;
+    row-gap: 28px;
+    margin-top: 56px;
+  }
+
+  .branding-meta {
+    padding-top: 0;
+  }
+
+  .branding-swatches {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .branding-main,
+  .branding-frame,
+  .branding-controls,
+  .branding-description {
+    width: 100%;
+  }
+
+  .branding-index {
+    justify-content: flex-start;
+    flex-wrap: wrap;
+  }
+
+  .branding-index-button {
+    font-size: 28px;
+  }
+
+  .branding-frame {
+    height: 320px;
+  }
 }
+
 
 
 
