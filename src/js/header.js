@@ -73,7 +73,8 @@ const brandingProjects = [
     id: 'minel',
     project: 'Minel',
     industry: 'Fashion',
-    image: 'src/Branding/01.jpg',
+    folder: '01',
+    slideCount: 5,
     colors: ['#DFD3B3', '#F8FBF9', '#000000'],
     description: 'The client needed a minimal and modern look for their logo design and branding to reflect their unique position in the fashion industry. By using black, we maintained a luxurious and modern aesthetic.'
   },
@@ -81,7 +82,8 @@ const brandingProjects = [
     id: 'moji',
     project: 'Moji brow artist',
     industry: 'Beauty',
-    image: 'src/Branding/02.jpg',
+    folder: '02',
+    slideCount: 6,
     colors: ['#CF4F37', '#5B8C76', '#E6E2DF'],
     description: 'A warm beauty identity with natural contrast, designed to feel personal, fresh, and approachable.'
   },
@@ -89,7 +91,8 @@ const brandingProjects = [
     id: 'shahrzad',
     project: 'Shahrzad',
     industry: '-----',
-    image: 'src/Branding/03.jpg',
+    folder: '03',
+    slideCount: 5,
     colors: ['#5D8179', '#F3ECE1', '#E8BBAA'],
     description: 'A refined visual direction built around soft neutrals and green tones for an elegant brand presence.'
   },
@@ -97,7 +100,8 @@ const brandingProjects = [
     id: 'curly',
     project: 'Curly',
     industry: 'Fashion',
-    image: 'src/Branding/04.jpg',
+    folder: '04',
+    slideCount: 5,
     colors: ['#A8644B', '#E8E8E8', '#E5D6C4'],
     description: 'A textured and warm fashion brand direction with earthy tones and an editorial mood.'
   },
@@ -105,7 +109,8 @@ const brandingProjects = [
     id: 'miss-broccoli',
     project: 'Miss-Broccoli',
     industry: 'Food',
-    image: 'src/Branding/05.jpg',
+    folder: '05',
+    slideCount: 6,
     colors: ['#007B3A', '#FF6500', '#D0021B', '#83C83E'],
     description: 'A vivid food identity using energetic green and orange to create a playful, memorable brand world.'
   },
@@ -113,11 +118,18 @@ const brandingProjects = [
     id: 'knight',
     project: 'Knight',
     industry: 'Food',
-    image: 'src/Branding/06.jpg',
+    folder: '06',
+    slideCount: 5,
     colors: ['#8BC5C1', '#E3BE38', '#3E5664'],
     description: 'A bold coffee identity with a strong contrast between cool teal, rich yellow, and deep blue-grey.'
   }
-];
+].map((project) => ({
+  ...project,
+  slides: Array.from({ length: project.slideCount }, (_, index) => {
+    const slideNumber = String(index + 1).padStart(2, '0');
+    return `src/Branding/${project.folder}/${slideNumber}.jpg`;
+  })
+}));
 
 function initBrandingCarousel() {
   const root = document.querySelector('[data-branding-carousel]');
@@ -134,6 +146,7 @@ function initBrandingCarousel() {
   const next = root.querySelector('[data-branding-next]');
   const bar = root.querySelector('[data-branding-bar]');
   let activeProject = 0;
+  let activeSlide = 0;
 
   brandingProjects.forEach((project, index) => {
     const button = document.createElement('button');
@@ -169,42 +182,53 @@ function initBrandingCarousel() {
     });
   }
 
+  function updateProjectButtons() {
+    root.querySelectorAll('.branding-index-button').forEach((button, buttonIndex) => {
+      button.classList.toggle('is-active', buttonIndex === activeProject);
+      button.setAttribute('aria-current', buttonIndex === activeProject ? 'true' : 'false');
+    });
+  }
+
+  function setBrandingSlide(index) {
+    const project = brandingProjects[activeProject];
+    const slideCount = project.slides.length;
+    activeSlide = Math.max(0, Math.min(index, slideCount - 1));
+
+    imageEl.classList.remove('is-missing');
+    imageEl.alt = `${project.project} branding project slide ${activeSlide + 1}`;
+    imageEl.src = project.slides[activeSlide];
+    fallbackEl.textContent = `${project.project} image ${String(activeSlide + 1).padStart(2, '0')} pending`;
+
+    if (bar) {
+      const steps = Math.max(slideCount, 2);
+      bar.style.setProperty('--branding-active', activeSlide);
+      bar.style.setProperty('--branding-steps', steps);
+      bar.setAttribute('aria-label', `Slide ${activeSlide + 1} of ${slideCount}`);
+    }
+
+    setArrowState(prev, activeSlide === 0, 'Arrow-Lef-Active.png', 'Arrow-Lef-inactive.png');
+    setArrowState(next, activeSlide === slideCount - 1, 'Arrow-Right-Active.png', 'Arrow-Right-inactive.png');
+  }
+
   function setBrandingProject(index) {
     activeProject = Math.max(0, Math.min(index, brandingProjects.length - 1));
+    activeSlide = 0;
     const project = brandingProjects[activeProject];
-    const slideNumber = String(activeProject + 1).padStart(2, '0');
 
     projectEl.textContent = project.project;
     industryEl.textContent = project.industry;
     descriptionEl.textContent = project.description || '';
     renderSwatches(project.colors);
-
-    imageEl.classList.remove('is-missing');
-    imageEl.alt = `${project.project} branding project`;
-    imageEl.src = project.image;
-    fallbackEl.textContent = `${project.project} image pending`;
-
-    if (bar) {
-      bar.style.setProperty('--branding-active', activeProject);
-      bar.style.setProperty('--branding-steps', brandingProjects.length);
-      bar.setAttribute('aria-label', `Slide ${activeProject + 1} of ${brandingProjects.length}`);
-    }
-
-    root.querySelectorAll('.branding-index-button').forEach((button, buttonIndex) => {
-      button.classList.toggle('is-active', buttonIndex === activeProject);
-      button.setAttribute('aria-current', buttonIndex === activeProject ? 'true' : 'false');
-    });
-
-    setArrowState(prev, activeProject === 0, 'Arrow-Lef-Active.png', 'Arrow-Lef-inactive.png');
-    setArrowState(next, activeProject === brandingProjects.length - 1, 'Arrow-Right-Active.png', 'Arrow-Right-inactive.png');
+    updateProjectButtons();
+    setBrandingSlide(0);
   }
 
   imageEl.addEventListener('error', () => {
     imageEl.classList.add('is-missing');
   });
 
-  prev?.addEventListener('click', () => setBrandingProject(activeProject - 1));
-  next?.addEventListener('click', () => setBrandingProject(activeProject + 1));
+  prev?.addEventListener('click', () => setBrandingSlide(activeSlide - 1));
+  next?.addEventListener('click', () => setBrandingSlide(activeSlide + 1));
   setBrandingProject(0);
 }
 
