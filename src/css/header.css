@@ -987,6 +987,13 @@ body {
 .nixie-button-next img {
   transform: rotate(180deg);
 }
+.nixie-detail-image {
+  display: block;
+  width: min(100%, 1062px);
+  height: auto;
+  margin: 64px auto 0;
+}
+
 .placeholder-section {
   min-height: 72vh;
   background: transparent;
@@ -1288,6 +1295,11 @@ body {
   .nixie-button {
     width: 40px;
     height: 40px;
+  }
+
+  .nixie-detail-image {
+    width: 100%;
+    margin-top: 40px;
   }
 }
 
