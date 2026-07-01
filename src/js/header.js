@@ -76,7 +76,7 @@ const brandingProjects = [
     folder: '01',
     slideCount: 5,
     colors: ['#DFD3B3', '#F8FBF9', '#000000'],
-    description: 'The client needed a minimal and modern look for their logo design and branding to reflect their unique position in the fashion industry. By using black, we maintained a luxurious and modern aesthetic.'
+    description: 'The client needed a minimal and modern look for their logo design and branding to reflect their unique position in the fashion industry. By using black, we maintained a luxurious and modern aesthetic, ensuring that the branding resonates with the target audience and reinforces MINEL\'s commitment to high-quality, stylish, and timeless pieces.'
   },
   {
     id: 'moji',
@@ -85,7 +85,7 @@ const brandingProjects = [
     folder: '02',
     slideCount: 6,
     colors: ['#CF4F37', '#5B8C76', '#E6E2DF'],
-    description: 'A warm beauty identity with natural contrast, designed to feel personal, fresh, and approachable.'
+    description: 'Description -02'
   },
   {
     id: 'shahrzad',
@@ -94,7 +94,7 @@ const brandingProjects = [
     folder: '03',
     slideCount: 5,
     colors: ['#5D8179', '#F3ECE1', '#E8BBAA'],
-    description: 'A refined visual direction built around soft neutrals and green tones for an elegant brand presence.'
+    description: 'Description -03'
   },
   {
     id: 'curly',
@@ -103,7 +103,7 @@ const brandingProjects = [
     folder: '04',
     slideCount: 5,
     colors: ['#A8644B', '#E8E8E8', '#E5D6C4'],
-    description: 'A textured and warm fashion brand direction with earthy tones and an editorial mood.'
+    description: 'Description -04'
   },
   {
     id: 'miss-broccoli',
@@ -112,7 +112,7 @@ const brandingProjects = [
     folder: '05',
     slideCount: 6,
     colors: ['#007B3A', '#FF6500', '#D0021B', '#83C83E'],
-    description: 'A vivid food identity using energetic green and orange to create a playful, memorable brand world.'
+    description: 'Description -05'
   },
   {
     id: 'knight',
@@ -121,7 +121,7 @@ const brandingProjects = [
     folder: '06',
     slideCount: 5,
     colors: ['#8BC5C1', '#E3BE38', '#3E5664'],
-    description: 'A bold coffee identity with a strong contrast between cool teal, rich yellow, and deep blue-grey.'
+    description: 'Description -06'
   }
 ].map((project) => ({
   ...project,
