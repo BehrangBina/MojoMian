@@ -434,7 +434,7 @@ body {
 
 .back-to-index img {
   display: block;
- 
+  width: 10.62px;
   height: auto;
   margin-bottom: 4px;
 }
@@ -662,6 +662,7 @@ body {
     height: auto;
   }
 }
+
 
 
 

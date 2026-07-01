@@ -1,6 +1,6 @@
 ﻿const header = document.querySelector('.site-header');
 const nav = document.querySelector('.primary-nav');
-const navLinks = document.querySelectorAll('.nav-menu a');
+const internalLinks = document.querySelectorAll('.nav-menu a, .portfolio-list a, .back-to-index, .main-button');
 
 function syncCollapsedMenu() {
   if (!header || !nav) return;
@@ -9,13 +9,17 @@ function syncCollapsedMenu() {
   nav.classList.toggle('is-collapsed', window.scrollY >= collapseAt);
 }
 
-navLinks.forEach((link) => {
+internalLinks.forEach((link) => {
   link.addEventListener('click', (event) => {
-    const target = document.querySelector(link.getAttribute('href'));
+    const href = link.getAttribute('href');
+    if (!href || !href.startsWith('#') || href === '#') return;
+
+    const target = document.querySelector(href);
     if (!target) return;
 
     event.preventDefault();
     target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    history.pushState(null, '', href);
   });
 });
 
@@ -23,42 +27,44 @@ window.addEventListener('scroll', syncCollapsedMenu, { passive: true });
 window.addEventListener('resize', syncCollapsedMenu);
 syncCollapsedMenu();
 
-const logoCarousel = document.querySelector('[data-logo-carousel]');
-const logoSlides = Array.from(document.querySelectorAll('.logo-slide'));
-const logoPrev = document.querySelector('[data-carousel-prev]');
-const logoNext = document.querySelector('[data-carousel-next]');
-const logoBar = document.querySelector('[data-carousel-bar]');
 const barBasePath = 'src/Logos/Bar-Logo';
-let activeLogoSlide = 0;
 
-function setLogoSlide(index) {
-  if (!logoCarousel || logoSlides.length === 0) return;
+document.querySelectorAll('[data-logo-carousel]').forEach((carousel) => {
+  const section = carousel.closest('section') || document;
+  const slides = Array.from(carousel.querySelectorAll('.logo-slide'));
+  const prev = section.querySelector('[data-carousel-prev]');
+  const next = section.querySelector('[data-carousel-next]');
+  const bar = section.querySelector('[data-carousel-bar]');
+  let activeSlide = 0;
 
-  activeLogoSlide = Math.max(0, Math.min(index, logoSlides.length - 1));
-  logoSlides.forEach((slide, slideIndex) => {
-    slide.classList.toggle('is-active', slideIndex === activeLogoSlide);
-  });
+  function setSlide(index) {
+    if (slides.length === 0) return;
 
-  if (logoBar) {
-    const slideNumber = String(activeLogoSlide + 1).padStart(2, '0');
-    logoBar.src = `${barBasePath}/${slideNumber}.png`;
-    logoBar.alt = `Slide ${activeLogoSlide + 1} of ${logoSlides.length}`;
+    activeSlide = Math.max(0, Math.min(index, slides.length - 1));
+    slides.forEach((slide, slideIndex) => {
+      slide.classList.toggle('is-active', slideIndex === activeSlide);
+    });
+
+    if (bar) {
+      const slideNumber = String(activeSlide + 1).padStart(2, '0');
+      bar.src = `${barBasePath}/${slideNumber}.png`;
+      bar.alt = `Slide ${activeSlide + 1} of ${slides.length}`;
+    }
+
+    if (prev) {
+      const isFirst = activeSlide === 0;
+      prev.disabled = isFirst;
+      prev.querySelector('img').src = `${barBasePath}/${isFirst ? 'Arrow-Lef-inactive.png' : 'Arrow-Lef-Active.png'}`;
+    }
+
+    if (next) {
+      const isLast = activeSlide === slides.length - 1;
+      next.disabled = isLast;
+      next.querySelector('img').src = `${barBasePath}/${isLast ? 'Arrow-Right-inactive.png' : 'Arrow-Right-Active.png'}`;
+    }
   }
 
-  if (logoPrev) {
-    const isFirst = activeLogoSlide === 0;
-    logoPrev.disabled = isFirst;
-    logoPrev.querySelector('img').src = `${barBasePath}/${isFirst ? 'Arrow-Lef-inactive.png' : 'Arrow-Lef-Active.png'}`;
-  }
-
-  if (logoNext) {
-    const isLast = activeLogoSlide === logoSlides.length - 1;
-    logoNext.disabled = isLast;
-    logoNext.querySelector('img').src = `${barBasePath}/${isLast ? 'Arrow-Right-inactive.png' : 'Arrow-Right-Active.png'}`;
-  }
-}
-
-logoPrev?.addEventListener('click', () => setLogoSlide(activeLogoSlide - 1));
-logoNext?.addEventListener('click', () => setLogoSlide(activeLogoSlide + 1));
-setLogoSlide(0);
-
+  prev?.addEventListener('click', () => setSlide(activeSlide - 1));
+  next?.addEventListener('click', () => setSlide(activeSlide + 1));
+  setSlide(0);
+});
