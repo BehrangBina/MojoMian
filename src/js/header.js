@@ -290,3 +290,8 @@ function initPostersCarousel() {
 }
 
 initPostersCarousel();
+document.querySelectorAll('.illustration-item img, .illustration-heading-icon').forEach((image) => {
+  image.addEventListener('error', () => {
+    image.classList.add('is-missing');
+  });
+});
