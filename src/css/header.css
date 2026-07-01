@@ -12,6 +12,8 @@
   --ink: #414042;
   --accent: #a3c6cb;
   --shadow: rgba(214, 216, 224, 0.25);
+  --container-max: 1498px;
+  --container-gutter: max(24px, calc((100vw - var(--container-max)) / 2));
 }
 
 * {
@@ -184,9 +186,9 @@ body {
   display: grid;
   grid-template-columns: 470px 430px;
   column-gap: 120px;
-  justify-content: center;
+  justify-content: start;
   min-height: 860px;
-  padding: 64px 24px 80px;
+  padding: 64px var(--container-gutter) 80px;
   background: transparent;
 }
 
@@ -326,10 +328,10 @@ body {
   display: grid;
   grid-template-columns: 360px 430px;
   column-gap: 100px;
-  justify-content: center;
+  justify-content: start;
   align-items: center;
   min-height: 720px;
-  padding: 80px 24px;
+  padding: 80px var(--container-gutter);
 }
 
 .portfolio-inner h2 {
@@ -376,7 +378,7 @@ body {
 .logos-section {
   position: relative;
   min-height: 850px;
-  padding: 56px 225px 76px;
+  padding: 56px var(--container-gutter) 76px;
   background: transparent;
 }
 
@@ -431,7 +433,7 @@ body {
 }
 .back-to-index {
   position: absolute;
-  right: 225px;
+  right: var(--container-gutter);
   top: 160px;
   display: flex;
   flex-direction: column;
