@@ -111,7 +111,7 @@
         <ol class="portfolio-list">
           <li><a href="#logos">Logos</a></li>
           <li><a href="#branding">Branding</a></li>
-          <li><span>Posters</span></li>
+          <li><a href="#posters">Posters</a></li>
           <li><span>Illustration</span></li>
           <li><span>Nixie Dolls</span></li>
         </ol>
@@ -211,7 +211,32 @@
         </div>
       </div>
     </section>
-    <section id="contact" class="placeholder-section"></section>
+    <section id="posters" class="logos-section posters-section" aria-labelledby="posters-title">
+      <div class="logos-header posters-header">
+        <div>
+          <h2 id="posters-title">Posters</h2>
+        </div>
+        <span class="branding-rule posters-rule" aria-hidden="true"></span>
+      </div>
+      <a class="back-to-index" href="#portfolio" aria-label="Back to portfolio index">
+        <img src="src/img/Icon-Back-To-Index.png" alt="">
+        <span>Index</span>
+      </a>
+
+      <div class="posters-carousel" data-posters-carousel>
+        <div class="posters-grid" data-posters-grid aria-live="polite"></div>
+
+        <div class="carousel-controls posters-controls" aria-label="Posters carousel controls">
+          <button class="carousel-button" type="button" data-posters-prev aria-label="Previous poster page">
+            <img src="src/Logos/Bar-Logo/Arrow-Lef-inactive.png" alt="">
+          </button>
+          <span class="branding-progress posters-progress" data-posters-bar role="img" aria-label="Page 1 of 2"><span class="branding-progress-thumb" aria-hidden="true"></span></span>
+          <button class="carousel-button" type="button" data-posters-next aria-label="Next poster page">
+            <img src="src/Logos/Bar-Logo/Arrow-Right-Active.png" alt="">
+          </button>
+        </div>
+      </div>
+    </section>    <section id="contact" class="placeholder-section"></section>
   </main>
 
   <script src="src/js/header.js"></script>

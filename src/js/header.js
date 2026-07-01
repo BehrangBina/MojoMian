@@ -233,3 +233,60 @@ function initBrandingCarousel() {
 }
 
 initBrandingCarousel();
+
+const posterItems = Array.from({ length: 6 }, (_, index) => ({
+  title: `Poster ${String(index + 1).padStart(2, '0')}`
+}));
+
+function initPostersCarousel() {
+  const root = document.querySelector('[data-posters-carousel]');
+  if (!root) return;
+
+  const grid = root.querySelector('[data-posters-grid]');
+  const prev = root.querySelector('[data-posters-prev]');
+  const next = root.querySelector('[data-posters-next]');
+  const bar = root.querySelector('[data-posters-bar]');
+  const perPage = 3;
+  const pageCount = Math.ceil(posterItems.length / perPage);
+  let activePage = 0;
+
+  function setArrowState(button, isDisabled, activeName, inactiveName) {
+    if (!button) return;
+
+    button.disabled = isDisabled;
+    button.querySelector('img').src = `${barBasePath}/${isDisabled ? inactiveName : activeName}`;
+  }
+
+  function renderPage(index) {
+    activePage = Math.max(0, Math.min(index, pageCount - 1));
+    const pageItems = posterItems.slice(activePage * perPage, activePage * perPage + perPage);
+
+    grid.innerHTML = '';
+    pageItems.forEach((item) => {
+      const card = document.createElement('figure');
+      card.className = 'poster-card';
+
+      const sheet = document.createElement('figcaption');
+      sheet.className = 'poster-placeholder-sheet';
+      sheet.textContent = item.title;
+
+      card.append(sheet);
+      grid.append(card);
+    });
+
+    if (bar) {
+      bar.style.setProperty('--branding-active', activePage);
+      bar.style.setProperty('--branding-steps', Math.max(pageCount, 2));
+      bar.setAttribute('aria-label', `Page ${activePage + 1} of ${pageCount}`);
+    }
+
+    setArrowState(prev, activePage === 0, 'Arrow-Lef-Active.png', 'Arrow-Lef-inactive.png');
+    setArrowState(next, activePage === pageCount - 1, 'Arrow-Right-Active.png', 'Arrow-Right-inactive.png');
+  }
+
+  prev?.addEventListener('click', () => renderPage(activePage - 1));
+  next?.addEventListener('click', () => renderPage(activePage + 1));
+  renderPage(0);
+}
+
+initPostersCarousel();
