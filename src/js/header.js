@@ -295,3 +295,36 @@ document.querySelectorAll('.illustration-item img, .illustration-heading-icon').
     image.classList.add('is-missing');
   });
 });
+const nixieSlides = Array.from({ length: 5 }, (_, index) => `src/Nixie-Dolls/${String(index + 1).padStart(2, '0')}.jpg`);
+
+function initNixieCarousel() {
+  const root = document.querySelector('[data-nixie-carousel]');
+  if (!root) return;
+
+  const image = root.querySelector('[data-nixie-image]');
+  const fallback = root.querySelector('[data-nixie-fallback]');
+  const prev = root.querySelector('[data-nixie-prev]');
+  const next = root.querySelector('[data-nixie-next]');
+  let activeSlide = 0;
+
+  function setSlide(index) {
+    activeSlide = Math.max(0, Math.min(index, nixieSlides.length - 1));
+    image.classList.remove('is-missing');
+    image.src = nixieSlides[activeSlide];
+    image.alt = `Nixie Dolls slide ${activeSlide + 1}`;
+    fallback.textContent = `Nixie Dolls image ${String(activeSlide + 1).padStart(2, '0')} pending`;
+
+    if (prev) prev.disabled = activeSlide === 0;
+    if (next) next.disabled = activeSlide === nixieSlides.length - 1;
+  }
+
+  image.addEventListener('error', () => {
+    image.classList.add('is-missing');
+  });
+
+  prev?.addEventListener('click', () => setSlide(activeSlide - 1));
+  next?.addEventListener('click', () => setSlide(activeSlide + 1));
+  setSlide(0);
+}
+
+initNixieCarousel();

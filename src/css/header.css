@@ -888,6 +888,105 @@ body {
   width: 260px;
   height: 207px;
 }
+
+.nixie-section {
+  min-height: 860px;
+}
+
+.nixie-section .logos-header {
+  display: flex;
+  align-items: flex-start;
+  column-gap: 32px;
+}
+
+.nixie-section .logos-header p {
+  width: 620px;
+  margin-top: 18px;
+  font-size: 18px;
+  line-height: 1.22;
+}
+
+.nixie-carousel {
+  position: relative;
+  width: min(100%, 1188px);
+  margin: 90px auto 0;
+  padding: 0 63px;
+}
+
+.nixie-frame {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 1062px;
+  max-width: 100%;
+  height: 477px;
+  margin: 0 auto;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.42);
+}
+
+.nixie-frame img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.nixie-frame img.is-missing {
+  display: none;
+}
+
+.nixie-frame figcaption {
+  display: none;
+  color: rgba(65, 64, 66, 0.5);
+  font-size: 32px;
+  font-weight: 300;
+  text-transform: uppercase;
+}
+
+.nixie-frame img.is-missing + figcaption {
+  display: block;
+}
+
+.nixie-button {
+  position: absolute;
+  top: 50%;
+  display: grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: #a3c6cb;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+
+.nixie-button:disabled {
+  background: #c4c4c4;
+  cursor: default;
+}
+
+.nixie-button img {
+  display: block;
+  width: 22px;
+  height: 22px;
+  object-fit: contain;
+  filter: brightness(0) invert(1);
+}
+
+.nixie-button-prev {
+  left: 0;
+}
+
+.nixie-button-next {
+  right: 0;
+}
+
+.nixie-button-next img {
+  transform: rotate(180deg);
+}
 .placeholder-section {
   min-height: 72vh;
   background: transparent;
@@ -1165,6 +1264,30 @@ body {
     width: min(100%, 320px);
     height: 320px;
     transform: none;
+  }
+  .nixie-section .logos-header {
+    flex-wrap: wrap;
+    row-gap: 28px;
+  }
+
+  .nixie-section .logos-header p {
+    width: 100%;
+  }
+
+  .nixie-carousel {
+    width: 100%;
+    margin-top: 56px;
+    padding: 0 48px;
+  }
+
+  .nixie-frame {
+    width: 100%;
+    height: 320px;
+  }
+
+  .nixie-button {
+    width: 40px;
+    height: 40px;
   }
 }
 
