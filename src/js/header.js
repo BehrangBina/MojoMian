@@ -328,3 +328,64 @@ function initNixieCarousel() {
 }
 
 initNixieCarousel();
+const nixieGalleryItems = Array.from({ length: 6 }, (_, index) => ({
+  title: `Nixie Doll ${String(index + 1).padStart(2, '0')}`,
+  image: `src/Nixie-Dolls/gallery-${String(index + 1).padStart(2, '0')}.jpg`
+}));
+
+function initNixieGalleryCarousel() {
+  const root = document.querySelector('[data-nixie-gallery-carousel]');
+  if (!root) return;
+
+  const grid = root.querySelector('[data-nixie-gallery-grid]');
+  const prev = root.querySelector('[data-nixie-gallery-prev]');
+  const next = root.querySelector('[data-nixie-gallery-next]');
+  const bar = root.querySelector('[data-nixie-gallery-bar]');
+  const perPage = 3;
+  const pageCount = Math.ceil(nixieGalleryItems.length / perPage);
+  let activePage = 0;
+
+  function setArrowState(button, isDisabled, activeName, inactiveName) {
+    if (!button) return;
+
+    button.disabled = isDisabled;
+    button.querySelector('img').src = `${barBasePath}/${isDisabled ? inactiveName : activeName}`;
+  }
+
+  function renderPage(index) {
+    activePage = Math.max(0, Math.min(index, pageCount - 1));
+    const pageItems = nixieGalleryItems.slice(activePage * perPage, activePage * perPage + perPage);
+
+    grid.innerHTML = '';
+    pageItems.forEach((item) => {
+      const card = document.createElement('figure');
+      card.className = 'nixie-gallery-card';
+
+      const image = document.createElement('img');
+      image.src = item.image;
+      image.alt = item.title;
+      image.addEventListener('error', () => image.classList.add('is-missing'));
+
+      const caption = document.createElement('figcaption');
+      caption.textContent = item.title;
+
+      card.append(image, caption);
+      grid.append(card);
+    });
+
+    if (bar) {
+      bar.style.setProperty('--branding-active', activePage);
+      bar.style.setProperty('--branding-steps', Math.max(pageCount, 2));
+      bar.setAttribute('aria-label', `Page ${activePage + 1} of ${pageCount}`);
+    }
+
+    setArrowState(prev, activePage === 0, 'Arrow-Lef-Active.png', 'Arrow-Lef-inactive.png');
+    setArrowState(next, activePage === pageCount - 1, 'Arrow-Right-Active.png', 'Arrow-Right-inactive.png');
+  }
+
+  prev?.addEventListener('click', () => renderPage(activePage - 1));
+  next?.addEventListener('click', () => renderPage(activePage + 1));
+  renderPage(0);
+}
+
+initNixieGalleryCarousel();

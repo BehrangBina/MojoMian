@@ -994,6 +994,81 @@ body {
   margin: 64px auto 0;
 }
 
+
+.nixie-gallery-block {
+  display: grid;
+  grid-template-columns: 731px 260px;
+  column-gap: 48px;
+  align-items: start;
+  width: min(100%, 1039px);
+  margin: 140px auto 0;
+}
+
+.nixie-gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+.nixie-gallery-card {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 238px;
+  height: 300px;
+  margin: 0;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.45);
+}
+
+.nixie-gallery-card img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.nixie-gallery-card img.is-missing {
+  display: none;
+}
+
+.nixie-gallery-card figcaption {
+  display: none;
+  color: rgba(65, 64, 66, 0.5);
+  font-size: 18px;
+  font-weight: 300;
+  text-transform: uppercase;
+}
+
+.nixie-gallery-card img.is-missing + figcaption {
+  display: block;
+}
+
+.nixie-gallery-controls {
+  width: 100%;
+  margin-top: 18px;
+}
+
+.nixie-gallery-progress {
+  --branding-steps: 2;
+  --branding-active: 0;
+}
+
+.nixie-gallery-copy {
+  color: var(--ink);
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 1.2;
+}
+
+.nixie-gallery-copy p {
+  margin: 0;
+}
+
+.nixie-gallery-link {
+  margin-top: 52px !important;
+  color: #76acb2;
+}
 .placeholder-section {
   min-height: 72vh;
   background: transparent;
@@ -1300,6 +1375,27 @@ body {
   .nixie-detail-image {
     width: 100%;
     margin-top: 40px;
+  }
+  .nixie-gallery-block {
+    grid-template-columns: 1fr;
+    row-gap: 32px;
+    width: 100%;
+    margin-top: 72px;
+  }
+
+  .nixie-gallery-grid {
+    grid-template-columns: 1fr;
+    justify-items: center;
+    gap: 18px;
+  }
+
+  .nixie-gallery-card {
+    width: min(100%, 320px);
+    height: 360px;
+  }
+
+  .nixie-gallery-copy {
+    font-size: 16px;
   }
 }
 
