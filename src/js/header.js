@@ -103,7 +103,8 @@ const brandingProjects = [
     project: 'Curly',
     industry: 'Fashion',
     folder: '04',
-    slideCount: 5,
+    slidePrefix: 'Curly-0',
+    slideCount: 6,
     colors: ['#A8644B', '#E8E8E8', '#E5D6C4'],
     description: 'Description -04'
   },
