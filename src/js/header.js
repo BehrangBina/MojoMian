@@ -74,7 +74,8 @@ const brandingProjects = [
     project: 'Minel',
     industry: 'Fashion',
     folder: '01',
-    slideCount: 5,
+    slidePrefix: 'Minel-0',
+    slideCount: 6,
     colors: ['#DFD3B3', '#F8FBF9', '#000000'],
     description: 'The client needed a minimal and modern look for their logo design and branding to reflect their unique position in the fashion industry. By using black, we maintained a luxurious and modern aesthetic, ensuring that the branding resonates with the target audience and reinforces MINEL\'s commitment to high-quality, stylish, and timeless pieces.'
   },
