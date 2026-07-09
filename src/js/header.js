@@ -94,6 +94,7 @@ const brandingProjects = [
     project: 'Shahrzad',
     industry: '-----',
     folder: '03',
+    slidePrefix: 'Shahrzaad-0',
     slideCount: 5,
     colors: ['#5D8179', '#F3ECE1', '#E8BBAA'],
     description: 'Description -03'
@@ -113,6 +114,7 @@ const brandingProjects = [
     project: 'Miss-Broccoli',
     industry: 'Food',
     folder: '05',
+    slidePrefix: 'MissBroccoli-0',
     slideCount: 6,
     colors: ['#007B3A', '#FF6500', '#D0021B', '#83C83E'],
     description: 'Description -05'
@@ -122,7 +124,8 @@ const brandingProjects = [
     project: 'Knight',
     industry: 'Food',
     folder: '06',
-    slideCount: 5,
+    slidePrefix: 'Knight-0',
+    slideCount: 6,
     colors: ['#8BC5C1', '#E3BE38', '#3E5664'],
     description: 'Description -06'
   }
