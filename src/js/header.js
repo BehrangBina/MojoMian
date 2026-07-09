@@ -83,6 +83,7 @@ const brandingProjects = [
     project: 'Moji brow artist',
     industry: 'Beauty',
     folder: '02',
+    slidePrefix: 'Moji-',
     slideCount: 6,
     colors: ['#CF4F37', '#5B8C76', '#E6E2DF'],
     description: 'Description -02'
@@ -127,7 +128,8 @@ const brandingProjects = [
   ...project,
   slides: Array.from({ length: project.slideCount }, (_, index) => {
     const slideNumber = String(index + 1).padStart(2, '0');
-    return `src/Branding/${project.folder}/${slideNumber}.jpg`;
+    const slidePrefix = project.slidePrefix || '';
+    return `src/Branding/${project.folder}/${slidePrefix}${slideNumber}.jpg`;
   })
 }));
 
