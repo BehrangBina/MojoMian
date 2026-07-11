@@ -1086,12 +1086,27 @@ body {
 }
 
 .contact-section {
+  position: relative;
   min-height: 620px;
+  overflow: hidden;
   padding: 96px var(--container-gutter) 120px;
   background: transparent;
 }
 
+
+.contact-floral {
+  position: absolute;
+  right: 0;
+  width: min(34vw, 430px);
+  height: auto;
+  opacity: 1;
+  pointer-events: none;
+  z-index: 0;
+}
+
 .contact-content {
+  position: relative;
+  z-index: 1;
   width: min(100%, 820px);
   margin: 0 auto;
   text-align: left;
@@ -1270,7 +1285,8 @@ body {
     grid-template-columns: 1fr;
     row-gap: 28px;
   }
-
+
+
 
 .back-to-index {
     left: auto;
@@ -1478,6 +1494,13 @@ body {
     min-height: 520px;
     padding: 72px 24px;
   }
+  .contact-floral {
+    right: -88px;
+    top: 86px;
+    width: 260px;
+    opacity: 0.22;
+  }
+
 
   .contact-content {
     width: 100%;
