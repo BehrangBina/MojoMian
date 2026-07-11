@@ -309,7 +309,7 @@ document.querySelectorAll('.illustration-item img, .illustration-heading-icon').
     image.classList.add('is-missing');
   });
 });
-const nixieSlides = Array.from({ length: 6 }, (_, index) => 'src/Nixie-Dolls/Nixie-' + String(index + 1).padStart(3, '0') + '.jpg');
+const nixieSlides = Array.from({ length: 9 }, (_, index) => 'src/Nixie-Dolls/Nixie-' + String(index + 1).padStart(3, '0') + '.jpg');
 
 function initNixieCarousel() {
   const root = document.querySelector('[data-nixie-carousel]');
@@ -342,7 +342,7 @@ function initNixieCarousel() {
 }
 
 initNixieCarousel();
-const nixieGalleryItems = Array.from({ length: 6 }, (_, index) => ({
+const nixieGalleryItems = Array.from({ length: 9 }, (_, index) => ({
   title: `Nixie Doll ${String(index + 1).padStart(2, '0')}`,
   image: 'src/Nixie-Dolls/Nixie-' + String(index + 1).padStart(3, '0') + '.jpg'
 }));
