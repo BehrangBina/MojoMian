@@ -241,9 +241,11 @@ function initBrandingCarousel() {
 
 initBrandingCarousel();
 
-const posterItems = Array.from({ length: 6 }, (_, index) => ({
-  title: `Poster ${String(index + 1).padStart(2, '0')}`
-}));
+const posterItems = [
+  { title: 'Poster 01', image: 'src/Posters/Poster01.jpg' },
+  { title: 'Poster 02', image: 'src/Posters/Poster02.jpg' },
+  { title: 'Poster 03', image: 'src/Posters/Poster03.jpg' }
+];
 
 function initPostersCarousel() {
   const root = document.querySelector('[data-posters-carousel]');
@@ -273,11 +275,16 @@ function initPostersCarousel() {
       const card = document.createElement('figure');
       card.className = 'poster-card';
 
+      const image = document.createElement('img');
+      image.src = item.image;
+      image.alt = item.title;
+      image.addEventListener('error', () => image.classList.add('is-missing'));
+
       const sheet = document.createElement('figcaption');
       sheet.className = 'poster-placeholder-sheet';
       sheet.textContent = item.title;
 
-      card.append(sheet);
+      card.append(image, sheet);
       grid.append(card);
     });
 
