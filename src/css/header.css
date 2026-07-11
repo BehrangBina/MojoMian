@@ -1086,57 +1086,65 @@ body {
 }
 
 .contact-section {
-  display: grid;
-  place-items: center;
-  min-height: 520px;
-  padding: 96px var(--container-gutter);
+  min-height: 620px;
+  padding: 96px var(--container-gutter) 120px;
   background: transparent;
 }
 
 .contact-content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
+  width: min(100%, 820px);
+  margin: 0 auto;
+  text-align: left;
 }
 
 .contact-content h2 {
-  margin: 0 0 10px;
-  color: #76acb2;
+  margin: 0 0 72px;
+  color: transparent;
+  -webkit-text-stroke: 1px var(--ink);
+  text-stroke: 1px var(--ink);
+  font-size: 151px;
+  font-weight: 300;
+  line-height: 0.78;
+  letter-spacing: -0.04em;
+  text-transform: none;
+}
+
+.contact-copy {
+  width: min(100%, 620px);
+  color: var(--ink);
   font-size: 28px;
   font-weight: 400;
   line-height: 1;
   letter-spacing: -0.04em;
-  text-transform: uppercase;
+}
+
+.contact-copy p {
+  margin: 0;
 }
 
 .contact-email {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 356px;
-  min-height: 56px;
-  padding: 12px 24px;
-  border-radius: 22px;
-  background: #76acb2;
-  color: #ffffff;
+  display: inline-block;
+  margin-top: 70px;
+  color: var(--ink);
+  background: transparent;
   font-size: 28px;
   font-weight: 400;
   line-height: 1;
   letter-spacing: -0.04em;
-  text-decoration: none;
+  text-decoration: underline;
+  text-underline-offset: 3px;
 }
 
 .contact-email:hover,
 .contact-email:focus-visible {
-  background: #6da3aa;
+  color: #76acb2;
   outline: none;
 }
 
 .contact-social-links {
-  justify-content: center;
-  gap: 8px;
-  margin-top: 32px;
+  justify-content: flex-start;
+  gap: 28px;
+  margin-top: 72px;
 }
 .placeholder-section {
   min-height: 72vh;
@@ -1467,14 +1475,31 @@ body {
     font-size: 16px;
   }
   .contact-section {
-    min-height: 420px;
+    min-height: 520px;
     padding: 72px 24px;
   }
 
+  .contact-content {
+    width: 100%;
+  }
+
+  .contact-content h2 {
+    margin-bottom: 44px;
+    font-size: clamp(76px, 20vw, 151px);
+  }
+
+  .contact-copy,
   .contact-email {
-    min-width: 0;
-    width: min(100%, 356px);
     font-size: 22px;
+  }
+
+  .contact-email {
+    margin-top: 48px;
+  }
+
+  .contact-social-links {
+    gap: 16px;
+    margin-top: 48px;
   }
 }
 
