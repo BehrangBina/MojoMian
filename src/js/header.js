@@ -77,7 +77,7 @@ const brandingProjects = [
     slidePrefix: 'Minel-0',
     slideCount: 6,
     colors: ['#DFD3B3', '#F8FBF9', '#000000'],
-    description: 'The client needed a minimal and modern look for their logo design and branding to reflect their unique position in the fashion industry. By using black, we maintained a luxurious and modern aesthetic, ensuring that the branding resonates with the target audience and reinforces MINEL\'s commitment to high-quality, stylish, and timeless pieces.'
+    description: 'MINEL required a modern and minimal brand identity that matched the elegance of the fashion industry. I created a clean logo and visual style using a colour palette to achieve a sophisticated, timeless, and premium look.'
   },
   {
     id: 'moji',
@@ -87,7 +87,7 @@ const brandingProjects = [
     slidePrefix: 'Moji-',
     slideCount: 6,
     colors: ['#CF4F37', '#5B8C76', '#E6E2DF'],
-    description: 'Description -02'
+    description: 'MOJI BEAUTY needed a fresh and memorable identity that reflected the creativity and personal touch of a brow artist. I designed a handmade-style logo with a vibrant green and orange colour palette to create a warm, energetic, and approachable brand presence.'
   },
   {
     id: 'shahrzad',
@@ -97,7 +97,7 @@ const brandingProjects = [
     slidePrefix: 'Shahrzaad-0',
     slideCount: 5,
     colors: ['#5D8179', '#F3ECE1', '#E8BBAA'],
-    description: 'Description -03'
+    description: 'SHAHRZAD identity was created to present women\'s creativity, craftsmanship, and empowerment through art. The handmade floral portrait logo combines elements of drawing and sewing, symbolising artistic expression and the skills developed through the organisation\'s programs. A soft palette of deep green, warm beige, and muted pink creates a warm and meaningful visual presence.'
   },
   {
     id: 'curly',
@@ -107,7 +107,7 @@ const brandingProjects = [
     slidePrefix: 'Curly-0',
     slideCount: 6,
     colors: ['#A8644B', '#E8E8E8', '#E5D6C4'],
-    description: 'Description -04'
+    description: 'CURLY, an online jewellery brand, needed a Farsi logotype that blends heritage with modern elegance. I created a minimalist design and refined palette of chestnut brown, soft grey, and warm beige to build a feminine, sophisticated, and timeless brand identity.'
   },
   {
     id: 'miss-broccoli',
@@ -117,7 +117,7 @@ const brandingProjects = [
     slidePrefix: 'MissBroccoli-0',
     slideCount: 6,
     colors: ['#007B3A', '#FF6500', '#D0021B', '#83C83E'],
-    description: 'Description -05'
+    description: 'MISS BROCCOLI needed a playful brand identity built around a unique character logo: a woman with broccoli-inspired hair. The vibrant colour palette reflects freshness, energy, and the natural qualities of the brand, creating a memorable and approachable visual identity.'
   },
   {
     id: 'knight',
@@ -127,7 +127,7 @@ const brandingProjects = [
     slidePrefix: 'Knight-0',
     slideCount: 6,
     colors: ['#8BC5C1', '#E3BE38', '#3E5664'],
-    description: 'Description -06'
+    description: 'KNIGHT COFFEE, a coffee brand and cafe, needed a visual identity inspired by medieval and classic patterns. The logo features a knight character combined with decorative elements, creating a distinctive and memorable brand identity. The selected colour palette brings together deep blue-grey, soft teal, and warm yellow tones to create a unique and welcoming cafe atmosphere.'
   }
 ].map((project) => ({
   ...project,

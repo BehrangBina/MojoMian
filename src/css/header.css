@@ -699,7 +699,7 @@ body {
   width: 960px;
   margin: 28px auto 0;
   color: var(--ink);
-  text-align: center;
+  text-align: justify;
   font-size: 18px;
   font-weight: 300;
   line-height: 1.35;
