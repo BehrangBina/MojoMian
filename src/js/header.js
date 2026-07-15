@@ -344,7 +344,7 @@ function initNixieCarousel() {
 initNixieCarousel();
 const nixieGalleryItems = Array.from({ length: 9 }, (_, index) => ({
   title: `Nixie Doll ${String(index + 1).padStart(2, '0')}`,
-  image: 'src/Nixie-Dolls/Nixie-' + String(index + 1).padStart(3, '0') + '.jpg'
+  image: 'src/Gallary/P' + String(index + 1) + '.jpg'
 }));
 
 function initNixieGalleryCarousel() {
