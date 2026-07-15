@@ -820,10 +820,14 @@ body {
 }
 
 .illustration-collage {
-  position: relative;
-  width: min(100%, 980px);
-  height: 560px;
+  width: min(100%, 1120px);
   margin: 70px auto 0;
+}
+
+.illustration-collage img {
+  display: block;
+  width: 100%;
+  height: auto;
 }
 
 .illustration-item {
@@ -1426,12 +1430,7 @@ body {
   }
 
   .illustration-collage {
-    display: grid;
-    grid-template-columns: 1fr;
-    justify-items: center;
-    gap: 18px;
     width: 100%;
-    height: auto;
     margin-top: 56px;
   }
 
