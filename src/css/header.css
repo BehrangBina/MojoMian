@@ -32,6 +32,13 @@ body {
   font-family: Barlow, Arial, Helvetica, sans-serif;
 }
 
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
 .site-header {
   position: relative;
   height: var(--header-height);
@@ -1055,8 +1062,8 @@ body {
 .contact-copy {
   width: min(100%, 620px);
   color: var(--ink);
-  font-size: 28px;
-  font-weight: 400;
+  font-size: 24px;
+  font-weight: 300;
   line-height: 1;
   letter-spacing: -0.04em;
 }
@@ -1070,8 +1077,8 @@ body {
   margin-top: 70px;
   color: var(--ink);
   background: transparent;
-  font-size: 28px;
-  font-weight: 400;
+  font-size: 24px;
+  font-weight: 300;
   line-height: 1;
   letter-spacing: -0.04em;
   text-decoration: underline;
