@@ -849,20 +849,20 @@ body {
 
 .nixie-carousel {
   position: relative;
-  width: min(100%, 1188px);
+  width: min(100%, 1226px);
   margin: 90px auto 0;
-  padding: 0 63px;
+  padding: 0;
 }
 
 .nixie-frame {
   position: relative;
   display: grid;
   place-items: center;
-  width: 1062px;
+  width: 1226px;
   max-width: 100%;
-  height: 477px;
+  height: 597px;
   margin: 0 auto;
-  overflow: hidden;
+  overflow: visible;
   background: rgba(255, 255, 255, 0.42);
 }
 
@@ -870,7 +870,8 @@ body {
   display: block;
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
+  object-position: center;
 }
 
 .nixie-frame img.is-missing {
@@ -918,11 +919,11 @@ body {
 }
 
 .nixie-button-prev {
-  left: 0;
+  left: -72px;
 }
 
 .nixie-button-next {
-  right: 0;
+  right: -72px;
 }
 
 .nixie-button-next img {
@@ -933,6 +934,7 @@ body {
   width: min(100%, 1062px);
   height: auto;
   margin: 64px auto 0;
+  padding-top: 100px;
 }
 
 
@@ -1359,12 +1361,21 @@ body {
 
   .nixie-frame {
     width: 100%;
-    height: 320px;
+    height: auto;
+    aspect-ratio: 1226 / 597;
   }
 
   .nixie-button {
     width: 40px;
     height: 40px;
+  }
+
+  .nixie-button-prev {
+    left: 0;
+  }
+
+  .nixie-button-next {
+    right: 0;
   }
 
   .nixie-detail-image {
