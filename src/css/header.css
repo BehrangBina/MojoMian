@@ -727,7 +727,9 @@ body {
   gap: 16px;
   min-height: 451px;
 }
-
+.posters-description{
+  padding-left: 65px;
+}
 .poster-card {
   position: relative;
   display: grid;
