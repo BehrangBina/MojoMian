@@ -830,98 +830,6 @@ body {
   height: auto;
 }
 
-.illustration-item {
-  position: absolute;
-  display: grid;
-  place-items: center;
-  margin: 0;
-  background: rgba(255, 255, 255, 0.34);
-}
-
-.illustration-item img {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-}
-
-.illustration-item figcaption {
-  position: absolute;
-  inset: 0;
-  display: none;
-  place-items: center;
-  border: 1px solid rgba(65, 64, 66, 0.16);
-  color: rgba(65, 64, 66, 0.46);
-  font-size: 18px;
-  font-weight: 300;
-  text-transform: uppercase;
-}
-
-.illustration-item img.is-missing {
-  display: none;
-}
-
-.illustration-item img.is-missing + figcaption {
-  display: grid;
-}
-
-.illustration-item-01 {
-  left: 48px;
-  top: 0;
-  width: 324px;
-  height: 324px;
-}
-
-.illustration-item-02 {
-  left: 418px;
-  top: 2px;
-  width: 260px;
-  height: 335px;
-}
-
-.illustration-item-03 {
-  right: 32px;
-  top: 34px;
-  width: 260px;
-  height: 301px;
-}
-
-.illustration-item-04 {
-  left: 268px;
-  top: 202px;
-  width: 145px;
-  height: 145px;
-  transform: rotate(31deg);
-}
-
-.illustration-item-05 {
-  left: 62px;
-  bottom: 18px;
-  width: 260px;
-  height: 300px;
-}
-
-.illustration-item-06 {
-  left: 362px;
-  bottom: 0;
-  width: 260px;
-  height: 300px;
-}
-
-.illustration-item-07 {
-  left: 654px;
-  bottom: 0;
-  width: 260px;
-  height: 317px;
-}
-
-.illustration-item-08 {
-  right: 14px;
-  bottom: 128px;
-  width: 260px;
-  height: 207px;
-}
-
 .nixie-section {
   min-height: 860px;
 }
@@ -1434,25 +1342,6 @@ body {
     margin-top: 56px;
   }
 
-  .illustration-item,
-  .illustration-item-01,
-  .illustration-item-02,
-  .illustration-item-03,
-  .illustration-item-04,
-  .illustration-item-05,
-  .illustration-item-06,
-  .illustration-item-07,
-  .illustration-item-08 {
-    position: relative;
-    inset: auto;
-    left: auto;
-    right: auto;
-    top: auto;
-    bottom: auto;
-    width: min(100%, 320px);
-    height: 320px;
-    transform: none;
-  }
   .nixie-section .logos-header {
     flex-wrap: wrap;
     row-gap: 28px;
