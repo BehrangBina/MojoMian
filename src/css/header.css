@@ -204,7 +204,7 @@ body {
 }
 
 .about-left h2 {
-  margin: 0 0 28px;
+  margin: 0 0 14px;
   color: var(--ink);
   font-size: 56px;
   font-weight: 400;
@@ -213,16 +213,26 @@ body {
   text-transform: uppercase;
 }
 
+.about-role {
+  margin: 0 0 14px;
+  color: var(--ink);
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 1.02;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
 .about-copy {
-  width: 360px;
+  width: 410px;
   color: #000000;
-  font-size: 18px;
+  font-size: 20px;
   font-weight: 400;
-  line-height: 122%;
+  line-height: 1.22;
 }
 
 .about-copy p {
-  margin: 0 0 8px;
+  margin: 0 0 4px;
 }
 
 .social-links {
@@ -270,10 +280,10 @@ body {
 }
 
 .about-panel h3 {
-  margin: 0 0 8px;
+  margin: 0 0 12px;
   color: #000000;
   font-size: 24px;
-  font-weight: 400;
+  font-weight: 500;
   line-height: 122%;
 }
 
@@ -290,21 +300,21 @@ body {
 .pill-list {
   display: flex;
   flex-wrap: wrap;
-  gap: 12px 10px;
+  gap: 12px;
 }
 
 .pill-list span {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-height: 34px;
-  padding: 4px 16px 6px;
+  min-height: 56px;
+  padding: 8px 22px 10px;
   border: 1px solid rgba(0, 0, 0, 0.72);
-  border-radius: 18px;
+  border-radius: 22px;
   color: rgba(0, 0, 0, 0.64);
-  font-size: 18px;
+  font-size: 27px;
   font-weight: 400;
-  line-height: 122%;
+  line-height: 1;
 }
 .portfolio-section {
   position: relative;
