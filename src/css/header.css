@@ -382,7 +382,9 @@ body {
 
 .portfolio-list a,
 .portfolio-list span {
-  color: var(--ink);
+  color: transparent;
+  -webkit-text-stroke: 1px var(--ink);
+  text-stroke: 1px var(--ink);
   text-decoration: none;
 }
 .logos-section {
