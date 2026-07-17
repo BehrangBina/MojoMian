@@ -27,6 +27,25 @@ internalLinks.forEach((link) => {
 window.addEventListener('scroll', syncCollapsedMenu, { passive: true });
 window.addEventListener('resize', syncCollapsedMenu);
 syncCollapsedMenu();
+const aboutDrawer = document.querySelector('[data-about-drawer]');
+const aboutOpen = document.querySelector('[data-about-open]');
+const aboutClose = document.querySelector('[data-about-close]');
+
+function setAboutDrawer(open) {
+  if (!aboutDrawer) return;
+  aboutDrawer.classList.toggle('is-open', open);
+  aboutDrawer.setAttribute('aria-hidden', open ? 'false' : 'true');
+  document.body.classList.toggle('about-drawer-open', open);
+}
+
+aboutOpen?.addEventListener('click', () => setAboutDrawer(true));
+aboutClose?.addEventListener('click', () => setAboutDrawer(false));
+aboutDrawer?.addEventListener('click', (event) => {
+  if (event.target === aboutDrawer) setAboutDrawer(false);
+});
+window.addEventListener('keydown', (event) => {
+  if (event.key === 'Escape') setAboutDrawer(false);
+});
 
 document.querySelectorAll('[data-logo-carousel]').forEach((carousel) => {
   const section = carousel.closest('section') || document;
