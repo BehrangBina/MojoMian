@@ -2,6 +2,7 @@ const header = document.querySelector('.site-header');
 const nav = document.querySelector('.primary-nav');
 const internalLinks = document.querySelectorAll('.nav-menu a, .portfolio-list a, .back-to-index, .main-button');
 const barBasePath = 'src/Logos/Bar-Logo';
+const mobileMediaQuery = window.matchMedia('(max-width: 520px)');
 
 function syncCollapsedMenu() {
   if (!header || !nav) return;
@@ -95,6 +96,8 @@ const brandingProjects = [
     folder: '01',
     slidePrefix: 'Minel-0',
     slideCount: 6,
+    mobileSlideCount: 10,
+    mobileExtensions: { 10: 'png' },
     colors: ['#DFD3B3', '#F8FBF9', '#000000'],
     description: 'MINEL required a modern and minimal brand identity that matched the elegance of the fashion industry. I created a clean logo and visual style using a colour palette to achieve a sophisticated, timeless, and premium look.'
   },
@@ -105,6 +108,7 @@ const brandingProjects = [
     folder: '02',
     slidePrefix: 'Moji-',
     slideCount: 6,
+    mobileSlideCount: 6,
     colors: ['#CF4F37', '#5B8C76', '#E6E2DF'],
     description: 'MOJI BEAUTY needed a fresh and memorable identity that reflected the creativity and personal touch of a brow artist. I designed a handmade-style logo with a vibrant green and orange colour palette to create a warm, energetic, and approachable brand presence.'
   },
@@ -115,6 +119,7 @@ const brandingProjects = [
     folder: '03',
     slidePrefix: 'Shahrzaad-0',
     slideCount: 5,
+    mobileSlideCount: 6,
     colors: ['#5D8179', '#F3ECE1', '#E8BBAA'],
     description: 'SHAHRZAD identity was created to present women\'s creativity, craftsmanship, and empowerment through art. The handmade floral portrait logo combines elements of drawing and sewing, symbolising artistic expression and the skills developed through the organisation\'s programs. A soft palette of deep green, warm beige, and muted pink creates a warm and meaningful visual presence.'
   },
@@ -125,6 +130,7 @@ const brandingProjects = [
     folder: '04',
     slidePrefix: 'Curly-0',
     slideCount: 6,
+    mobileSlideCount: 6,
     colors: ['#A8644B', '#E8E8E8', '#E5D6C4'],
     description: 'CURLY, an online jewellery brand, needed a Farsi logotype that blends heritage with modern elegance. I created a minimalist design and refined palette of chestnut brown, soft grey, and warm beige to build a feminine, sophisticated, and timeless brand identity.'
   },
@@ -135,6 +141,7 @@ const brandingProjects = [
     folder: '05',
     slidePrefix: 'MissBroccoli-0',
     slideCount: 6,
+    mobileSlideCount: 9,
     colors: ['#007B3A', '#FF6500', '#D0021B', '#83C83E'],
     description: 'MISS BROCCOLI needed a playful brand identity built around a unique character logo: a woman with broccoli-inspired hair. The vibrant colour palette reflects freshness, energy, and the natural qualities of the brand, creating a memorable and approachable visual identity.'
   },
@@ -145,17 +152,23 @@ const brandingProjects = [
     folder: '06',
     slidePrefix: 'Knight-0',
     slideCount: 6,
+    mobileSlideCount: 6,
     colors: ['#8BC5C1', '#E3BE38', '#3E5664'],
     description: 'KNIGHT COFFEE, a coffee brand and cafe, needed a visual identity inspired by medieval and classic patterns. The logo features a knight character combined with decorative elements, creating a distinctive and memorable brand identity. The selected colour palette brings together deep blue-grey, soft teal, and warm yellow tones to create a unique and welcoming cafe atmosphere.'
   }
-].map((project) => ({
-  ...project,
-  slides: Array.from({ length: project.slideCount }, (_, index) => {
+];
+
+function getBrandingSlides(project, useMobile = mobileMediaQuery.matches) {
+  const count = useMobile ? (project.mobileSlideCount || project.slideCount) : project.slideCount;
+  const basePath = useMobile ? 'src/Mobile/Mobile/Branding' : 'src/Branding';
+
+  return Array.from({ length: count }, (_, index) => {
     const slideNumber = String(index + 1).padStart(2, '0');
+    const extension = useMobile && project.mobileExtensions?.[index + 1] ? project.mobileExtensions[index + 1] : 'jpg';
     const slidePrefix = project.slidePrefix || '';
-    return `src/Branding/${project.folder}/${slidePrefix}${slideNumber}.jpg`;
-  })
-}));
+    return `${basePath}/${project.folder}/${slidePrefix}${slideNumber}.${extension}`;
+  });
+}
 
 function initBrandingCarousel() {
   const root = document.querySelector('[data-branding-carousel]');
@@ -217,12 +230,13 @@ function initBrandingCarousel() {
 
   function setBrandingSlide(index) {
     const project = brandingProjects[activeProject];
-    const slideCount = project.slides.length;
+    const slides = getBrandingSlides(project);
+    const slideCount = slides.length;
     activeSlide = Math.max(0, Math.min(index, slideCount - 1));
 
     imageEl.classList.remove('is-missing');
     imageEl.alt = `${project.project} branding project slide ${activeSlide + 1}`;
-    imageEl.src = project.slides[activeSlide];
+    imageEl.src = slides[activeSlide];
     fallbackEl.textContent = `${project.project} image ${String(activeSlide + 1).padStart(2, '0')} pending`;
 
     if (bar) {
@@ -255,6 +269,7 @@ function initBrandingCarousel() {
 
   prev?.addEventListener('click', () => setBrandingSlide(activeSlide - 1));
   next?.addEventListener('click', () => setBrandingSlide(activeSlide + 1));
+  mobileMediaQuery.addEventListener?.('change', () => setBrandingProject(activeProject));
   setBrandingProject(0);
 }
 
