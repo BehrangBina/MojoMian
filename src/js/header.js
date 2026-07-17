@@ -289,8 +289,8 @@ function initPostersCarousel() {
   const prev = root.querySelector('[data-posters-prev]');
   const next = root.querySelector('[data-posters-next]');
   const bar = root.querySelector('[data-posters-bar]');
-  const perPage = 3;
-  const pageCount = Math.ceil(posterItems.length / perPage);
+  let perPage = mobileMediaQuery.matches ? 1 : 3;
+  let pageCount = Math.ceil(posterItems.length / perPage);
   let activePage = 0;
 
   function setArrowState(button, isDisabled, activeName, inactiveName) {
@@ -300,7 +300,14 @@ function initPostersCarousel() {
     button.querySelector('img').src = `${barBasePath}/${isDisabled ? inactiveName : activeName}`;
   }
 
+  function syncPosterPaging() {
+    perPage = mobileMediaQuery.matches ? 1 : 3;
+    pageCount = Math.ceil(posterItems.length / perPage);
+    activePage = Math.min(activePage, pageCount - 1);
+  }
+
   function renderPage(index) {
+    syncPosterPaging();
     activePage = Math.max(0, Math.min(index, pageCount - 1));
     const pageItems = posterItems.slice(activePage * perPage, activePage * perPage + perPage);
 
@@ -334,6 +341,7 @@ function initPostersCarousel() {
 
   prev?.addEventListener('click', () => renderPage(activePage - 1));
   next?.addEventListener('click', () => renderPage(activePage + 1));
+  mobileMediaQuery.addEventListener?.('change', () => renderPage(0));
   renderPage(0);
 }
 
@@ -400,7 +408,14 @@ function initNixieGalleryCarousel() {
     button.querySelector('img').src = `${barBasePath}/${isDisabled ? inactiveName : activeName}`;
   }
 
+  function syncPosterPaging() {
+    perPage = mobileMediaQuery.matches ? 1 : 3;
+    pageCount = Math.ceil(posterItems.length / perPage);
+    activePage = Math.min(activePage, pageCount - 1);
+  }
+
   function renderPage(index) {
+    syncPosterPaging();
     activePage = Math.max(0, Math.min(index, pageCount - 1));
     const pageItems = nixieGalleryItems.slice(activePage * perPage, activePage * perPage + perPage);
 
@@ -433,6 +448,7 @@ function initNixieGalleryCarousel() {
 
   prev?.addEventListener('click', () => renderPage(activePage - 1));
   next?.addEventListener('click', () => renderPage(activePage + 1));
+  mobileMediaQuery.addEventListener?.('change', () => renderPage(0));
   renderPage(0);
 }
 
