@@ -1863,3 +1863,112 @@ body.about-drawer-open {
     display: none;
   }
 }
+/* Mobile Branding Order Overrides */
+@media (max-width: 520px) {
+  .branding-section {
+    padding-top: 48px;
+  }
+
+  .branding-projects {
+    display: grid;
+    grid-template-columns: 1fr;
+    row-gap: 0;
+    margin-top: 34px;
+  }
+
+  .branding-main {
+    display: contents;
+  }
+
+  .branding-index {
+    order: 1;
+    display: block;
+    margin: 0 0 22px;
+    min-height: 0;
+    text-align: center;
+    font-size: 10px;
+    line-height: 1;
+    text-transform: uppercase;
+  }
+
+  .branding-index span {
+    display: block;
+    margin-bottom: 12px;
+  }
+
+  .branding-index-buttons {
+    justify-content: space-between;
+    gap: 0;
+    width: 100%;
+  }
+
+  .branding-index-button {
+    font-size: 31px;
+    line-height: 0.85;
+  }
+
+  .branding-frame {
+    order: 2;
+    width: 100%;
+    height: 360px;
+    background: rgba(255, 255, 255, 0.34);
+  }
+
+  .branding-frame img {
+    object-fit: contain;
+  }
+
+  .branding-controls {
+    order: 3;
+    width: 100%;
+    margin: 16px 0 18px;
+    justify-content: space-between;
+  }
+
+  .branding-progress {
+    display: none;
+  }
+
+  .branding-meta {
+    order: 4;
+    display: block;
+    padding-top: 0;
+    margin: 0 0 20px;
+    font-size: 16px;
+    line-height: 1.2;
+  }
+
+  .branding-meta p {
+    margin: 0 0 8px;
+  }
+
+  .branding-meta strong,
+  .branding-meta span {
+    display: inline;
+  }
+
+  .branding-meta strong {
+    margin-right: 4px;
+  }
+
+  .branding-swatches {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 12px;
+  }
+
+  .branding-swatch {
+    width: 16px;
+    height: 14px;
+  }
+
+  .branding-description {
+    order: 5;
+    width: 100%;
+    margin: 0;
+    font-size: 16px;
+    line-height: 1.42;
+    text-align: justify;
+  }
+}
