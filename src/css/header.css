@@ -783,15 +783,16 @@ body {
 
 .illustration-title-row {
   display: flex;
-  align-items: flex-end;
-  gap: 16px;
+  align-items: flex-start;
+  gap: 18px;
 }
 
 .illustration-heading-icon {
   display: block;
-  width: 86px;
-  height: 104px;
+  width: auto;
+  height: 118px;
   object-fit: contain;
+  flex: 0 0 auto;
 }
 
 .illustration-heading-icon.is-missing {
@@ -800,7 +801,7 @@ body {
 
 .illustration-section .logos-header p {
   width: 620px;
-  margin: 16px 0 0 102px;
+  margin: 16px 0 0 118px;
   font-size: 18px;
   line-height: 1.22;
 }
