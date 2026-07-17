@@ -32,6 +32,13 @@ body {
   font-family: Barlow, Arial, Helvetica, sans-serif;
 }
 
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
 .site-header {
   position: relative;
   height: var(--header-height);
@@ -204,7 +211,7 @@ body {
 }
 
 .about-left h2 {
-  margin: 0 0 28px;
+  margin: 0 0 14px;
   color: var(--ink);
   font-size: 56px;
   font-weight: 400;
@@ -213,16 +220,26 @@ body {
   text-transform: uppercase;
 }
 
+.about-role {
+  margin: 0 0 14px;
+  color: var(--ink);
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 1.02;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
 .about-copy {
-  width: 360px;
+  width: 410px;
   color: #000000;
-  font-size: 18px;
+  font-size: 20px;
   font-weight: 400;
-  line-height: 122%;
+  line-height: 1.22;
 }
 
 .about-copy p {
-  margin: 0 0 8px;
+  margin: 0 0 4px;
 }
 
 .social-links {
@@ -270,10 +287,10 @@ body {
 }
 
 .about-panel h3 {
-  margin: 0 0 8px;
+  margin: 0 0 12px;
   color: #000000;
   font-size: 24px;
-  font-weight: 400;
+  font-weight: 500;
   line-height: 122%;
 }
 
@@ -290,21 +307,21 @@ body {
 .pill-list {
   display: flex;
   flex-wrap: wrap;
-  gap: 12px 10px;
+  gap: 12px;
 }
 
 .pill-list span {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-height: 34px;
-  padding: 4px 16px 6px;
+  min-height: 56px;
+  padding: 8px 22px 10px;
   border: 1px solid rgba(0, 0, 0, 0.72);
-  border-radius: 18px;
+  border-radius: 22px;
   color: rgba(0, 0, 0, 0.64);
-  font-size: 18px;
+  font-size: 27px;
   font-weight: 400;
-  line-height: 122%;
+  line-height: 1;
 }
 .portfolio-section {
   position: relative;
@@ -372,7 +389,9 @@ body {
 
 .portfolio-list a,
 .portfolio-list span {
-  color: var(--ink);
+  color: transparent;
+  -webkit-text-stroke: 1px var(--ink);
+  text-stroke: 1px var(--ink);
   text-decoration: none;
 }
 .logos-section {
@@ -687,7 +706,7 @@ body {
   width: 960px;
   margin: 28px auto 0;
   color: var(--ink);
-  text-align: center;
+  text-align: justify;
   font-size: 18px;
   font-weight: 300;
   line-height: 1.35;
@@ -715,7 +734,9 @@ body {
   gap: 16px;
   min-height: 451px;
 }
-
+.posters-description{
+  padding-left: 65px;
+}
 .poster-card {
   position: relative;
   display: grid;
@@ -807,102 +828,14 @@ body {
 }
 
 .illustration-collage {
-  position: relative;
-  width: min(100%, 980px);
-  height: 560px;
+  width: min(100%, 1120px);
   margin: 70px auto 0;
 }
 
-.illustration-item {
-  position: absolute;
-  display: grid;
-  place-items: center;
-  margin: 0;
-  background: rgba(255, 255, 255, 0.34);
-}
-
-.illustration-item img {
+.illustration-collage img {
   display: block;
   width: 100%;
-  height: 100%;
-  object-fit: contain;
-}
-
-.illustration-item figcaption {
-  position: absolute;
-  inset: 0;
-  display: none;
-  place-items: center;
-  border: 1px solid rgba(65, 64, 66, 0.16);
-  color: rgba(65, 64, 66, 0.46);
-  font-size: 18px;
-  font-weight: 300;
-  text-transform: uppercase;
-}
-
-.illustration-item img.is-missing {
-  display: none;
-}
-
-.illustration-item img.is-missing + figcaption {
-  display: grid;
-}
-
-.illustration-item-01 {
-  left: 48px;
-  top: 0;
-  width: 324px;
-  height: 324px;
-}
-
-.illustration-item-02 {
-  left: 418px;
-  top: 2px;
-  width: 260px;
-  height: 335px;
-}
-
-.illustration-item-03 {
-  right: 32px;
-  top: 34px;
-  width: 260px;
-  height: 301px;
-}
-
-.illustration-item-04 {
-  left: 268px;
-  top: 202px;
-  width: 145px;
-  height: 145px;
-  transform: rotate(31deg);
-}
-
-.illustration-item-05 {
-  left: 62px;
-  bottom: 18px;
-  width: 260px;
-  height: 300px;
-}
-
-.illustration-item-06 {
-  left: 362px;
-  bottom: 0;
-  width: 260px;
-  height: 300px;
-}
-
-.illustration-item-07 {
-  left: 654px;
-  bottom: 0;
-  width: 260px;
-  height: 317px;
-}
-
-.illustration-item-08 {
-  right: 14px;
-  bottom: 128px;
-  width: 260px;
-  height: 207px;
+  height: auto;
 }
 
 .nixie-section {
@@ -924,20 +857,20 @@ body {
 
 .nixie-carousel {
   position: relative;
-  width: min(100%, 1188px);
+  width: min(100%, 1226px);
   margin: 90px auto 0;
-  padding: 0 63px;
+  padding: 0;
 }
 
 .nixie-frame {
   position: relative;
   display: grid;
   place-items: center;
-  width: 1062px;
+  width: 1226px;
   max-width: 100%;
-  height: 477px;
+  height: 597px;
   margin: 0 auto;
-  overflow: hidden;
+  overflow: visible;
   background: rgba(255, 255, 255, 0.42);
 }
 
@@ -945,7 +878,8 @@ body {
   display: block;
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
+  object-position: center;
 }
 
 .nixie-frame img.is-missing {
@@ -993,11 +927,11 @@ body {
 }
 
 .nixie-button-prev {
-  left: 0;
+  left: -72px;
 }
 
 .nixie-button-next {
-  right: 0;
+  right: -72px;
 }
 
 .nixie-button-next img {
@@ -1008,6 +942,7 @@ body {
   width: min(100%, 1062px);
   height: auto;
   margin: 64px auto 0;
+  padding-top: 100px;
 }
 
 
@@ -1098,8 +1033,9 @@ body {
 .contact-floral {
   position: absolute;
   right: 0;
-  width: min(34vw, 430px);
-  height: auto;
+  top: -56px;
+  width: min(34vw, 419px);
+  height: 896px;
   opacity: 1;
   pointer-events: none;
   z-index: 0;
@@ -1128,8 +1064,8 @@ body {
 .contact-copy {
   width: min(100%, 620px);
   color: var(--ink);
-  font-size: 28px;
-  font-weight: 400;
+  font-size: 24px;
+  font-weight: 300;
   line-height: 1;
   letter-spacing: -0.04em;
 }
@@ -1143,8 +1079,8 @@ body {
   margin-top: 70px;
   color: var(--ink);
   background: transparent;
-  font-size: 28px;
-  font-weight: 400;
+  font-size: 24px;
+  font-weight: 300;
   line-height: 1;
   letter-spacing: -0.04em;
   text-decoration: underline;
@@ -1413,34 +1349,10 @@ body {
   }
 
   .illustration-collage {
-    display: grid;
-    grid-template-columns: 1fr;
-    justify-items: center;
-    gap: 18px;
     width: 100%;
-    height: auto;
     margin-top: 56px;
   }
 
-  .illustration-item,
-  .illustration-item-01,
-  .illustration-item-02,
-  .illustration-item-03,
-  .illustration-item-04,
-  .illustration-item-05,
-  .illustration-item-06,
-  .illustration-item-07,
-  .illustration-item-08 {
-    position: relative;
-    inset: auto;
-    left: auto;
-    right: auto;
-    top: auto;
-    bottom: auto;
-    width: min(100%, 320px);
-    height: 320px;
-    transform: none;
-  }
   .nixie-section .logos-header {
     flex-wrap: wrap;
     row-gap: 28px;
@@ -1458,12 +1370,21 @@ body {
 
   .nixie-frame {
     width: 100%;
-    height: 320px;
+    height: auto;
+    aspect-ratio: 1226 / 597;
   }
 
   .nixie-button {
     width: 40px;
     height: 40px;
+  }
+
+  .nixie-button-prev {
+    left: 0;
+  }
+
+  .nixie-button-next {
+    right: 0;
   }
 
   .nixie-detail-image {
@@ -1496,10 +1417,11 @@ body {
     padding: 72px 24px;
   }
   .contact-floral {
-    right: -88px;
-    top: 86px;
-    width: 260px;
+    right: 0px;
+    top: 0px;
+    width: 250px;
     opacity: 0.22;
+    position: fixed;
   }
 
 
