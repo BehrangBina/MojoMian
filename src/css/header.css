@@ -1718,29 +1718,40 @@ body.about-drawer-open {
   }
 
   .mobile-about-close {
-    position: fixed;
+    position: absolute;
     top: 32px;
     right: 30px;
     z-index: 1002;
+    display: grid;
+    place-items: center;
     width: 44px;
     height: 44px;
     border: 0;
     padding: 0;
-    color: transparent;
+    color: #414042;
     background: transparent;
+    font-size: 38px;
+    font-weight: 300;
+    line-height: 1;
     cursor: pointer;
+  }
+
+  .mobile-about-close span {
+    display: block;
+    transform: scaleX(1.08);
   }
 
   .mobile-about-close::before,
   .mobile-about-close::after {
     content: "";
+    display: none;
     position: absolute;
     top: 21px;
     left: 6px;
     width: 32px;
     height: 4px;
     border-radius: 999px;
-    background: var(--ink);
+    background: #414042;
   }
 
   .mobile-about-close::before {
@@ -1773,5 +1784,77 @@ body.about-drawer-open {
     font-size: 16px;
     font-weight: 300;
     line-height: 1.16;
+  }
+}
+/* Mobile Detail Section Overrides */
+@media (max-width: 520px) {
+  .logos-section {
+    min-height: auto;
+    padding: 48px 28px 58px;
+    overflow: hidden;
+  }
+
+  .logos-header,
+  .branding-section .logos-header,
+  .posters-section .logos-header,
+  .illustration-section .logos-header,
+  .nixie-section .logos-header {
+    display: block;
+  }
+
+  .logos-header h2 {
+    margin: 0 0 18px;
+    font-size: 64px;
+    line-height: 0.94;
+    letter-spacing: -0.04em;
+  }
+
+  .logos-header p,
+  .illustration-section .logos-header p,
+  .nixie-section .logos-header p {
+    width: 100%;
+    max-width: 330px;
+    margin: 0;
+    font-size: 16px;
+    line-height: 1.22;
+    text-align: justify;
+  }
+
+  .logos-rule,
+  .branding-rule,
+  .posters-rule,
+  .illustration-rule,
+  .nixie-rule,
+  .back-to-index {
+    display: none;
+  }
+
+  .logo-carousel {
+    width: 100%;
+    height: 214px;
+    margin: 72px 0 40px;
+  }
+
+  .logo-slide img {
+    width: min(70vw, 268px);
+    height: 214px;
+    max-height: none;
+    object-fit: contain;
+  }
+
+  .carousel-controls {
+    width: 100%;
+    justify-content: space-between;
+    gap: 0;
+  }
+
+  .carousel-button,
+  .carousel-button img {
+    width: 34px;
+    height: 34px;
+  }
+
+  .carousel-bar {
+    display: none;
   }
 }
