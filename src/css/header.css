@@ -1831,19 +1831,24 @@ body.about-drawer-open {
 
   .logo-carousel {
     width: 100%;
-    height: 214px;
+    height: 250px;
     margin: 72px 0 40px;
   }
 
+  .logo-slide {
+    background: transparent;
+  }
+
   .logo-slide img {
-    width: min(70vw, 268px);
-    height: 214px;
+    width: 100%;
+    height: 250px;
     max-height: none;
     object-fit: contain;
   }
 
   .carousel-controls {
     width: 100%;
+    margin: 0;
     justify-content: space-between;
     gap: 0;
   }
