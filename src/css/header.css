@@ -63,6 +63,18 @@ select {
   height: 100%;
 }
 
+.mobile-menu-button {
+  display: none;
+  border: 0;
+  padding: 0;
+  background: transparent;
+}
+
+.mobile-menu-button img {
+  display: block;
+  width: 32px;
+  height: auto;
+}
 .primary-nav {
   position: absolute;
   left: 0;
@@ -1453,3 +1465,109 @@ select {
 
 
 
+
+@media (max-width: 520px) {
+  :root {
+    --header-height: 278px;
+    --logo-width: 128px;
+    --logo-height: 74px;
+    --logo-left: 62px;
+    --logo-top: 82px;
+  }
+
+  body {
+    background-attachment: scroll;
+  }
+
+  .site-header {
+    box-shadow: 0 4px 18px rgba(214, 216, 224, 0.2);
+  }
+
+  .logo-link {
+    width: var(--logo-width);
+    height: var(--logo-height);
+  }
+
+  .mobile-menu-button {
+    position: absolute;
+    top: 98px;
+    right: 38px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 40px;
+    z-index: 30;
+  }
+
+  .mobile-menu-button img {
+    width: 28px;
+  }
+
+  .primary-nav {
+    display: none;
+  }
+
+  .home-section {
+    min-height: 350px;
+    padding: 68px 36px 56px;
+  }
+
+  .home-content {
+    width: 100%;
+    align-items: center;
+    text-align: center;
+    gap: 28px;
+  }
+
+  .home-content h1 {
+    width: 100%;
+    font-size: clamp(30px, 7.6vw, 34px);
+    line-height: 1.12;
+    letter-spacing: -0.04em;
+    text-align: center;
+  }
+
+  .main-button {
+    width: 218px;
+    height: 45px;
+    border-radius: 15px;
+    font-size: 22px;
+    line-height: 1;
+  }
+
+  .about-section {
+    display: block;
+    min-height: 430px;
+    padding: 50px 24px 54px;
+  }
+
+  .about-left {
+    position: relative;
+    width: 100%;
+    min-height: 346px;
+  }
+
+  .profile-photo {
+    width: min(94vw, 404px);
+    margin: 0 auto;
+  }
+
+  .about-left h2 {
+    position: absolute;
+    top: 4px;
+    right: 10px;
+    margin: 0;
+    font-size: 28px;
+    line-height: 1;
+    letter-spacing: -0.04em;
+    text-transform: uppercase;
+  }
+
+  .about-role,
+  .about-copy,
+  .about-panel,
+  .social-links:not(.contact-social-links) {
+    display: none;
+  }
+}
