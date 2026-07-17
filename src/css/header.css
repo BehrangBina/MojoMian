@@ -2029,3 +2029,53 @@ body.about-drawer-open {
     display: none;
   }
 }
+/* Mobile Illustration Overrides */
+@media (max-width: 520px) {
+  .illustration-section {
+    padding-top: 48px;
+  }
+
+  .illustration-title-row {
+    display: contents;
+  }
+
+  .illustration-title-row h2 {
+    margin-bottom: 22px;
+  }
+
+  .illustration-section .logos-header > div {
+    display: grid;
+    grid-template-columns: 92px 1fr;
+    column-gap: 18px;
+    align-items: start;
+  }
+
+  .illustration-heading-icon {
+    grid-column: 1;
+    grid-row: 2;
+    width: 84px;
+    height: auto;
+    margin-top: 4px;
+  }
+
+  .illustration-section .logos-header p {
+    grid-column: 2;
+    grid-row: 2;
+    width: auto;
+    max-width: none;
+    margin: 0;
+    font-size: 16px;
+    line-height: 1.18;
+    text-align: left;
+  }
+
+  .illustration-collage {
+    width: 100%;
+    margin: 38px 0 0;
+  }
+
+  .illustration-collage img {
+    width: 100%;
+    height: auto;
+  }
+}
