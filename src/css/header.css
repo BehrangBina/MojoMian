@@ -963,8 +963,12 @@ body.about-drawer-open {
   right: -72px;
 }
 
+.nixie-button-prev img {
+  transform: rotate(-90deg);
+}
+
 .nixie-button-next img {
-  transform: rotate(180deg);
+  transform: rotate(90deg);
 }
 .nixie-detail-image {
   display: block;
