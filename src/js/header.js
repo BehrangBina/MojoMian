@@ -351,7 +351,7 @@ document.querySelectorAll('.illustration-item img, .illustration-heading-icon').
     image.classList.add('is-missing');
   });
 });
-const nixieSlides = Array.from({ length: 9 }, (_, index) => 'src/Nixie-Dolls/Nixie-' + String(index + 1).padStart(3, '0') + '.jpg');
+const nixieSlides = Array.from({ length: 6 }, (_, index) => 'src/Nixie-Dolls/Nixie-' + String(index + 1).padStart(3, '0') + '.jpg');
 
 function initNixieCarousel() {
   const root = document.querySelector('[data-nixie-carousel]');
@@ -386,7 +386,7 @@ function initNixieCarousel() {
 initNixieCarousel();
 const nixieGalleryItems = Array.from({ length: 9 }, (_, index) => ({
   title: `Nixie Doll ${String(index + 1).padStart(2, '0')}`,
-  image: 'src/Gallary/P' + String(index + 1) + '.jpg'
+  image: 'src/Nixie-Dolls/carousel/Nixie-' + String(index + 1).padStart(3, '0') + '.jpg'
 }));
 
 function initNixieGalleryCarousel() {
@@ -397,8 +397,8 @@ function initNixieGalleryCarousel() {
   const prev = root.querySelector('[data-nixie-gallery-prev]');
   const next = root.querySelector('[data-nixie-gallery-next]');
   const bar = root.querySelector('[data-nixie-gallery-bar]');
-  const perPage = 3;
-  const pageCount = Math.ceil(nixieGalleryItems.length / perPage);
+  let perPage = mobileMediaQuery.matches ? 2 : 3;
+  let pageCount = Math.ceil(nixieGalleryItems.length / perPage);
   let activePage = 0;
 
   function setArrowState(button, isDisabled, activeName, inactiveName) {
@@ -408,14 +408,14 @@ function initNixieGalleryCarousel() {
     button.querySelector('img').src = `${barBasePath}/${isDisabled ? inactiveName : activeName}`;
   }
 
-  function syncPosterPaging() {
-    perPage = mobileMediaQuery.matches ? 1 : 3;
-    pageCount = Math.ceil(posterItems.length / perPage);
+  function syncGalleryPaging() {
+    perPage = mobileMediaQuery.matches ? 2 : 3;
+    pageCount = Math.ceil(nixieGalleryItems.length / perPage);
     activePage = Math.min(activePage, pageCount - 1);
   }
 
   function renderPage(index) {
-    syncPosterPaging();
+    syncGalleryPaging();
     activePage = Math.max(0, Math.min(index, pageCount - 1));
     const pageItems = nixieGalleryItems.slice(activePage * perPage, activePage * perPage + perPage);
 
