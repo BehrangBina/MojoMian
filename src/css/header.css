@@ -2166,3 +2166,36 @@ body.about-drawer-open {
     justify-content: space-between;
   }
 }
+/* Mobile About Alignment Refinement */
+@media (max-width: 520px) {
+  .about-section {
+    padding: 0 32px 58px;
+  }
+
+  .about-left {
+    max-width: 366px;
+    min-height: auto;
+    margin: 0 auto 22px;
+  }
+
+  .profile-picture {
+    display: block;
+    width: 100%;
+  }
+
+  .profile-photo {
+    width: 100%;
+    max-width: 346px;
+    margin: 0 auto;
+    transform: none;
+  }
+
+  .about-left h2,
+  .about-role {
+    display: none;
+  }
+
+  .about-read-more {
+    margin: 8px auto 0;
+  }
+}
