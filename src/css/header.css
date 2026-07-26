@@ -2199,3 +2199,17 @@ body.about-drawer-open {
     margin: 8px auto 0;
   }
 }
+
+/* Mobile About Tools Pill Sizing */
+@media (max-width: 520px) {
+  .about-panel section:nth-of-type(4) .pill-list {
+    max-width: 260px;
+    gap: 11px 10px;
+  }
+
+  .about-panel section:nth-of-type(4) .pill-list span {
+    flex: 0 0 calc((100% - 10px) / 2);
+    min-width: 0;
+    padding: 8px 10px;
+  }
+}
