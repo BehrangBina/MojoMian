@@ -2213,3 +2213,57 @@ body.about-drawer-open {
     padding: 8px 10px;
   }
 }
+
+/* Mobile Nixie Gallery Copy Order */
+@media (max-width: 520px) {
+  .nixie-gallery-block {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .nixie-gallery-carousel {
+    order: 2;
+  }
+
+  .nixie-gallery-copy {
+    display: contents;
+  }
+
+  .nixie-gallery-copy p:first-child {
+    order: 1;
+    margin: 0 0 24px;
+    font-size: 16px;
+    line-height: 1.22;
+    text-align: justify;
+  }
+
+  .nixie-gallery-link {
+    order: 3;
+    margin-top: 24px !important;
+  }
+}
+
+/* Mobile Contact Heading Alignment */
+@media (max-width: 520px) {
+  .contact-section {
+    padding: 48px 28px 58px;
+  }
+
+  .contact-content {
+    width: 100%;
+    margin: 0;
+  }
+
+  .contact-content h2 {
+    margin: 0 0 22px;
+    font-size: 64px;
+    line-height: 0.94;
+    letter-spacing: -0.04em;
+  }
+
+  .contact-copy,
+  .contact-email {
+    font-size: 16px;
+    line-height: 1.22;
+  }
+}
