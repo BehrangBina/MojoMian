@@ -2267,3 +2267,23 @@ body.about-drawer-open {
     line-height: 1.22;
   }
 }
+
+/* Mobile Contact Social Icons */
+@media (max-width: 520px) {
+  .contact-social-links {
+    width: min(100%, 342px);
+    gap: 0;
+    justify-content: space-between;
+    margin-top: 31px;
+  }
+
+  .contact-social-links a,
+  .contact-social-links svg {
+    width: 63px;
+    height: 63px;
+  }
+
+  .contact-social-links a {
+    flex: 0 0 63px;
+  }
+}
