@@ -2287,3 +2287,22 @@ body.about-drawer-open {
     flex: 0 0 63px;
   }
 }
+
+/* Mobile Nixie Detail Picture */
+.nixie-detail-picture {
+  display: block;
+}
+
+@media (max-width: 520px) {
+  .nixie-detail-picture {
+    display: block;
+    width: 100%;
+    margin: 40px auto 0;
+  }
+
+  .nixie-detail-picture .nixie-detail-image {
+    width: 100%;
+    margin: 0;
+    padding-top: 0;
+  }
+}
