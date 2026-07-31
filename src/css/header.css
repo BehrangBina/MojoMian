@@ -2434,3 +2434,39 @@ body.about-drawer-open {
     height: 56px;
   }
 }
+
+/* Mobile Navbar Figma Size */
+@media (max-width: 520px) {
+  :root {
+    --header-height: 163px;
+    --logo-width: 148px;
+    --logo-height: 86px;
+    --logo-left: 32px;
+    --logo-top: 58px;
+  }
+
+  .site-header {
+    position: fixed;
+    top: 0;
+    left: 50%;
+    width: min(100%, 393px);
+    height: 163px;
+    transform: translateX(-50%);
+    box-shadow: 0 4px 18px rgba(214, 216, 224, 0.2);
+  }
+
+  .mobile-menu-button {
+    top: 76px;
+    right: 39px;
+    width: 42px;
+    height: 55px;
+  }
+
+  .mobile-menu-button img {
+    width: 36px;
+  }
+
+  main {
+    padding-top: 163px;
+  }
+}
