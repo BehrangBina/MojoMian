@@ -2418,3 +2418,19 @@ body.about-drawer-open {
     height: 56px;
   }
 }
+
+/* Nixie Social Image Assets */
+.nixie-social-links img {
+  display: block;
+  width: 46px;
+  height: 46px;
+  object-fit: contain;
+}
+
+@media (max-width: 520px) {
+  .nixie-social-links a:first-child,
+  .nixie-social-links a:first-child img {
+    width: 56px;
+    height: 56px;
+  }
+}
