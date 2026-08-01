@@ -351,7 +351,32 @@ document.querySelectorAll('.illustration-item img, .illustration-heading-icon').
     image.classList.add('is-missing');
   });
 });
-const nixieSlides = Array.from({ length: 6 }, (_, index) => 'src/Nixie-Dolls/Nixie-' + String(index + 1).padStart(3, '0') + '.jpg');
+const nixieSlides = [
+  {
+    image: 'src/Nixie-Dolls/Nixie-001.jpg',
+    caption: 'Every Nixie begins with concept exploration and visual storytelling.'
+  },
+  {
+    image: 'src/Nixie-Dolls/Nixie-002.jpg',
+    caption: "Careful material selection reinforces the character's visual identity."
+  },
+  {
+    image: 'src/Nixie-Dolls/Nixie-003.jpg',
+    caption: 'Colour is intentionally balanced to create harmony and mood.'
+  },
+  {
+    image: 'src/Nixie-Dolls/Nixie-004.jpg',
+    caption: 'Custom-dyed wools ensure every colour supports the original concept.'
+  },
+  {
+    image: 'src/Nixie-Dolls/Nixie-005.jpg',
+    caption: 'Attention to detail transforms ideas into a cohesive final design.'
+  },
+  {
+    image: 'src/Nixie-Dolls/Nixie-006.jpg',
+    caption: 'The finished piece reflects the same design principles applied to branding and visual communication.'
+  }
+];
 
 function initNixieCarousel() {
   const root = document.querySelector('[data-nixie-carousel]');
@@ -359,6 +384,7 @@ function initNixieCarousel() {
 
   const image = root.querySelector('[data-nixie-image]');
   const fallback = root.querySelector('[data-nixie-fallback]');
+  const caption = root.querySelector('.nixie-mobile-caption');
   const prev = root.querySelector('[data-nixie-prev]');
   const next = root.querySelector('[data-nixie-next]');
   let activeSlide = 0;
@@ -366,8 +392,9 @@ function initNixieCarousel() {
   function setSlide(index) {
     activeSlide = Math.max(0, Math.min(index, nixieSlides.length - 1));
     image.classList.remove('is-missing');
-    image.src = nixieSlides[activeSlide];
+    image.src = nixieSlides[activeSlide].image;
     image.alt = `Nixie Dolls slide ${activeSlide + 1}`;
+    if (caption) caption.textContent = nixieSlides[activeSlide].caption;
     fallback.textContent = `Nixie Dolls image ${String(activeSlide + 1).padStart(2, '0')} pending`;
 
     if (prev) prev.disabled = activeSlide === 0;

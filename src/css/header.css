@@ -2470,3 +2470,21 @@ body.about-drawer-open {
     padding-top: 163px;
   }
 }
+
+/* Mobile Nixie Story Carousel Size */
+@media (max-width: 520px) {
+  .nixie-carousel {
+    width: min(100%, 346px);
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .nixie-frame {
+    height: 280px;
+    aspect-ratio: auto;
+  }
+
+  .nixie-frame img {
+    object-fit: cover;
+  }
+}
