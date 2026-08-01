@@ -2279,12 +2279,12 @@ body.about-drawer-open {
 
   .contact-social-links a,
   .contact-social-links svg {
-    width: 63px;
-    height: 63px;
+    width: 63.18px;
+    height: 63.18px;
   }
 
   .contact-social-links a {
-    flex: 0 0 63px;
+    flex: 0 0 63.18px;
   }
 }
 
@@ -2488,3 +2488,37 @@ body.about-drawer-open {
     object-fit: cover;
   }
 }
+
+/* Contact Social Image Assets */
+.contact-social-links img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* Mobile Contact Social Even Spacing */
+@media (max-width: 520px) {
+  .contact-social-links {
+    display: grid;
+    grid-template-columns: repeat(4, 63.18px);
+    justify-content: space-between;
+    align-items: center;
+    width: min(100%, 342px);
+    gap: 0;
+  }
+
+  .contact-social-links a {
+    display: grid;
+    place-items: center;
+    width: 63.18px;
+    height: 63.18px;
+  }
+
+  .contact-social-links img {
+    width: 63.18px;
+    height: 63.18px;
+    object-fit: contain;
+  }
+}
+
