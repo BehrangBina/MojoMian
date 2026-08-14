@@ -28,6 +28,32 @@ internalLinks.forEach((link) => {
 window.addEventListener('scroll', syncCollapsedMenu, { passive: true });
 window.addEventListener('resize', syncCollapsedMenu);
 syncCollapsedMenu();
+const menuToggle = document.querySelector('.mobile-menu-button');
+
+function setMobileMenu(open) {
+  if (!nav || !menuToggle) return;
+  nav.classList.toggle('is-mobile-open', open);
+  menuToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+  menuToggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+  document.body.classList.toggle('mobile-menu-open', open);
+}
+
+menuToggle?.addEventListener('click', () => {
+  setMobileMenu(!nav?.classList.contains('is-mobile-open'));
+});
+
+nav?.querySelectorAll('.nav-menu a').forEach((link) => {
+  link.addEventListener('click', () => setMobileMenu(false));
+});
+
+window.addEventListener('keydown', (event) => {
+  if (event.key === 'Escape') setMobileMenu(false);
+});
+
+mobileMediaQuery.addEventListener('change', (event) => {
+  if (!event.matches) setMobileMenu(false);
+});
+
 const aboutDrawer = document.querySelector('[data-about-drawer]');
 const aboutOpen = document.querySelector('[data-about-open]');
 const aboutClose = document.querySelector('[data-about-close]');

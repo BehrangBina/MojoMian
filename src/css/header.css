@@ -2522,3 +2522,71 @@ body.about-drawer-open {
   }
 }
 
+
+/* Mobile Menu Overlay */
+@media (max-width: 520px) {
+  .primary-nav.is-mobile-open {
+    position: fixed;
+    top: var(--header-height);
+    left: 50%;
+    right: auto;
+    bottom: auto;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    width: min(100%, 393px);
+    height: calc(100dvh - var(--header-height));
+    padding: 56px 32px 48px;
+    transform: translateX(-50%);
+    background: var(--white);
+    box-shadow: 0 12px 25px var(--shadow);
+    z-index: 25;
+  }
+
+  .primary-nav.is-mobile-open .back-to-top {
+    display: none;
+  }
+
+  .primary-nav.is-mobile-open .nav-menu {
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 44px;
+    width: 100%;
+    height: auto;
+    padding-right: 0;
+  }
+
+  .primary-nav.is-mobile-open .nav-menu a {
+    font-size: 28px;
+  }
+
+  /* Burger morphs into an X while the menu is open */
+  .mobile-menu-button[aria-expanded="true"] img {
+    visibility: hidden;
+  }
+
+  .mobile-menu-button[aria-expanded="true"]::before,
+  .mobile-menu-button[aria-expanded="true"]::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 34px;
+    height: 3px;
+    border-radius: 2px;
+    background: #000000;
+  }
+
+  .mobile-menu-button[aria-expanded="true"]::before {
+    transform: translate(-50%, -50%) rotate(45deg);
+  }
+
+  .mobile-menu-button[aria-expanded="true"]::after {
+    transform: translate(-50%, -50%) rotate(-45deg);
+  }
+
+  body.mobile-menu-open {
+    overflow: hidden;
+  }
+}
