@@ -2631,10 +2631,13 @@ body.about-drawer-open {
   .nixie-frame img {
     object-fit: cover;
   }
+  /* Figma specced 4 icons at 63.18; LinkedIn makes 5, and more may be added or
+     removed, so distribute by count rather than hard-coding the column list. */
   .contact-social-links {
     display: grid;
-    grid-template-columns: repeat(4, 63.18px);
-    justify-content: space-between;
+    grid-auto-flow: column;
+    grid-auto-columns: 1fr;
+    justify-items: center;
     align-items: center;
     width: min(100%, 342px);
     gap: 0;

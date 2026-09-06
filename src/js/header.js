@@ -301,10 +301,12 @@ function initBrandingCarousel() {
 
 initBrandingCarousel();
 
+// `title` is the visible fallback caption; `alt` is the descriptive text for
+// search engines and screen readers, drawn from this section's own copy.
 const posterItems = [
-  { title: 'Poster 01', image: 'src/Posters/Poster01.jpg' },
-  { title: 'Poster 02', image: 'src/Posters/Poster02.jpg' },
-  { title: 'Poster 03', image: 'src/Posters/Poster03.jpg' }
+  { title: 'Poster 01', alt: 'Minimal illustrative poster 1 from the Mahsa Amini series', image: 'src/Posters/Poster01.jpg' },
+  { title: 'Poster 02', alt: 'Minimal illustrative poster 2 from the Mahsa Amini series', image: 'src/Posters/Poster02.jpg' },
+  { title: 'Poster 03', alt: 'Minimal illustrative poster 3 from the Mahsa Amini series', image: 'src/Posters/Poster03.jpg' }
 ];
 
 function initPostersCarousel() {
@@ -344,7 +346,9 @@ function initPostersCarousel() {
 
       const image = document.createElement('img');
       image.src = item.image;
-      image.alt = item.title;
+      image.alt = item.alt || item.title;
+      image.loading = 'lazy';
+      image.decoding = 'async';
       image.addEventListener('error', () => image.classList.add('is-missing'));
 
       const sheet = document.createElement('figcaption');
@@ -480,6 +484,8 @@ function initNixieGalleryCarousel() {
       const image = document.createElement('img');
       image.src = item.image;
       image.alt = item.title;
+      image.loading = 'lazy';
+      image.decoding = 'async';
       image.addEventListener('error', () => image.classList.add('is-missing'));
 
       const caption = document.createElement('figcaption');
