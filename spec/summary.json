@@ -1,0 +1,83 @@
+{
+  "Desktop": {
+    "file": "spec/desktop.json",
+    "nodes": 574,
+    "texts": 84,
+    "sizes": [
+      150.86,
+      150,
+      90,
+      60,
+      35.71,
+      31.31,
+      28,
+      26.95,
+      24,
+      20.4,
+      20,
+      18
+    ],
+    "weights": [
+      300,
+      400,
+      500
+    ],
+    "artboards": [
+      "Home-Main 1512x12523",
+      "A selection of branding projects exploring logo design, visual identity, and brand storytelling. Click on each project to discover the full process and explore the complete brand identity. 176x220"
+    ]
+  },
+  "Mobile": {
+    "file": "spec/mobile.json",
+    "nodes": 3542,
+    "texts": 216,
+    "sizes": [
+      64,
+      60,
+      42,
+      38,
+      35,
+      33.57,
+      30,
+      26,
+      24.11,
+      24,
+      22,
+      20.22,
+      20,
+      18,
+      16,
+      15.86,
+      15.14,
+      14.79,
+      14,
+      13.45
+    ],
+    "weights": [
+      300,
+      400,
+      500
+    ],
+    "artboards": [
+      "Home 393x7862",
+      "Frame 284 246x607",
+      "Nav Bar/Default 395x163",
+      "Shahrzad-Mobile 424x2830",
+      "Moji-Mobile 424x2852",
+      "Minel-Mobile 424x4626",
+      "MissBroccoli-Mobile 424x4626",
+      "Knight-Mobile 424x4626",
+      "Curly-Mobile 424x2830",
+      "Branding-Mobile 424x5739",
+      "Doll-Story-Mobile 386x2846",
+      "Poster-Mobile 373x1512.25",
+      "Nixie-Slide-Mobile 378x1397.52",
+      "Up 86x248",
+      "Portfolio 425x1150",
+      "Icon-Burger 82x152",
+      "NavBar 837.5x936",
+      "About me 393x852",
+      "Logos 387.5x2504"
+    ]
+  }
+}

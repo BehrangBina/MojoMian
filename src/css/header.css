@@ -1,19 +1,59 @@
+/* ---------------------------------------------------------------------------
+   Design tokens — derived from the Figma file "MojGraphicDesign Final".
+   Desktop artboard: Home-Main, 1512 wide. Mobile artboard: Home, 393 wide.
+   Values are pulled from spec/desktop.json + spec/mobile.json; see
+   spec/audit-desktop.md for the node-by-node derivation.
+   Do not hand-tune these — re-run `node tools/figma-spec.mjs` and update.
+   --------------------------------------------------------------------------- */
 :root {
-  --header-height: 380px;
+  /* Header — Figma "Nav Bar/Default" is 1512 x 328, logo 232 x 134 @ (226, 76) */
+  --header-height: 328px;
   --header-padding: 8px;
   --nav-height: 70px;
-  --logo-width: 260px;
-  --logo-height: 151px;
-  --logo-left: 126px;
-  --logo-top: 98px;
-  --nav-right: 232px;
-  --nav-gap: 116px;
+  --logo-width: 232px;
+  --logo-height: 134px;
+  --logo-left: 226px;
+  --logo-top: 76px;
+  --nav-gap: 100px;
+
+  /* Palette */
   --white: #ffffff;
   --ink: #414042;
   --accent: #a3c6cb;
+  --accent-strong: #76acb2;
+  --muted: #c4c4c4;
+  --track: #d9d9d9;
   --shadow: rgba(214, 216, 224, 0.25);
-  --container-max: 1498px;
-  --container-gutter: max(24px, calc((100vw - var(--container-max)) / 2));
+
+  /* Layout — Figma content column runs x225 -> x1287 on a 1512 artboard */
+  --artboard: 1512px;
+  --container-max: 1062px;
+  /* Based on the element box, not 100vw: 100vw includes the scrollbar and
+     would shrink the 1062 column by ~15px. */
+  --container-gutter: max(24px, calc((100% - var(--container-max)) / 2));
+
+  /* Type scale — exactly the sizes present in the Figma desktop page */
+  --fs-display: 150px;   /* section headings                */
+  --fs-hero: 90px;       /* hero h1, about h2, portfolio h2 */
+  --fs-index: 60px;      /* portfolio index rows            */
+  --fs-slide-num: 35.71px;
+  --fs-quote: 31.31px;
+  --fs-button: 28px;
+  --fs-pill: 26.95px;
+  --fs-body-lg: 24px;    /* section descriptions, nav, panel */
+  --fs-caption: 20.4px;
+  --fs-body: 20px;
+  --fs-body-sm: 18px;
+
+  /* Line heights, as multipliers of the size they pair with */
+  --lh-display: 1.2;     /* 150 -> 180   */
+  --lh-hero: 0.889;      /* 90  -> 80    */
+  --lh-body-lg: 1.2;     /* 24  -> 28.8  */
+  --lh-body: 1.2;        /* 20  -> 24    */
+
+  /* Letter spacing */
+  --ls-hero: -4.5px;
+  --ls-index-num: -3px;
 }
 
 * {
@@ -121,7 +161,8 @@ select {
   gap: var(--nav-gap);
   width: 100%;
   height: var(--nav-height);
-  padding-right: var(--nav-right);
+  /* Figma: the nav row ends on the content column's right edge (x=1287 of 1512) */
+  padding-right: var(--container-gutter);
 }
 
 .nav-menu a {
@@ -130,9 +171,9 @@ select {
   justify-content: center;
   min-height: 29px;
   color: #000000;
-  font-size: 24px;
+  font-size: var(--fs-body-lg);
   font-weight: 300;
-  line-height: 1;
+  line-height: var(--lh-body-lg);
   letter-spacing: 0;
   text-decoration: none;
   text-transform: uppercase;
@@ -153,10 +194,12 @@ select {
   background: transparent;
 }
 
+/* Figma "Hero-Text": 524 x 551 at (763, 391); its right edge is the content
+   column edge (1287), and 391 sits 63px below the 328px header. */
 .home-content {
   position: absolute;
-  top: 91px;
-  right: 310px;
+  top: 63px;
+  right: var(--container-gutter);
   display: flex;
   flex-direction: column;
   gap: 32px;
@@ -164,13 +207,14 @@ select {
 }
 
 .home-content h1 {
-  width: 524px;
+  /* Figma text box is 450 wide inside the 524 frame — this drives the line breaks */
+  width: 450px;
   margin: 0;
   color: var(--ink);
-  font-size: 90px;
+  font-size: var(--fs-hero);
   font-weight: 400;
   line-height: 80px;
-  letter-spacing: -0.05em;
+  letter-spacing: var(--ls-hero);
   text-transform: uppercase;
 }
 
@@ -183,9 +227,9 @@ select {
   padding: 12px 24px;
   border-radius: 22px;
   color: var(--white);
-  background: #76acb2;
+  background: var(--accent-strong);
   box-shadow: 0 4px 20px rgba(214, 216, 224, 0.25);
-  font-size: 30px;
+  font-size: var(--fs-button);
   font-weight: 300;
   line-height: 1;
   letter-spacing: 0;
@@ -201,10 +245,12 @@ select {
   transform: translateY(-1px);
 }
 
+/* Figma: left column 413 wide @ x224, right column ("Resume") 521 wide @ x766,
+   129px between them — 413 + 129 + 521 = 1063, the content column. */
 .about-section {
   display: grid;
-  grid-template-columns: 470px 430px;
-  column-gap: 120px;
+  grid-template-columns: 413px 521px;
+  column-gap: 129px;
   justify-content: start;
   min-height: 860px;
   padding: 64px var(--container-gutter) 80px;
@@ -212,32 +258,34 @@ select {
 }
 
 .about-left {
-  width: 470px;
+  width: 413px;
 }
 
+/* Figma "Potfolio-Photo" is 521 wide @ x170 — it bleeds left of the column */
 .profile-photo {
   display: block;
-  width: 390px;
+  width: 521px;
+  max-width: none;
   height: auto;
-  margin: 0 0 38px;
+  margin: 0 0 38px -55px;
 }
 
 .about-left h2 {
   margin: 0 0 14px;
   color: var(--ink);
-  font-size: 56px;
+  font-size: var(--fs-hero);
   font-weight: 400;
-  line-height: 1;
-  letter-spacing: -0.03em;
+  line-height: 80px;
+  letter-spacing: var(--ls-hero);
   text-transform: uppercase;
 }
 
 .about-role {
   margin: 0 0 14px;
   color: var(--ink);
-  font-size: 24px;
+  font-size: var(--fs-body-lg);
   font-weight: 500;
-  line-height: 1.02;
+  line-height: var(--lh-body-lg);
   letter-spacing: 0;
   text-transform: uppercase;
 }
@@ -260,11 +308,11 @@ body.about-drawer-open {
   overflow: hidden;
 }
 .about-copy {
-  width: 410px;
+  width: 413px;
   color: #000000;
-  font-size: 20px;
-  font-weight: 400;
-  line-height: 1.22;
+  font-size: var(--fs-body);
+  font-weight: 300;
+  line-height: var(--lh-body);
 }
 
 .about-copy p {
@@ -299,16 +347,17 @@ body.about-drawer-open {
   outline: none;
   transform: translateY(-1px);
 }
+/* Figma "Resume" column: 521 wide, body copy 24/28.8 w300 */
 .about-panel {
   display: flex;
   flex-direction: column;
   gap: 28px;
-  max-width: 430px;
+  max-width: 521px;
   padding-top: 8px;
   color: #000000;
-  font-size: 18px;
-  font-weight: 400;
-  line-height: 122%;
+  font-size: var(--fs-body-lg);
+  font-weight: 300;
+  line-height: var(--lh-body-lg);
 }
 
 .about-panel section {
@@ -318,9 +367,9 @@ body.about-drawer-open {
 .about-panel h3 {
   margin: 0 0 12px;
   color: #000000;
-  font-size: 24px;
+  font-size: var(--fs-body-lg);
   font-weight: 500;
-  line-height: 122%;
+  line-height: var(--lh-body-lg);
 }
 
 .about-panel p {
@@ -336,7 +385,7 @@ body.about-drawer-open {
 .pill-list {
   display: flex;
   flex-wrap: wrap;
-  gap: 12px;
+  gap: 11px 12px;
 }
 
 .pill-list span {
@@ -348,8 +397,8 @@ body.about-drawer-open {
   border: 1px solid rgba(0, 0, 0, 0.72);
   border-radius: 22px;
   color: rgba(0, 0, 0, 0.64);
-  font-size: 27px;
-  font-weight: 400;
+  font-size: var(--fs-pill);
+  font-weight: 300;
   line-height: 1;
 }
 .portfolio-section {
@@ -369,11 +418,12 @@ body.about-drawer-open {
   pointer-events: none;
 }
 
+/* Figma: "INDEX:" @x223 (w221), list block "Frame 251" @x768 (w352) */
 .portfolio-inner {
   position: relative;
   display: grid;
-  grid-template-columns: 360px 430px;
-  column-gap: 100px;
+  grid-template-columns: 221px 352px;
+  column-gap: 324px;
   justify-content: start;
   align-items: center;
   min-height: 720px;
@@ -383,20 +433,22 @@ body.about-drawer-open {
 .portfolio-inner h2 {
   margin: 0;
   color: var(--ink);
-  font-size: 60px;
+  font-size: var(--fs-hero);
   font-weight: 400;
-  line-height: 1;
-  letter-spacing: -0.04em;
+  line-height: 67.41px;
+  letter-spacing: var(--ls-hero);
   text-transform: uppercase;
 }
 
+/* Figma: rows pitch 69px; numbers 60/44.94 w400 ls-3, labels 60/72 w300,
+   number column exactly 74 wide with no extra gap (768 -> 842). */
 .portfolio-list {
   margin: 0;
   padding: 0;
   color: var(--ink);
-  font-size: 43px;
-  font-weight: 400;
-  line-height: 1.25;
+  font-size: var(--fs-index);
+  font-weight: 300;
+  line-height: 72px;
   list-style: none;
   counter-reset: portfolio;
 }
@@ -405,23 +457,34 @@ body.about-drawer-open {
   display: grid;
   grid-template-columns: 74px auto;
   align-items: baseline;
-  column-gap: 10px;
+  column-gap: 0;
+  height: 69px;
   counter-increment: portfolio;
 }
 
 .portfolio-list li::before {
   content: counter(portfolio, decimal-leading-zero);
+  font-weight: 400;
+  line-height: 44.94px;
+  letter-spacing: var(--ls-index-num);
   color: transparent;
   -webkit-text-stroke: 1px var(--ink);
-  text-stroke: 1px var(--ink);
 }
 
 .portfolio-list a,
 .portfolio-list span {
   color: transparent;
   -webkit-text-stroke: 1px var(--ink);
-  text-stroke: 1px var(--ink);
   text-decoration: none;
+}
+
+/* Engines without -webkit-text-stroke would render these invisible */
+@supports not (-webkit-text-stroke: 1px black) {
+  .portfolio-list li::before,
+  .portfolio-list a,
+  .portfolio-list span {
+    color: var(--ink);
+  }
 }
 .logos-section {
   position: relative;
@@ -432,29 +495,40 @@ body.about-drawer-open {
 
 .logos-header {
   display: grid;
-  grid-template-columns: 374px 1fr;
+  grid-template-columns: 412px 1fr;
   align-items: start;
   column-gap: 24px;
 }
 
+/* Figma: section headings are 150 / 180 (lh 1.2) w300 with no tracking.
+   The CSS had 151 / 0.78 with -0.04em, which crushed them vertically. */
 .logos-header h2 {
   margin: 0 0 34px;
   color: transparent;
   -webkit-text-stroke: 1px var(--ink);
-  text-stroke: 1px var(--ink);
-  font-size: 151px;
+  font-size: var(--fs-display);
   font-weight: 300;
-  line-height: 0.78;
-  letter-spacing: -0.04em;
+  line-height: var(--lh-display);
+  letter-spacing: 0;
+  /* Optical overhang: Figma places these heading frames ~10px left of the
+     225 column edge so the stroked glyphs align to it. */
+  margin-left: -10px;
 }
 
+/* Figma: every section description is 24 / 28.8 w300 — the CSS had 14 / 1.55 */
 .logos-header p {
-  width: 286px;
+  width: 412px;
   margin: 0;
   color: rgba(65, 64, 66, 0.82);
-  font-size: 14px;
+  font-size: var(--fs-body-lg);
   font-weight: 300;
-  line-height: 1.55;
+  line-height: var(--lh-body-lg);
+}
+
+@supports not (-webkit-text-stroke: 1px black) {
+  .logos-header h2 {
+    color: var(--ink);
+  }
 }
 
 .logos-rule {
@@ -469,6 +543,13 @@ body.about-drawer-open {
   display: flex;
   align-items: flex-start;
   column-gap: 32px;
+}
+
+/* Branding description is 529 wide in Figma; the shared 24/28.8 type now
+   comes from .logos-header p. (This rule previously read `size: 24px`,
+   which is not a CSS property and did nothing.) */
+.logos-header p.section-description {
+  width: 529px;
 }
 
 .branding-rule {
@@ -534,12 +615,14 @@ body.about-drawer-open {
   object-fit: contain;
 }
 
+/* Figma "Slider-Bar-8": 430.44 wide, centred on the artboard (x541 of 1512) */
 .carousel-controls {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
-  width: 1062px;
+  width: 430px;
+  margin: 0 auto;
 }
 
 .carousel-button {
@@ -573,10 +656,11 @@ body.about-drawer-open {
   min-height: 1080px;
 }
 
+/* Figma "Projects": 1064 wide = Project-Info 72 + 32 gap + Frame 231 960 */
 .branding-projects {
   display: grid;
-  grid-template-columns: 150px 960px;
-  column-gap: 48px;
+  grid-template-columns: 72px 960px;
+  column-gap: 32px;
   align-items: start;
   margin-top: 78px;
 }
@@ -584,7 +668,7 @@ body.about-drawer-open {
 .branding-meta {
   padding-top: 180px;
   color: var(--ink);
-  font-size: 18px;
+  font-size: var(--fs-body-sm);
   font-weight: 300;
   line-height: 1.2;
 }
@@ -732,13 +816,13 @@ body.about-drawer-open {
   transition: left 180ms ease;
 }
 .branding-description {
-  width: 960px;
+  width: 956px;
   margin: 28px auto 0;
   color: var(--ink);
   text-align: justify;
-  font-size: 18px;
+  font-size: var(--fs-body-sm);
   font-weight: 300;
-  line-height: 1.35;
+  line-height: 25px;
 }
 
 .posters-section {
@@ -751,27 +835,38 @@ body.about-drawer-open {
   column-gap: 32px;
 }
 
+/* Figma "Posters": 1062 wide = 3 x 334.73 cards with 28.9 gaps */
 .posters-carousel {
-  width: min(100%, 1085px);
+  width: min(100%, var(--container-max));
   margin: 92px auto 0;
 }
 
 .posters-grid {
   display: grid;
-  grid-template-columns: repeat(3, 335px);
+  grid-template-columns: repeat(3, 334.73px);
   justify-content: center;
-  gap: 16px;
+  gap: 28.9px;
   min-height: 451px;
 }
-.posters-description{
-  padding-left: 65px;
+
+/* Figma: 18 / 25 w300, 1059 wide — this had no type styling at all and fell
+   back to the 16px body default. */
+.posters-description {
+  width: min(100%, 1059px);
+  margin-top: 38px;
+  padding-left: 0;
+  color: rgba(65, 64, 66, 0.82);
+  font-size: var(--fs-body-sm);
+  font-weight: 300;
+  line-height: 25px;
 }
 .poster-card {
   position: relative;
   display: grid;
   place-items: center;
-  width: 335px;
+  width: 334.73px;
   height: 451px;
+  margin: 0;
   overflow: hidden;
   background: linear-gradient(135deg, #168f96, #9fc4bf);
 }
@@ -831,16 +926,25 @@ body.about-drawer-open {
   column-gap: 32px;
 }
 
+/* Figma: Boot @x199 (26 left of the column), 126 wide, heading starts at 325 —
+   i.e. the icon and heading touch. */
 .illustration-title-row {
   display: flex;
   align-items: flex-start;
-  gap: 18px;
+  gap: 0;
+  margin-left: -26px;
 }
 
+/* The icon already positions this heading; skip the shared optical offset. */
+.illustration-title-row h2 {
+  margin-left: 0;
+}
+
+/* Figma "Boot": 126 x 187 */
 .illustration-heading-icon {
   display: block;
-  width: auto;
-  height: 118px;
+  width: 126px;
+  height: 187px;
   object-fit: contain;
   flex: 0 0 auto;
 }
@@ -850,15 +954,17 @@ body.about-drawer-open {
 }
 
 .illustration-section .logos-header p {
-  width: 620px;
-  margin: 16px 0 0 118px;
-  font-size: 18px;
-  line-height: 1.22;
+  width: 670px;
+  margin: 16px 0 0 112px;
+  font-size: var(--fs-body-lg);
+  line-height: var(--lh-body-lg);
 }
 
+/* Figma "Frame 252": x251 w1196 — starts 26px right of the column but runs
+   160px past its right edge, so it must escape the gutter. */
 .illustration-collage {
-  width: min(100%, 1120px);
-  margin: 70px auto 0;
+  width: min(1196px, calc(100% + 134px));
+  margin: 70px 0 0 26px;
 }
 
 .illustration-collage img {
@@ -878,10 +984,10 @@ body.about-drawer-open {
 }
 
 .nixie-section .logos-header p {
-  width: 620px;
-  margin-top: 18px;
-  font-size: 18px;
-  line-height: 1.22;
+  width: 643px;
+  margin: 18px 0 0 5px;
+  font-size: var(--fs-body-lg);
+  line-height: var(--lh-body-lg);
 }
 
 .nixie-carousel {
@@ -891,11 +997,13 @@ body.about-drawer-open {
   padding: 0;
 }
 
+/* Figma: the image ("Nixie-001") is 1061 x 597 at x225; the 1226 span quoted on
+   .nixie-carousel is the image plus the two 57.33 arrows sitting outside it. */
 .nixie-frame {
   position: relative;
   display: grid;
   place-items: center;
-  width: 1226px;
+  width: 1061px;
   max-width: 100%;
   height: 597px;
   margin: 0 auto;
@@ -932,19 +1040,19 @@ body.about-drawer-open {
   top: 50%;
   display: grid;
   place-items: center;
-  width: 46px;
-  height: 46px;
+  width: 57.33px;
+  height: 57.33px;
   padding: 0;
   border: 0;
   border-radius: 50%;
-  background: #a3c6cb;
+  background: var(--accent);
   transform: translateY(-50%);
   cursor: pointer;
    
 }
 
 .nixie-button:disabled {
-  background: #c4c4c4;
+  background: var(--muted);
   cursor: default;
 }
 
@@ -958,11 +1066,11 @@ body.about-drawer-open {
 }
 
 .nixie-button-prev {
-  left: -72px;
+  left: -82px;
 }
 
 .nixie-button-next {
-  right: -72px;
+  right: -82px;
 }
 
 .nixie-button-prev img {
@@ -985,12 +1093,13 @@ body.about-drawer-open {
 }
 
 
+/* Figma: "Dolls" grid 737 @x225 + 61 gap + copy column 264 @x1023 = 1062 */
 .nixie-gallery-block {
   display: grid;
-  grid-template-columns: 731px 260px;
-  column-gap: 48px;
+  grid-template-columns: 737px 264px;
+  column-gap: 61px;
   align-items: start;
-  width: min(100%, 1039px);
+  width: min(100%, var(--container-max));
   margin: 140px auto 0;
 }
 
@@ -1004,7 +1113,7 @@ body.about-drawer-open {
   position: relative;
   display: grid;
   place-items: center;
-  width: 238px;
+  width: 100%;
   height: 300px;
   margin: 0;
   overflow: hidden;
@@ -1046,7 +1155,7 @@ body.about-drawer-open {
 
 .nixie-gallery-copy {
   color: var(--ink);
-  font-size: 16px;
+  font-size: var(--fs-body-sm);
   font-weight: 300;
   line-height: 1.2;
 }
@@ -1060,11 +1169,14 @@ body.about-drawer-open {
   color: #76acb2;
 }
 
+/* Figma "Section-Contact Me": 1100 tall — the heading starts 246 in and the
+   social row clears 252 below it. The 7 <br> pairs that used to pad this out
+   have been removed from index.html. */
 .contact-section {
   position: relative;
-  min-height: 620px;
+  min-height: 1100px;
   overflow: hidden;
-  padding: 96px var(--container-gutter) 120px;
+  padding: 246px var(--container-gutter) 252px;
   background: transparent;
 }
 
@@ -1080,33 +1192,41 @@ body.about-drawer-open {
   z-index: 0;
 }
 
+/* Figma: contact content is left-aligned on the content column (h2 x219,
+   copy x232, email x230) — not a centred 820px box. */
 .contact-content {
   position: relative;
   z-index: 1;
-  width: min(100%, 820px);
-  margin: 0 auto;
+  width: min(100%, var(--container-max));
+  margin: 0;
   text-align: left;
 }
 
 .contact-content h2 {
-  margin: 0 0 72px;
+  margin: 0 0 72px -6px;
   color: transparent;
   -webkit-text-stroke: 1px var(--ink);
-  text-stroke: 1px var(--ink);
-  font-size: 151px;
+  font-size: var(--fs-display);
   font-weight: 300;
-  line-height: 0.78;
-  letter-spacing: -0.04em;
+  line-height: var(--lh-display);
+  letter-spacing: 0;
   text-transform: none;
 }
 
+@supports not (-webkit-text-stroke: 1px black) {
+  .contact-content h2 {
+    color: var(--ink);
+  }
+}
+
 .contact-copy {
-  width: min(100%, 620px);
+  width: min(100%, 623px);
+  margin-left: 7px;
   color: var(--ink);
-  font-size: 24px;
+  font-size: var(--fs-body-lg);
   font-weight: 300;
-  line-height: 1;
-  letter-spacing: -0.04em;
+  line-height: var(--lh-body-lg);
+  letter-spacing: 0;
 }
 
 .contact-copy p {
@@ -1118,17 +1238,17 @@ body.about-drawer-open {
   margin-top: 70px;
   color: var(--ink);
   background: transparent;
-  font-size: 24px;
+  font-size: var(--fs-body-lg);
   font-weight: 300;
-  line-height: 1;
-  letter-spacing: -0.04em;
+  line-height: var(--lh-body-lg);
+  letter-spacing: 0;
   text-decoration: underline;
   text-underline-offset: 3px;
 }
 
 .contact-email:hover,
 .contact-email:focus-visible {
-  color: #76acb2;
+  color: var(--accent-strong);
   outline: none;
 }
 
@@ -1153,7 +1273,6 @@ body.about-drawer-open {
     --logo-height: 98px;
     --logo-left: 34px;
     --logo-top: 64px;
-    --nav-right: 24px;
     --nav-gap: 36px;
   }
 
@@ -1261,7 +1380,6 @@ body.about-drawer-open {
     grid-template-columns: 1fr;
     row-gap: 28px;
   }
-
 
 
 .back-to-index {
@@ -1490,6 +1608,24 @@ body.about-drawer-open {
     gap: 16px;
     margin-top: 48px;
   }
+
+  /* The 900px tier has no Figma artboard — interpolate between the 1512 and 393
+     boards. At full desktop size the Boot icon plus its -26px bleed overflows
+     this width, so use the mobile icon size and drop the bleed. */
+  .illustration-title-row {
+    margin-left: 0;
+    flex-wrap: wrap;
+  }
+
+  .illustration-heading-icon {
+    width: 91px;
+    height: 134px;
+  }
+
+  .illustration-collage {
+    width: 100%;
+    margin-left: 0;
+  }
 }
 
 
@@ -1497,6 +1633,138 @@ body.about-drawer-open {
 
 
 
+
+/* Mobile About Drawer Overrides */
+
+/* Mobile Detail Section Overrides */
+
+/* Mobile Branding Order Overrides */
+
+/* Mobile Posters Overrides */
+
+/* Mobile Illustration Overrides */
+
+/* Mobile Nixie Caption Controls */
+
+/* Mobile Nixie Gallery Layout */
+
+/* Mobile About Alignment Refinement */
+
+
+/* Mobile About Tools Pill Sizing */
+
+
+/* Mobile Nixie Gallery Copy Order */
+
+
+/* Mobile Contact Heading Alignment */
+
+
+/* Mobile Contact Social Icons */
+
+
+/* Mobile Nixie Detail Picture */
+.nixie-detail-picture {
+  display: block;
+}
+
+
+
+/* Nixie Social Follow Block */
+.nixie-hi-image {
+  display: none;
+}
+
+.nixie-gallery-link-row {
+  margin-top: 52px;
+}
+
+.nixie-social-links {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  margin-top: 18px;
+  color: #a3c6cb;
+}
+
+.nixie-social-links a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 46px;
+  height: 46px;
+  color: inherit;
+  text-decoration: none;
+}
+
+.nixie-social-links svg {
+  display: block;
+  width: 46px;
+  height: 46px;
+}
+
+.nixie-social-links span {
+  color: inherit;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 48px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+
+
+/* Mobile Nixie Social Position */
+
+
+/* Mobile Nixie Follow Text */
+
+
+/* Mobile Nixie Instagram Icon Size */
+
+
+/* Nixie Social Image Assets */
+.nixie-social-links img {
+  display: block;
+  width: 46px;
+  height: 46px;
+  object-fit: contain;
+}
+
+
+
+/* Mobile Navbar Figma Size */
+
+
+/* Mobile Nixie Story Carousel Size */
+
+
+/* Contact Social Image Assets */
+.contact-social-links img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* Mobile Contact Social Even Spacing */
+
+
+
+/* Mobile Menu Overlay */
+
+
+/* ===========================================================================
+   FIGMA MOBILE SPEC — artboard "Home", 393 wide, content column 345 @ x24.
+   Values from spec/mobile.json. This block is authoritative: it is last in
+   the cascade and supersedes the earlier append-only 520px blocks.
+   =========================================================================== */
+
+/* ===========================================================================
+   MOBILE (<= 520px) — single consolidated block.
+   Merged from 24 separate append-only blocks, concatenated in their
+   original source order so the cascade is unchanged. Later rules still win;
+   the Figma-derived section at the end is authoritative.
+   =========================================================================== */
 @media (max-width: 520px) {
   :root {
     --header-height: 278px;
@@ -1601,9 +1869,6 @@ body.about-drawer-open {
   .social-links:not(.contact-social-links) {
     display: none;
   }
-}
-/* Mobile About Drawer Overrides */
-@media (max-width: 520px) {
   .about-section {
     min-height: auto;
     padding: 0 32px 58px;
@@ -1786,11 +2051,11 @@ body.about-drawer-open {
     margin: 0 0 16px;
     color: transparent;
     -webkit-text-stroke: 1px var(--ink);
-    text-stroke: 1px var(--ink);
-    font-size: 58px;
-    font-weight: 300;
-    line-height: 0.9;
-    letter-spacing: -0.04em;
+    /* Figma mobile "I'm Mojdeh": 42 / 35.37 w400 ls-2.1 */
+    font-size: var(--fs-hero);
+    font-weight: 400;
+    line-height: 35.37px;
+    letter-spacing: var(--ls-hero);
   }
 
   .mobile-about-content p {
@@ -1799,9 +2064,6 @@ body.about-drawer-open {
     font-weight: 300;
     line-height: 1.16;
   }
-}
-/* Mobile Detail Section Overrides */
-@media (max-width: 520px) {
   .logos-section {
     min-height: auto;
     padding: 48px 28px 58px;
@@ -1876,9 +2138,6 @@ body.about-drawer-open {
   .carousel-bar {
     display: none;
   }
-}
-/* Mobile Branding Order Overrides */
-@media (max-width: 520px) {
   .branding-section {
     padding-top: 48px;
   }
@@ -1985,9 +2244,6 @@ body.about-drawer-open {
     line-height: 1.42;
     text-align: justify;
   }
-}
-/* Mobile Posters Overrides */
-@media (max-width: 520px) {
   .posters-section {
     padding-top: 48px;
   }
@@ -2042,9 +2298,6 @@ body.about-drawer-open {
   .posters-progress {
     display: none;
   }
-}
-/* Mobile Illustration Overrides */
-@media (max-width: 520px) {
   .illustration-section {
     padding-top: 48px;
   }
@@ -2092,9 +2345,6 @@ body.about-drawer-open {
     width: 100%;
     height: auto;
   }
-}
-/* Mobile Nixie Caption Controls */
-@media (max-width: 520px) {
   .nixie-carousel {
     display: grid;
     grid-template-columns: 46px 1fr 46px;
@@ -2145,9 +2395,6 @@ body.about-drawer-open {
   .nixie-button-next {
     grid-column: 3;
   }
-}
-/* Mobile Nixie Gallery Layout */
-@media (max-width: 520px) {
   .nixie-gallery-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 8px;
@@ -2165,9 +2412,6 @@ body.about-drawer-open {
     margin-top: 14px;
     justify-content: space-between;
   }
-}
-/* Mobile About Alignment Refinement */
-@media (max-width: 520px) {
   .about-section {
     padding: 0 32px 58px;
   }
@@ -2198,10 +2442,6 @@ body.about-drawer-open {
   .about-read-more {
     margin: 8px auto 0;
   }
-}
-
-/* Mobile About Tools Pill Sizing */
-@media (max-width: 520px) {
   .about-panel section:nth-of-type(4) .pill-list {
     max-width: 260px;
     gap: 11px 10px;
@@ -2212,10 +2452,6 @@ body.about-drawer-open {
     min-width: 0;
     padding: 8px 10px;
   }
-}
-
-/* Mobile Nixie Gallery Copy Order */
-@media (max-width: 520px) {
   .nixie-gallery-block {
     display: flex;
     flex-direction: column;
@@ -2241,10 +2477,6 @@ body.about-drawer-open {
     order: 3;
     margin-top: 24px !important;
   }
-}
-
-/* Mobile Contact Heading Alignment */
-@media (max-width: 520px) {
   .contact-section {
     padding: 48px 28px 58px;
   }
@@ -2266,10 +2498,6 @@ body.about-drawer-open {
     font-size: 16px;
     line-height: 1.22;
   }
-}
-
-/* Mobile Contact Social Icons */
-@media (max-width: 520px) {
   .contact-social-links {
     width: min(100%, 342px);
     gap: 0;
@@ -2286,14 +2514,6 @@ body.about-drawer-open {
   .contact-social-links a {
     flex: 0 0 63.18px;
   }
-}
-
-/* Mobile Nixie Detail Picture */
-.nixie-detail-picture {
-  display: block;
-}
-
-@media (max-width: 520px) {
   .nixie-detail-picture {
     display: block;
     width: 100%;
@@ -2305,50 +2525,6 @@ body.about-drawer-open {
     margin: 0;
     padding-top: 0;
   }
-}
-
-/* Nixie Social Follow Block */
-.nixie-hi-image {
-  display: none;
-}
-
-.nixie-gallery-link-row {
-  margin-top: 52px;
-}
-
-.nixie-social-links {
-  display: flex;
-  align-items: center;
-  gap: 28px;
-  margin-top: 18px;
-  color: #a3c6cb;
-}
-
-.nixie-social-links a {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 46px;
-  height: 46px;
-  color: inherit;
-  text-decoration: none;
-}
-
-.nixie-social-links svg {
-  display: block;
-  width: 46px;
-  height: 46px;
-}
-
-.nixie-social-links span {
-  color: inherit;
-  font-family: Georgia, 'Times New Roman', serif;
-  font-size: 48px;
-  font-weight: 700;
-  line-height: 1;
-}
-
-@media (max-width: 520px) {
   .nixie-hi-image {
     order: 3;
     display: block;
@@ -2386,10 +2562,6 @@ body.about-drawer-open {
   .nixie-social-links span {
     font-size: 48px;
   }
-}
-
-/* Mobile Nixie Social Position */
-@media (max-width: 520px) {
   .nixie-gallery-link-row .nixie-gallery-link {
     order: 1;
   }
@@ -2397,10 +2569,6 @@ body.about-drawer-open {
   .nixie-social-links {
     order: 2;
   }
-}
-
-/* Mobile Nixie Follow Text */
-@media (max-width: 520px) {
   .nixie-gallery-link-row .nixie-gallery-link {
     width: 203px;
     color: #76acb2;
@@ -2408,35 +2576,16 @@ body.about-drawer-open {
     line-height: 1.1;
     white-space: nowrap;
   }
-}
-
-/* Mobile Nixie Instagram Icon Size */
-@media (max-width: 520px) {
   .nixie-social-links a:first-child,
   .nixie-social-links a:first-child svg {
     width: 56px;
     height: 56px;
   }
-}
-
-/* Nixie Social Image Assets */
-.nixie-social-links img {
-  display: block;
-  width: 46px;
-  height: 46px;
-  object-fit: contain;
-}
-
-@media (max-width: 520px) {
   .nixie-social-links a:first-child,
   .nixie-social-links a:first-child img {
     width: 56px;
     height: 56px;
   }
-}
-
-/* Mobile Navbar Figma Size */
-@media (max-width: 520px) {
   :root {
     --header-height: 163px;
     --logo-width: 148px;
@@ -2468,10 +2617,6 @@ body.about-drawer-open {
   main {
     padding-top: 163px;
   }
-}
-
-/* Mobile Nixie Story Carousel Size */
-@media (max-width: 520px) {
   .nixie-carousel {
     width: min(100%, 346px);
     margin-left: auto;
@@ -2486,18 +2631,6 @@ body.about-drawer-open {
   .nixie-frame img {
     object-fit: cover;
   }
-}
-
-/* Contact Social Image Assets */
-.contact-social-links img {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-}
-
-/* Mobile Contact Social Even Spacing */
-@media (max-width: 520px) {
   .contact-social-links {
     display: grid;
     grid-template-columns: repeat(4, 63.18px);
@@ -2519,11 +2652,6 @@ body.about-drawer-open {
     height: 63.18px;
     object-fit: contain;
   }
-}
-
-
-/* Mobile Menu Overlay */
-@media (max-width: 520px) {
   .primary-nav.is-mobile-open {
     position: fixed;
     top: var(--header-height);
@@ -2586,5 +2714,210 @@ body.about-drawer-open {
 
   body.mobile-menu-open {
     overflow: hidden;
+  }
+  :root {
+    --container-max: 345px;
+    --fs-display: 64px;
+    --fs-hero: 42px;
+    --fs-index: 38px;
+    --fs-slide-num: 33.57px;
+    --fs-button: 24.11px;
+    --fs-pill: 20.22px;
+    --fs-body-lg: 20px;
+    --fs-body: 18px;
+    --fs-body-sm: 16px;
+    --ls-hero: -2.1px;
+    --ls-index-num: 0px;
+  }
+
+  /* Hero — Figma h1 42/42 w400 ls-2.1 in a 343 box @x25 */
+  .home-content h1 {
+    width: 343px;
+    font-size: var(--fs-hero);
+    line-height: 42px;
+    letter-spacing: var(--ls-hero);
+  }
+
+  .main-button {
+    width: 218px;
+    font-size: var(--fs-button);
+  }
+
+  /* Earlier 520px blocks hard-code a 28px section padding, which overrides the
+     container gutter and narrows the 345 column to 330. Re-assert the gutter. */
+  .logos-section,
+  .contact-section,
+  .about-section,
+  .portfolio-inner,
+  .home-section {
+    padding-left: var(--container-gutter);
+    padding-right: var(--container-gutter);
+  }
+
+  .logos-header p,
+  .logos-header h2,
+  .posters-description,
+  .contact-copy,
+  .contact-email,
+  .nixie-carousel,
+  .illustration-title-row {
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  /* Section headings — 64 w300, no tracking (the CSS had ls -2.56) */
+  .logos-header h2 {
+    font-size: var(--fs-display);
+    line-height: 1;
+    letter-spacing: 0;
+    margin-left: 0;
+  }
+
+  /* Figma places the contact heading 5.5px left of the column (x18.5) */
+  .contact-content h2 {
+    font-size: var(--fs-display);
+    line-height: 1;
+    letter-spacing: 0;
+    margin-left: -5px;
+  }
+
+  /* Section descriptions — 16 / 19.2 w300 across the full 345 column */
+  .logos-header p,
+  .logos-header p.section-description,
+  .illustration-section .logos-header p,
+  .nixie-section .logos-header p,
+  .posters-description {
+    width: 345px;
+    /* earlier blocks clamp these to max-width:330 */
+    max-width: 345px;
+    margin-left: 0;
+    font-size: var(--fs-body-sm);
+    font-weight: 300;
+    line-height: 19.2px;
+  }
+
+  /* Exception: on mobile the illustration copy is inset beside the Boot icon
+     (Figma x122, 245 wide) rather than filling the column. */
+  .illustration-section .logos-header p {
+    width: 245px;
+    max-width: 245px;
+    /* the mobile header grid already indents this past the Boot icon;
+       Figma puts it at x122, 12px left of that track. */
+    margin-left: -12px;
+  }
+
+  /* About panel — body 18 / 21.6 w300, headings 20 / 24 w500 */
+  .about-panel {
+    font-size: var(--fs-body);
+    line-height: 21.6px;
+  }
+
+  .about-panel h3 {
+    font-size: var(--fs-body-lg);
+    line-height: 24px;
+  }
+
+  /* Tools / Languages pills — 20.22 w300, rows pitch 53 */
+  .pill-list span {
+    font-size: var(--fs-pill);
+    font-weight: 300;
+  }
+
+  .pill-list {
+    gap: 15px 12px;
+  }
+
+  /* Portfolio — "INDEX:" 42 / 35.37 ls-2.1; rows 38 @ pitch 50,
+     number column 45.45 wide (x22 -> x67.45) */
+  .portfolio-inner h2 {
+    font-size: var(--fs-hero);
+    line-height: 35.37px;
+    letter-spacing: var(--ls-hero);
+  }
+
+  .portfolio-list {
+    font-size: var(--fs-index);
+    font-weight: 300;
+    line-height: 1;
+  }
+
+  .portfolio-list li {
+    grid-template-columns: 45.45px auto;
+    column-gap: 0;
+    height: 50px;
+  }
+
+  .portfolio-list li::before {
+    font-weight: 400;
+    line-height: 1;
+    letter-spacing: 0;
+  }
+
+  /* Branding — the mobile slide is full-bleed 392 x 388 */
+  .branding-frame {
+    width: 100vw;
+    max-width: none;
+    height: 388px;
+    margin-left: calc(50% - 50vw);
+  }
+
+  .branding-index-button {
+    font-size: var(--fs-slide-num);
+    line-height: 25.14px;
+    letter-spacing: -1.68px;
+  }
+
+  /* Posters — card 341 x 437 @x26 */
+  .poster-card {
+    width: 341px;
+    max-width: 341px;
+    height: 437px;
+  }
+
+  /* Illustration — Boot 91 x 134 */
+  .illustration-heading-icon {
+    width: 91px;
+    height: 134px;
+  }
+
+  .illustration-title-row {
+    margin-left: 0;
+  }
+
+  /* Nixie — story slide 346 x 364 */
+  .nixie-frame {
+    width: 346px;
+    height: 364px;
+  }
+
+  /* Figma mobile "Contact" frame: 435 tall, heading 108 in, 54 below the icons */
+  .contact-section {
+    min-height: 435px;
+    padding-top: 108px;
+    padding-bottom: 54px;
+  }
+
+  /* Contact — copy and email 16 / 19.2 w300 */
+  .contact-copy,
+  .contact-email {
+    font-size: var(--fs-body-sm);
+    line-height: 19.2px;
+    letter-spacing: 0;
+    margin-left: 0;
+  }
+
+  /* Burger overlay — Figma menu items are left-aligned at x48, 60 / 80 w400 ls-3 */
+  .primary-nav.is-mobile-open .nav-menu {
+    align-items: flex-start;
+    /* the overlay already applies 32px of side padding */
+    padding-left: 16px;
+  }
+
+  .primary-nav.is-mobile-open .nav-menu a {
+    justify-content: flex-start;
+    font-size: 60px;
+    font-weight: 400;
+    line-height: 80px;
+    letter-spacing: -3px;
   }
 }

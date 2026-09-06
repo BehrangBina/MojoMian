@@ -1,0 +1,12 @@
+# Figma personal access token - never commit
+.figma-token
+.figmatoken
+*.figma-token
+
+# Raw Figma API dump (large); derived spec/*.json is committed
+spec/raw/
+
+# OS / editor cruft
+Thumbs.db
+desktop.ini
+.DS_Store
