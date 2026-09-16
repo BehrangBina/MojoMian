@@ -1,19 +1,3 @@
-/* ---------------------------------------------------------------------------
-   Design tokens — Figma file "MojGraphicDesign Final" (2wKuuyvVF063XGTA8cI5MJ).
-
-   v2, 2026-09-12. The old `Desktop` page was replaced by three pages:
-     Desktop-Final   the artboard `Home-Main`, 1512 x 10901
-     Desktop Assets  components plus the formal token sections below
-     Design Spec     Spectral redline overlays (no design data — not pulled)
-
-   The palette and type scale are read off the `Colors` / `Typography` / `BTN`
-   sections of Desktop Assets, not inferred from usage. Mobile artboard is
-   still `Home`, 393 wide, and is unchanged by this update.
-
-   Pulled into spec/desktop-final.json + spec/desktop-assets.json; see
-   spec/audit-desktop-v2.md for the node-by-node derivation.
-   Do not hand-tune these — re-run `node tools/figma-spec.mjs` and update.
-   --------------------------------------------------------------------------- */
 :root {
   /* Header — Figma "Nav Bar/Default" is 1512 x 328, logo 232 x 134 @ (226, 76).
      The sticky bar ("Nav Bar-Desktop") is a separate 86px strip at y242. */
@@ -591,11 +575,6 @@ body.about-drawer-open {
   opacity: 0.82;
 }
 
-.social-links svg {
-  display: block;
-  width: 46px;
-  height: 46px;
-}
 
 .social-links a:hover,
 .social-links a:focus-visible {
@@ -1937,14 +1916,7 @@ body.about-drawer-open {
   line-height: 21.6px;
   white-space: nowrap;
 }
-.placeholder-section {
-  min-height: 72vh;
-  background: transparent;
-}
 
-.placeholder-section.alt {
-  background: transparent;
-}
 
 @media (max-width: 900px) {
   :root {
@@ -1962,10 +1934,6 @@ body.about-drawer-open {
     height: 28px;
   }
 
-  .back-to-top img {
-    width: 28px;
-    height: 28px;
-  }
 
   .nav-menu {
     overflow-x: auto;
@@ -2082,11 +2050,6 @@ body.about-drawer-open {
     row-gap: 28px;
   }
 
-  .branding-rule {
-    flex-basis: 100%;
-    width: 100%;
-    margin-top: 0;
-  }
 
   .logo-carousel {
     width: 100%;
@@ -2106,10 +2069,6 @@ body.about-drawer-open {
     height: 54px;
   }
 
-  .carousel-bar {
-    width: 216px;
-    height: auto;
-  }
   .branding-section {
     min-height: 760px;
   }
@@ -2177,14 +2136,7 @@ body.about-drawer-open {
     row-gap: 28px;
   }
 
-  .illustration-title-row {
-    align-items: center;
-  }
 
-  .illustration-heading-icon {
-    width: 62px;
-    height: 76px;
-  }
 
   .illustration-section .logos-header p {
     width: 100%;
@@ -2276,10 +2228,6 @@ body.about-drawer-open {
     width: 100%;
   }
 
-  .contact-content h2 {
-    margin-bottom: 44px;
-    font-size: clamp(76px, 20vw, 151px);
-  }
 
   .contact-copy,
   .contact-email {
@@ -2298,15 +2246,7 @@ body.about-drawer-open {
   /* The 900px tier has no Figma artboard — interpolate between the 1512 and 393
      boards. At full desktop size the Boot icon plus its -26px bleed overflows
      this width, so use the mobile icon size and drop the bleed. */
-  .illustration-title-row {
-    margin-left: 0;
-    flex-wrap: wrap;
-  }
 
-  .illustration-heading-icon {
-    width: 91px;
-    height: 134px;
-  }
 
   .illustration-collage {
     width: 100%;
@@ -2383,19 +2323,7 @@ body.about-drawer-open {
   text-decoration: none;
 }
 
-.nixie-social-links svg {
-  display: block;
-  width: 46px;
-  height: 46px;
-}
 
-.nixie-social-links span {
-  color: inherit;
-  font-family: Georgia, 'Times New Roman', serif;
-  font-size: 48px;
-  font-weight: 700;
-  line-height: 1;
-}
 
 
 
@@ -2822,9 +2750,6 @@ body.about-drawer-open {
     height: 34px;
   }
 
-  .carousel-bar {
-    display: none;
-  }
   .branding-section {
     padding-top: 48px;
   }
@@ -2878,12 +2803,6 @@ body.about-drawer-open {
     object-fit: contain;
   }
 
-  .branding-controls {
-    order: 3;
-    width: 100%;
-    margin: 16px 0 18px;
-    justify-content: space-between;
-  }
 
   .branding-progress {
     display: none;
@@ -2942,17 +2861,6 @@ body.about-drawer-open {
     margin: 14px 0 0;
   }
 
-  .posters-description {
-    order: 1;
-    width: 100%;
-    max-width: 330px;
-    margin: 0 0 34px;
-    padding-left: 0;
-    font-size: 16px;
-    font-weight: 300;
-    line-height: 1.22;
-    text-align: justify;
-  }
 
   .posters-grid {
     order: 2;
@@ -2982,20 +2890,11 @@ body.about-drawer-open {
     justify-content: space-between;
   }
 
-  .posters-progress {
-    display: none;
-  }
   .illustration-section {
     padding-top: 48px;
   }
 
-  .illustration-title-row {
-    display: contents;
-  }
 
-  .illustration-title-row h2 {
-    margin-bottom: 22px;
-  }
 
   .illustration-section .logos-header > div {
     display: grid;
@@ -3004,13 +2903,6 @@ body.about-drawer-open {
     align-items: start;
   }
 
-  .illustration-heading-icon {
-    grid-column: 1;
-    grid-row: 2;
-    width: 84px;
-    height: auto;
-    margin-top: 4px;
-  }
 
   .illustration-section .logos-header p {
     grid-column: 2;
@@ -3173,12 +3065,6 @@ body.about-drawer-open {
     margin: 0;
   }
 
-  .contact-content h2 {
-    margin: 0 0 22px;
-    font-size: 64px;
-    line-height: 0.94;
-    letter-spacing: -0.04em;
-  }
 
   .contact-copy,
   .contact-email {
@@ -3246,9 +3132,6 @@ body.about-drawer-open {
     height: 46px;
   }
 
-  .nixie-social-links span {
-    font-size: 48px;
-  }
   .nixie-gallery-link-row .nixie-gallery-link {
     order: 1;
   }
@@ -3464,12 +3347,6 @@ body.about-drawer-open {
   }
 
   /* Figma places the contact heading 5.5px left of the column (x18.5) */
-  .contact-content h2 {
-    font-size: var(--fs-display);
-    line-height: 1;
-    letter-spacing: 0;
-    margin-left: -5px;
-  }
 
   /* Section descriptions — 16 / 19.2 w300 across the full 345 column */
   .logos-header p,
@@ -3565,14 +3442,7 @@ body.about-drawer-open {
   }
 
   /* Illustration — Boot 91 x 134 */
-  .illustration-heading-icon {
-    width: 91px;
-    height: 134px;
-  }
 
-  .illustration-title-row {
-    margin-left: 0;
-  }
 
   /* Nixie — story slide 346 x 364 */
   .nixie-frame {
