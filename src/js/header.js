@@ -212,7 +212,7 @@ const brandingProjects = [
     project: 'Minel',
     industry: 'Fashion',
     slug: 'minel',
-    slideCount: 7,
+    slideCount: 6,
     mobileSlideCount: 10,
     mobileExtensions: { 10: 'png' },
     colors: ['#DFD3B3', '#F8FBF9', '#000000'],

@@ -127,6 +127,24 @@ Hover was `color`, which no longer tints an exported image — it is now a 0.82 
 Instagram and Telegram still point at `href="#"` in both rows. That predates this pass and
 needs real URLs from the design owner.
 
+### 1.5b Nixie description — a knock-on from the heading fix
+
+Aligning the Nixie heading to x218 (§1.2) made it 56px wider, and the title block is a
+flex row — so the rule and the description column moved right with it. Figma's 482-wide
+description then ran **19.3px past** the back-to-index link. Gap from description to Index,
+by section, before the fix: Logos 247, Posters 184, Branding 114, Illustration 32,
+Nixie **-19.3**.
+
+The description is now anchored to the right rather than given a width:
+`width: calc(100% - 118px)`. 118px short of the content column's right edge (1287) is
+exactly where the composite below it ends (211 + 958 = 1169), so the copy and the image
+share a right edge and Index keeps 44px of clearance at any heading width.
+
+A right margin would have been the obvious way to express that and is wrong: the `<=900`
+block resets this element to `width: 100%` but says nothing about margins, so the margin
+survived into the mobile cascade and pushed the page 109px wider than the viewport. A width
+is overridden cleanly by the rule that is already there.
+
 ### 1.6 Background — sticky, and the page fill corrected
 
 Two changes at the design owner's direction. Neither is readable from Figma: a static file
@@ -176,9 +194,33 @@ nav, About, the Portfolio index, the shared Title block, Logos, Branding, Poster
 Illustration and the Contact band all match v2. The three carousel pitches are unchanged:
 Logos 1104.66, Posters 1059.67, Branding 749.
 
-One count correction: `Folio-Branding-Minel` has **7** variants, so Minel is a 7-slide
-project, not 6. The 6-variant `Minel` component set on the page is the *project* switcher
-(six projects), not a slide set — v2 conflated the two.
+### Branding slides — count them on the strip, not the variants
+
+Every branding project has **6** slides. Read that off the auto-layout strip inside a
+variant (`4494 = 6 x 749`, six children), never off the component set's variant count:
+`Folio-Branding-Minel` carries 7 variants over a 6-slide strip, and an earlier pass in this
+file wrongly concluded Minel had 7 slides because of it.
+
+The zip's branding folders do not match the strips and cannot be trusted for this section:
+
+| Project | Zip files | Figma strip | What the zip got wrong |
+|---|---|---|---|
+| Minel | 7 | 6 | one extra |
+| Moji | 5 | 6 | **missing Figma's slide 04**; its files 4-5 are Figma's 5-6 |
+| Shahrzad | 5 | 6 | same shift |
+| Miss-Broccoli | 6 | 6 | count right, but the strip's order by name is 02,04,03,05,01,06 |
+| Curly, Knight | 6 | 6 | count right |
+
+The off-by-one was invisible until it shipped: appending "the missing slide 06" to Moji and
+Shahrzad duplicated what their 5th file already was. Slides 5 and 6 then measured an RMS
+distance of 2.3 and 1.5 on a 32x32 luma fingerprint, where genuinely different slides in the
+same project sit at 38-56.
+
+So all 36 slides are now exported from Figma **in strip order**, not taken from the zip —
+the one place in this pass where the zip is not the source of truth for images. Quality is
+unaffected: a Figma re-export of a slide the zip also had measures RMS 0.0-0.7 against it.
+Verified after the fix: every project has 6 slides at 1498 x 970, all distinct, closest pair
+RMS 38.3.
 
 ## 3. Verified at 1512
 
