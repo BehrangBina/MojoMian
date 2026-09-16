@@ -1,21 +1,20 @@
 {
-  "Desktop": {
-    "file": "spec/desktop.json",
-    "nodes": 574,
-    "texts": 84,
+  "Desktop-Final": {
+    "file": "spec/desktop-final.json",
+    "nodes": 580,
+    "texts": 85,
     "sizes": [
-      150.86,
-      150,
+      116,
       90,
       60,
       35.71,
-      31.31,
       28,
       26.95,
       24,
-      20.4,
       20,
-      18
+      18,
+      16,
+      15.87
     ],
     "weights": [
       300,
@@ -23,14 +22,48 @@
       500
     ],
     "artboards": [
-      "Home-Main 1512x12523",
-      "A selection of branding projects exploring logo design, visual identity, and brand storytelling. Click on each project to discover the full process and explore the complete brand identity. 176x220"
+      "Home-Main 1512x10901",
+      "mojgraphicdesign@gmail.com 313x17",
+      "Etsy 56x56",
+      "Text 213x71"
+    ]
+  },
+  "Desktop Assets": {
+    "file": "spec/desktop-assets.json",
+    "nodes": 4667,
+    "texts": 389,
+    "sizes": [
+      116,
+      90,
+      60,
+      58,
+      35.71,
+      28,
+      24,
+      18,
+      16
+    ],
+    "weights": [
+      300,
+      400,
+      500
+    ],
+    "artboards": [
+      "Logoi-Final 1354x8256",
+      "Nav-Bar 3040x1664",
+      "Typography 1888x1280",
+      "BTN 1093x1280",
+      "Colors 1044x1508",
+      "Logo-Folio-Photos 11072x3680",
+      "Posters 2256x4009",
+      "Icons 1040x1769",
+      "Branding 9376x6256"
     ]
   },
   "Mobile": {
     "file": "spec/mobile.json",
-    "nodes": 3542,
-    "texts": 216,
+    "nodes": 3425,
+    "texts": 180,
     "sizes": [
       64,
       60,
@@ -75,7 +108,6 @@
       "Up 86x248",
       "Portfolio 425x1150",
       "Icon-Burger 82x152",
-      "NavBar 837.5x936",
       "About me 393x852",
       "Logos 387.5x2504"
     ]

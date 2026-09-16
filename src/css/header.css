@@ -1,29 +1,30 @@
-/* ---------------------------------------------------------------------------
-   Design tokens — derived from the Figma file "MojGraphicDesign Final".
-   Desktop artboard: Home-Main, 1512 wide. Mobile artboard: Home, 393 wide.
-   Values are pulled from spec/desktop.json + spec/mobile.json; see
-   spec/audit-desktop.md for the node-by-node derivation.
-   Do not hand-tune these — re-run `node tools/figma-spec.mjs` and update.
-   --------------------------------------------------------------------------- */
 :root {
-  /* Header — Figma "Nav Bar/Default" is 1512 x 328, logo 232 x 134 @ (226, 76) */
+  /* Header — Figma "Nav Bar/Default" is 1512 x 328, logo 232 x 134 @ (226, 76).
+     The sticky bar ("Nav Bar-Desktop") is a separate 86px strip at y242. */
   --header-height: 328px;
   --header-padding: 8px;
-  --nav-height: 70px;
+  --nav-height: 86px;
   --logo-width: 232px;
   --logo-height: 134px;
   --logo-left: 226px;
   --logo-top: 76px;
-  --nav-gap: 100px;
+  --nav-item-width: 135px;   /* label + 58px arrow circle          */
+  --nav-gap: 66px;           /* 765 -> 966 -> 1167, less the width */
+  --nav-arrow: 58.26px;
 
-  /* Palette */
+  /* Palette — Desktop Assets / "Colors" */
   --white: #ffffff;
-  --ink: #414042;
-  --accent: #a3c6cb;
-  --accent-strong: #76acb2;
-  --muted: #c4c4c4;
+  --ink: #414042;            /* Secondary-Grey */
+  --accent: #a3c6cb;         /* Hover          */
+  --accent-strong: #76acb2;  /* Primary-Green  */
+  --accent-dark: #528b94;    /* Green-Dark     */
+  --accent-tint: #f6f9fa;    /* Green-100      */
+  --muted: #c4c4c4;          /* Grey-300       */
   --track: #d9d9d9;
+  --band: #93b2b7;           /* Contact band, "Frame 254"           */
+  --floral: rgba(163, 195, 196, 0.15); /* decorative Floral vectors */
   --shadow: rgba(214, 216, 224, 0.25);
+  --button-shadow: 0 4px 20px rgba(214, 216, 224, 0.25);  /* BTN-Main + BTN-Outline */
 
   /* Layout — Figma content column runs x225 -> x1287 on a 1512 artboard */
   --artboard: 1512px;
@@ -31,45 +32,203 @@
   /* Based on the element box, not 100vw: 100vw includes the scrollbar and
      would shrink the 1062 column by ~15px. */
   --container-gutter: max(24px, calc((100% - var(--container-max)) / 2));
+  /* Section headings sit at x218 — 7px left of the column, so the stroked
+     glyphs optically align to it. */
+  --heading-overhang: 7px;
 
-  /* Type scale — exactly the sizes present in the Figma desktop page */
-  --fs-display: 150px;   /* section headings                */
-  --fs-hero: 90px;       /* hero h1, about h2, portfolio h2 */
-  --fs-index: 60px;      /* portfolio index rows            */
+  /* Type scale — exactly the sizes present in the Figma Desktop-Final page:
+     116, 90, 60, 35.71, 28, 26.95, 24, 20, 18, 16, 15.87 */
+  --fs-display: 116px;   /* H0-Giant-Outline, section headings */
+  --fs-hero: 90px;       /* H1-Title: hero h1, "INDEX:"        */
+  --fs-index: 60px;      /* portfolio index rows               */
   --fs-slide-num: 35.71px;
-  --fs-quote: 31.31px;
   --fs-button: 28px;
   --fs-pill: 26.95px;
-  --fs-body-lg: 24px;    /* section descriptions, nav, panel */
-  --fs-caption: 20.4px;
-  --fs-body: 20px;
-  --fs-body-sm: 18px;
+  --fs-body-lg: 24px;    /* P1-Body / H3-Title / H3-Nav        */
+  --fs-body: 20px;       /* about biography                    */
+  --fs-body-sm: 18px;    /* Caption-Light                      */
+  --fs-desc: 16px;       /* section descriptions, branding copy */
+  --fs-meta: 15.87px;    /* logo card brand meta               */
 
   /* Line heights, as multipliers of the size they pair with */
-  --lh-display: 1.2;     /* 150 -> 180   */
+  --lh-display: 1.2;     /* 116 -> 139.2 */
   --lh-hero: 0.889;      /* 90  -> 80    */
   --lh-body-lg: 1.2;     /* 24  -> 28.8  */
-  --lh-body: 1.2;        /* 20  -> 24    */
+  --lh-body: 1.4;        /* 20  -> 28    */
+  --lh-desc: 1.2;        /* 16  -> 19.2  */
+
+  /* Figma marks the hero, "INDEX:", the nav labels and the branding slide
+     numbers SMALL_CAPS_FORCED. Its small-caps synthesis draws them at 0.823 of
+     the nominal size — measured off Figma's own PNG renders, where the nav caps
+     are 14px not 17, the hero's 53 not 64 and "INDEX:" 51.5 not 63. No CSS
+     font-variant-caps synthesis matches that ratio, so the scale is applied to
+     the size directly and the text stays uppercased. Tracking is NOT scaled:
+     Figma applies letterSpacing in px at the nominal size regardless. */
+  --sc-scale: 0.823;
 
   /* Letter spacing */
   --ls-hero: -4.5px;
   --ls-index-num: -3px;
+  --ls-slide-num: -1.79px;
+
+  /* Outlined type — H0 headings use a 0.754 hairline, the 60px index rows a
+     full 1px. Anything heavier closes up the counters at these sizes. */
+  --stroke-display: 0.75px;
+  --stroke-index: 1px;
+
+  /* Buttons — BTN-Main / BTN-Outline: radius 22, 44 tall as a component and
+     55-56 in use, label 28/11.2 title-case. */
+  --btn-radius: 22px;
+  --btn-height: 44px;
+
+  /* Motion — read off the Desktop-Final prototype (34 interactions on the page).
+     Figma's named curves map onto CSS as below; GENTLE is a spring, so it is
+     approximated with an ease-out cubic over its stated duration. */
+  --ease-in: cubic-bezier(0.42, 0, 1, 1);
+  --ease-out: cubic-bezier(0, 0, 0.58, 1);
+  --ease-in-out: cubic-bezier(0.42, 0, 0.58, 1);
+  --ease-gentle: cubic-bezier(0.33, 1, 0.68, 1);
+
+  --dur-nav-hover: 100ms;    /* About- ON_HOVER  DISSOLVE EASE_OUT */
+  --dur-btn-hover: 300ms;    /* BTN-Main ON_HOVER DISSOLVE LINEAR  */
+  --dur-logo-slide: 800ms;   /* Section-Logo Icon-Next-Logo        */
+  --dur-slide: 350ms;        /* Branding + Posters Icon-Next-Logo  */
+  --dur-project: 800ms;      /* Branding 02-06 SMART_ANIMATE GENTLE  */
 }
+
+
+/* ---------------------------------------------------------------------------
+   Splash preloader — the logo draws itself, then fills.
+   Mirrors the outlined section headings (-webkit-text-stroke) elsewhere on the
+   site. Every path carries pathLength="1", so one dasharray value drives all 16
+   regardless of their real length; --i on each path staggers the draw.
+
+   The overlay dismisses itself with a pure CSS animation (forwards), so a JS
+   error can never strand a visitor on a blank screen. JS only shortens it.
+   --------------------------------------------------------------------------- */
+.preloader {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: grid;
+  place-items: center;
+  background: #f5f7f7;
+  animation: preloader-dismiss 400ms ease 1050ms forwards;
+}
+
+.preloader-logo {
+  width: clamp(150px, 38vw, 232px);
+  height: auto;
+  overflow: visible;
+}
+
+.preloader-logo path {
+  /* keep each path's own fill attribute; animate its opacity instead */
+  fill-opacity: 0;
+  stroke: var(--ink);
+  /* the logo renders around 232px wide, so a hairline vanishes; 1.1 reads
+     clearly while still feeling drawn rather than outlined */
+  stroke-width: 1.1;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation:
+    preloader-draw 700ms ease-out calc(var(--i, 0) * 18ms) forwards,
+    preloader-fill 350ms ease-out 600ms forwards;
+}
+
+@keyframes preloader-draw {
+  to { stroke-dashoffset: 0; }
+}
+
+@keyframes preloader-fill {
+  to { fill-opacity: 1; stroke-opacity: 0; }
+}
+
+@keyframes preloader-dismiss {
+  to { opacity: 0; visibility: hidden; pointer-events: none; }
+}
+
+/* Second visit in the same session: no splash at all, set before first paint. */
+html.no-preload .preloader { display: none; }
+
+/* JS marks this once the window has loaded and the minimum beat has passed. */
+.preloader.is-done {
+  animation: preloader-dismiss 300ms ease forwards;
+}
+
+body.is-preloading {
+  overflow: hidden;
+}
+
+/* Every duration above collapses when the visitor asks for less motion. The
+   scroll animation checks the same query in header.js. */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --dur-nav-hover: 0ms;
+    --dur-btn-hover: 0ms;
+    --dur-logo-slide: 0ms;
+    --dur-slide: 0ms;
+    --dur-project: 0ms;
+  }
+
+  .poster-card {
+    animation: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .preloader { animation: preloader-dismiss 200ms ease 300ms forwards; }
+  .preloader-logo path {
+    stroke-dashoffset: 0;
+    stroke-opacity: 0;
+    fill-opacity: 1;
+    animation: none;
+  }
+}
+
 
 * {
   box-sizing: border-box;
 }
 
+/* Scroll motion is driven in header.js so each anchor keeps the duration and
+   curve the Figma prototype gives it; `smooth` here would override both. */
 html {
-  scroll-behavior: smooth;
+  scroll-behavior: auto;
 }
 
 body {
+  position: relative;
   margin: 0;
   min-height: 100vh;
   color: var(--ink);
-  background: #f5f7f7 url("../img/Background-Blured.jpg") center top / cover fixed no-repeat;
+  /* Figma fills the "Home-Main" artboard Green-100. The white only runs to
+     y2006, and that comes from the "Background" frame in body::before. */
+  background: var(--accent-tint);
   font-family: Barlow, Arial, Helvetica, sans-serif;
+}
+
+/* Figma "Background-Blured": 1512 x 2006 at the page origin, over a white
+   "Background" frame of the same size — the photograph sits behind the header,
+   the hero and the top of About and then stops. Below it the artboard's
+   Green-100 shows, which is body's own background.
+
+   v3: at the design owner's direction the photograph is a page-long sticky
+   backdrop, not the 2006-bounded band Figma draws. The element is pinned to the
+   viewport at the origin, so the image never moves and there is no seam where
+   the old 2006 box used to end. Every section below the header is transparent,
+   so this now reads through all ten of them — that is the intent.
+
+   `position: fixed` rather than `background-attachment: fixed`: it is the same
+   effect, but it composites on its own layer instead of repainting per scroll
+   frame, and iOS Safari honours it (it ignores fixed attachment). */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: var(--white) url("../assets/ui/backgrounds/hero-blur.jpg") center top / cover no-repeat;
+  z-index: -1;
+  pointer-events: none;
 }
 
 button,
@@ -115,6 +274,8 @@ select {
   width: 32px;
   height: auto;
 }
+/* Figma "Nav Bar-Desktop": a 1509 x 86 strip at y242, sitting in the bottom
+   86px of the 328px header on a translucent white. */
 .primary-nav {
   position: absolute;
   left: 0;
@@ -123,7 +284,9 @@ select {
   display: flex;
   align-items: center;
   height: var(--nav-height);
-  background: rgba(255, 255, 255, 0.9);
+  background: rgba(255, 255, 255, 0.8);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
   z-index: 20;
 }
 
@@ -137,23 +300,40 @@ select {
   box-shadow: 0 4px 25px var(--shadow);
 }
 
-
+/* "Nav-Arrtow-UpPage" is a 91 x 86 hit area at x229, but the 32 x 20 glyph sits
+   at its LEFT edge — also x229 — not centred in it, so it lands under the M of
+   the logo above. */
 .back-to-top {
   position: absolute;
-  left: 120px;
-  bottom: 18px;
+  left: calc(var(--container-gutter) + 4px);
+  top: 0;
+  bottom: 0;
   display: grid;
-  place-items: center;
-  width: 36px;
-  height: 36px;
+  align-items: center;
+  justify-items: start;
+  width: 91px;
+  color: var(--ink);
 }
 
-.back-to-top img {
-  width: 36px;
-  height: 36px;
-  object-fit: contain;
+.back-to-top svg {
+  display: block;
+  width: 32px;
+  height: 20px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 4.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: transform 160ms ease;
 }
 
+.back-to-top:hover svg,
+.back-to-top:focus-visible svg {
+  transform: translateY(-3px);
+}
+
+/* Three 135-wide items whose label origins land on x765 / x966 / x1167, so the
+   last box ends at 1302 — 15px past the content column's right edge. */
 .nav-menu {
   display: flex;
   align-items: center;
@@ -161,35 +341,55 @@ select {
   gap: var(--nav-gap);
   width: 100%;
   height: var(--nav-height);
-  /* Figma: the nav row ends on the content column's right edge (x=1287 of 1512) */
-  padding-right: var(--container-gutter);
+  padding-right: calc(var(--container-gutter) - 15px);
 }
 
 .nav-menu a {
   display: inline-flex;
   align-items: center;
-  justify-content: center;
-  min-height: 29px;
+  justify-content: flex-start;
+  width: var(--nav-item-width);
+  height: var(--nav-arrow);
   color: #000000;
-  font-size: var(--fs-body-lg);
+  font-size: calc(var(--fs-body-lg) * var(--sc-scale));
   font-weight: 300;
   line-height: var(--lh-body-lg);
   letter-spacing: 0;
   text-decoration: none;
   text-transform: uppercase;
   white-space: nowrap;
-  transition: color 160ms ease, opacity 160ms ease;
+  transition: color var(--dur-nav-hover) ease;
+}
+
+/* Figma "Arrow-About": a 42 x 42 glyph at x855 — level with the end of the
+   label — rotated -135deg. It is absent from the nav's default state and
+   dissolves in on the hover variant, so it is the thing the hover animates. */
+.nav-arrow {
+  flex: none;
+  /* The 58.26 "Arrow-About" frame, exported with its -135deg rotation baked in,
+     so no CSS transform is needed. It is pulled back over the end of the label
+     so its 22.5px ink seats on Figma's x862.5. */
+  width: 58.26px;
+  height: 58.26px;
+  margin-left: -10px;
+  opacity: 0;
+  transition: opacity var(--dur-nav-hover) ease;
+}
+
+.nav-menu a:hover .nav-arrow,
+.nav-menu a:focus-visible .nav-arrow {
+  opacity: 1;
 }
 
 .nav-menu a:hover,
 .nav-menu a:focus-visible {
-  color: var(--accent);
   outline: none;
 }
 
 .home-section {
   position: relative;
-  min-height: 690px;
+  /* Figma: About starts at y1065, 737 below the 328px header */
+  min-height: 737px;
   padding: 0;
   background: transparent;
 }
@@ -202,8 +402,18 @@ select {
   right: var(--container-gutter);
   display: flex;
   flex-direction: column;
-  gap: 32px;
+  /* Figma: the text frame starts at y391 and the button row at y931. CSS's
+     6 x 80 line boxes run 17px past Figma's 463-tall text node, so 60 lands
+     the buttons on their artboard y. */
+  gap: 60px;
   width: 524px;
+}
+
+/* v3: Figma is back to a single "See My works" button, 214 x 44 at x763 —
+   the v2 "Hire Me" / "Portfolio" pair is gone. */
+.hero-buttons {
+  display: flex;
+  align-items: center;
 }
 
 .home-content h1 {
@@ -211,36 +421,46 @@ select {
   width: 450px;
   margin: 0;
   color: var(--ink);
-  font-size: var(--fs-hero);
+  font-size: calc(var(--fs-hero) * var(--sc-scale));
   font-weight: 400;
   line-height: 80px;
   letter-spacing: var(--ls-hero);
   text-transform: uppercase;
 }
 
+/* Figma "BTN-Main" State=Default: 214 x 44, radius 22, Primary-Green
+   (#76ACB2), label 28 / w300 white with 24px of padding either side
+   ((214 - 166) / 2). v2 had this on Hover green at w600 — both were the
+   Hover variant's values read as if they were the default. */
 .main-button {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 271px;
-  height: 56px;
-  padding: 12px 24px;
-  border-radius: 22px;
+  /* Figma states the component box, so it is pinned rather than left to the
+     label: Chrome sets "See My works" 4.6px narrower than Figma does, which
+     would otherwise make the button 209.4 instead of 214. */
+  width: 214px;
+  height: var(--btn-height);
+  padding: 0 24px;
+  border-radius: var(--btn-radius);
   color: var(--white);
   background: var(--accent-strong);
-  box-shadow: 0 4px 20px rgba(214, 216, 224, 0.25);
+  box-shadow: var(--button-shadow);
   font-size: var(--fs-button);
   font-weight: 300;
   line-height: 1;
   letter-spacing: 0;
   text-decoration: none;
   white-space: nowrap;
-  transition: background 160ms ease, transform 160ms ease;
+  transition: background var(--dur-btn-hover) linear,
+              transform var(--dur-btn-hover) linear;
 }
 
+/* State=Hover is a vertical gradient, dark at the foot — not a flat swap. The
+   handles run bottom-centre to top-centre, so `to top` reproduces it. */
 .main-button:hover,
 .main-button:focus-visible {
-  background: #6da3aa;
+  background: linear-gradient(to top, #257c86 0%, #61a4ac 50%, #9dcbd2 100%);
   outline: none;
   transform: translateY(-1px);
 }
@@ -252,8 +472,10 @@ select {
   grid-template-columns: 413px 521px;
   column-gap: 129px;
   justify-content: start;
-  min-height: 860px;
-  padding: 64px var(--container-gutter) 80px;
+  /* Figma: About runs y1065 -> the Portfolio frame at y2537 */
+  min-height: 1472px;
+  /* the section frame starts at y1065 and the portrait at y1212 */
+  padding: 147px var(--container-gutter) 0;
   background: transparent;
 }
 
@@ -261,33 +483,28 @@ select {
   width: 413px;
 }
 
-/* Figma "Potfolio-Photo" is 521 wide @ x170 — it bleeds left of the column */
+/* Figma "Potfolio-Photo" is 521 wide @ x171.5 — it bleeds left of the column */
 .profile-photo {
   display: block;
   width: 521px;
   max-width: none;
   height: auto;
-  margin: 0 0 38px -55px;
+  margin: 0 0 30px -53.5px;
 }
 
+/* v2 drops the 90px "I'm Mojdeh" heading; the role line carries the column. */
 .about-left h2 {
-  margin: 0 0 14px;
-  color: var(--ink);
-  font-size: var(--fs-hero);
-  font-weight: 400;
-  line-height: 80px;
-  letter-spacing: var(--ls-hero);
-  text-transform: uppercase;
+  display: none;
 }
 
+/* "Graphic Designer & Branding Specialist" — 24 / 28.8 w500, sentence case */
 .about-role {
-  margin: 0 0 14px;
+  margin: 0 0 18px;
   color: var(--ink);
   font-size: var(--fs-body-lg);
   font-weight: 500;
   line-height: var(--lh-body-lg);
   letter-spacing: 0;
-  text-transform: uppercase;
 }
 
 .about-read-more {
@@ -307,6 +524,8 @@ select {
 body.about-drawer-open {
   overflow: hidden;
 }
+/* Figma: the biography is 20 / 28 w300 in a 413 box — v2 opened the leading
+   from 24 to 28. */
 .about-copy {
   width: 413px;
   color: #000000;
@@ -316,14 +535,16 @@ body.about-drawer-open {
 }
 
 .about-copy p {
-  margin: 0 0 4px;
+  margin: 0;
 }
 
+/* Icons are 46 square on a 67px pitch, 60px below Figma's biography block —
+   45 here, since the copy sets one line taller in the browser. */
 .social-links {
   display: flex;
   align-items: center;
-  gap: 16px;
-  margin-top: 32px;
+  gap: 21px;
+  margin-top: 45px;
 }
 
 .social-links a {
@@ -332,14 +553,28 @@ body.about-drawer-open {
   height: 46px;
   color: #a3c6cb;
   text-decoration: none;
-  transition: color 160ms ease, transform 160ms ease;
+  transition: color 160ms ease, opacity 160ms ease, transform 160ms ease;
 }
 
-.social-links svg {
-  display: block;
-  width: 46px;
-  height: 46px;
+/* Figma draws the Instagram glyph 2px wider than the other three discs */
+.social-links a.is-wide {
+  width: 48px;
 }
+
+.social-links img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* The glyphs are exported artwork now, so `color` no longer tints them —
+   opacity carries the hover affordance the colour change used to. */
+.social-links a:hover img,
+.social-links a:focus-visible img {
+  opacity: 0.82;
+}
+
 
 .social-links a:hover,
 .social-links a:focus-visible {
@@ -347,14 +582,15 @@ body.about-drawer-open {
   outline: none;
   transform: translateY(-1px);
 }
-/* Figma "Resume" column: 521 wide, body copy 24/28.8 w300 */
+/* Figma "Resume" column: 521 wide, body copy 24/28.8 w300. It starts at y1664,
+   452px below the portrait's top edge, so the photograph bleeds up past it. */
 .about-panel {
   display: flex;
   flex-direction: column;
-  gap: 28px;
+  gap: 18px;
   max-width: 521px;
-  padding-top: 8px;
-  color: #000000;
+  padding-top: 452px;
+  color: var(--ink);
   font-size: var(--fs-body-lg);
   font-weight: 300;
   line-height: var(--lh-body-lg);
@@ -365,8 +601,8 @@ body.about-drawer-open {
 }
 
 .about-panel h3 {
-  margin: 0 0 12px;
-  color: #000000;
+  margin: 0 0 18px;
+  color: var(--ink);
   font-size: var(--fs-body-lg);
   font-weight: 500;
   line-height: var(--lh-body-lg);
@@ -376,153 +612,194 @@ body.about-drawer-open {
   margin: 0;
 }
 
+/* Figma holds Abilities in one 162-tall text node; six 27px rows match it,
+   which keeps Tools on its own y. */
 .about-panel ul {
   margin: 0;
   padding: 0;
+  line-height: 27px;
   list-style: none;
 }
 
 .pill-list {
   display: flex;
   flex-wrap: wrap;
-  gap: 11px 12px;
+  gap: 12px;
 }
 
+/* Figma "BTN-Outline": 55 tall on a 67px row pitch, radius 22, ink hairline,
+   label 26.95 / 10.8 w300 with 22px of padding either side. */
 .pill-list span {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-height: 56px;
-  padding: 8px 22px 10px;
-  border: 1px solid rgba(0, 0, 0, 0.72);
-  border-radius: 22px;
-  color: rgba(0, 0, 0, 0.64);
+  min-height: 55px;
+  padding: 0 22px;
+  border: 1px solid var(--ink);
+  border-radius: var(--btn-radius);
+  color: var(--ink);
+  box-shadow: var(--button-shadow);
   font-size: var(--fs-pill);
   font-weight: 300;
   line-height: 1;
 }
 .portfolio-section {
   position: relative;
-  min-height: 720px;
+  min-height: 870px;
   overflow: hidden;
   background: transparent;
 }
 
+/* Figma places the 710 x 732 floral at x1154 / y2525 — it runs off the right
+   edge of the artboard, so it is pinned right and clipped by the section. */
 .portfolio-floral {
   position: absolute;
-  left: 0;
-  top: 42px;
-  width: 390px;
+  right: -352px;
+  top: -12px;
+  width: 710px;
   height: auto;
-  opacity: 1;
   pointer-events: none;
 }
 
-/* Figma: "INDEX:" @x223 (w221), list block "Frame 251" @x768 (w352) */
+/* Figma: "INDEX:" @x223 (w221), list block "Frame 251" @x765 (w290).
+   The section frame starts at y2537 and "INDEX:" at y2853. */
 .portfolio-inner {
   position: relative;
   display: grid;
-  grid-template-columns: 221px 352px;
-  column-gap: 324px;
+  grid-template-columns: 221px 290px;
+  column-gap: 321px;
   justify-content: start;
-  align-items: center;
-  min-height: 720px;
-  padding: 80px var(--container-gutter);
+  align-items: start;
+  min-height: 870px;
+  padding: 316px var(--container-gutter) 0;
 }
 
 .portfolio-inner h2 {
   margin: 0;
   color: var(--ink);
-  font-size: var(--fs-hero);
+  font-size: calc(var(--fs-hero) * var(--sc-scale));
   font-weight: 400;
   line-height: 67.41px;
   letter-spacing: var(--ls-hero);
   text-transform: uppercase;
 }
 
-/* Figma: rows pitch 69px; numbers 60/44.94 w400 ls-3, labels 60/72 w300,
-   number column exactly 74 wide with no extra gap (768 -> 842). */
+/* v2 drops the 01-05 counters: the rows are the outlined labels alone,
+   60 / 72 w300 on a 74px pitch. */
 .portfolio-list {
+  display: grid;
+  row-gap: 32px;
   margin: 0;
   padding: 0;
   color: var(--ink);
   font-size: var(--fs-index);
   font-weight: 300;
-  line-height: 72px;
+  line-height: 42px;
   list-style: none;
+}
+
+.portfolio-list {
   counter-reset: portfolio;
 }
 
 .portfolio-list li {
-  display: grid;
-  grid-template-columns: 74px auto;
-  align-items: baseline;
-  column-gap: 0;
-  height: 69px;
   counter-increment: portfolio;
 }
 
+/* v2 desktop has no numbers; the mobile design still does, so the counter is
+   kept and only hidden here. */
 .portfolio-list li::before {
   content: counter(portfolio, decimal-leading-zero);
-  font-weight: 400;
-  line-height: 44.94px;
-  letter-spacing: var(--ls-index-num);
-  color: transparent;
-  -webkit-text-stroke: 1px var(--ink);
+  display: none;
+}
+
+/* The first row sits 85px above the second, not 74 — "Logos" has no descender
+   so Figma's frame for it is 56 tall against the others' 44-46. */
+.portfolio-list li:first-child {
+  margin-bottom: 11px;
 }
 
 .portfolio-list a,
 .portfolio-list span {
   color: transparent;
-  -webkit-text-stroke: 1px var(--ink);
+  -webkit-text-stroke: var(--stroke-index) var(--ink);
   text-decoration: none;
+  transition: color 160ms ease;
+}
+
+.portfolio-list a:hover,
+.portfolio-list a:focus-visible {
+  color: var(--accent);
+  outline: none;
 }
 
 /* Engines without -webkit-text-stroke would render these invisible */
 @supports not (-webkit-text-stroke: 1px black) {
-  .portfolio-list li::before,
   .portfolio-list a,
   .portfolio-list span {
     color: var(--ink);
   }
 }
+/* Each section's heading cap has to land on its Figma y. The cap starts ~28px
+   into a 139.2 line box, so --pad-top is (heading y - section y) - 28. */
 .logos-section {
+  --pad-top: 56px;
   position: relative;
-  min-height: 850px;
-  padding: 56px var(--container-gutter) 76px;
+  min-height: var(--sec-height, 1208px);
+  padding: var(--pad-top) var(--container-gutter) 0;
   background: transparent;
 }
 
+#logos                { --pad-top: 14px; --title-gap: 26.4px; --sec-height: 1296px; }
+.branding-section     { --pad-top: 76px; --title-gap: 16.2px; --sec-height: 1408px; }
+.posters-section      { --pad-top: 81px; --title-gap: 14.5px; --sec-height: 1296px; }
+.illustration-section { --pad-top: 87px; --title-gap: 11.6px; --sec-height: 1160px; }
+.nixie-section        { --pad-top: 63px; --title-gap: 13.9px; --sec-height: 1235px; }
+
+/* ---------------------------------------------------------------------------
+   Figma "Title" — one 1295 x 218 block at x218, repeated by Logos, Branding,
+   Posters, Illustration and Nixie. Outlined heading on the left; to its right a
+   hairline running to x1513 with the description hanging under it; a
+   back-to-index link pinned at x1213.
+   --------------------------------------------------------------------------- */
 .logos-header {
-  display: grid;
-  grid-template-columns: 412px 1fr;
-  align-items: start;
-  column-gap: 24px;
+  display: flex;
+  align-items: flex-start;
+  /* The gap between the stroked heading and the rule is each word's own optical
+     side bearing, so every section carries its own Figma value. */
+  column-gap: var(--title-gap, 16px);
+  /* Figma's "Title" frame is 1295 x 218 in all five sections; fixing the height
+     here means each section's content below it lands on its artboard y. */
+  height: 218px;
+  margin-left: calc(var(--heading-overhang) * -1);
 }
 
-/* Figma: section headings are 150 / 180 (lh 1.2) w300 with no tracking.
-   The CSS had 151 / 0.78 with -0.04em, which crushed them vertically. */
+/* H0-Giant-Outline: 116 / 139.2 w300, no tracking, drawn as a 0.75 hairline */
 .logos-header h2 {
-  margin: 0 0 34px;
+  flex: none;
+  margin: 0;
   color: transparent;
-  -webkit-text-stroke: 1px var(--ink);
+  -webkit-text-stroke: var(--stroke-display) var(--ink);
   font-size: var(--fs-display);
   font-weight: 300;
   line-height: var(--lh-display);
   letter-spacing: 0;
-  /* Optical overhang: Figma places these heading frames ~10px left of the
-     225 column edge so the stroked glyphs align to it. */
-  margin-left: -10px;
+  white-space: nowrap;
 }
 
-/* Figma: every section description is 24 / 28.8 w300 — the CSS had 14 / 1.55 */
+.logos-header-body {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+/* v2 drops the section descriptions from 24 / 28.8 to 16 / 19.2 in a 414 box */
 .logos-header p {
-  width: 412px;
-  margin: 0;
-  color: rgba(65, 64, 66, 0.82);
-  font-size: var(--fs-body-lg);
+  width: 414px;
+  margin: 27px 0 0;
+  color: var(--ink);
+  font-size: var(--fs-desc);
   font-weight: 300;
-  line-height: var(--lh-body-lg);
+  line-height: var(--lh-desc);
 }
 
 @supports not (-webkit-text-stroke: 1px black) {
@@ -531,39 +808,26 @@ body.about-drawer-open {
   }
 }
 
-.logos-rule {
-  display: block;
-  height: 1px;
-  margin-top: 86px;
-  background: var(--ink);
-}
-
-
-.branding-section .logos-header {
-  display: flex;
-  align-items: flex-start;
-  column-gap: 32px;
-}
-
-/* Branding description is 529 wide in Figma; the shared 24/28.8 type now
-   comes from .logos-header p. (This rule previously read `size: 24px`,
-   which is not a CSS property and did nothing.) */
-.logos-header p.section-description {
-  width: 529px;
-}
-
+/* The rule sits on the heading's baseline. With line-height 1.2 the caps start
+   ~28px into the box, so 80px below the cap top is 108px below the box top. */
+.logos-rule,
 .branding-rule {
   display: block;
-  flex: 1 1 auto;
-  min-width: 0;
   height: 1px;
-  margin-top: 86px;
-  background: var(--ink);
+  margin-top: 108px;
+  background: rgba(65, 64, 66, 0.75);
 }
+
+/* Nixie's description runs wider than the shared 414 */
+.nixie-section .logos-header p {
+  width: 482px;
+}
+/* Figma "Icon-Back-To-Index": 52 x 47 at x1213 — 22px inside the content
+   column's right edge, level with the section description. */
 .back-to-index {
   position: absolute;
-  right: var(--container-gutter);
-  top: 160px;
+  right: calc(var(--container-gutter) + 22px);
+  top: calc(var(--pad-top) + 133px);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -571,7 +835,7 @@ body.about-drawer-open {
   width: 52px;
   height: 47px;
   color: var(--ink);
-  font-size: 13px;
+  font-size: var(--fs-body-lg);
   font-weight: 300;
   line-height: 1;
   text-decoration: none;
@@ -580,143 +844,195 @@ body.about-drawer-open {
 
 .back-to-index img {
   display: block;
-  width: 56px;
-  height: auto;
-  margin-bottom: 4px;
-}
-
-.logo-carousel {
-  position: relative;
-  width: 1062px;
-  height: 692px;
-  margin: 72px 0 28px;
-}
-
-.logo-slide {
-  position: absolute;
-  inset: 0;
-  display: grid;
-  place-items: center;
-  margin: 0;
-  opacity: 0;
-  transform: translateX(18px);
-  transition: opacity 220ms ease, transform 220ms ease;
-}
-
-.logo-slide.is-active {
-  opacity: 1;
-  transform: translateX(0);
-}
-
-.logo-slide img {
-  display: block;
-  width: 1062px;
-  height: 692px;
+  width: 30px;
+  height: 30px;
   object-fit: contain;
+  transition: transform 160ms ease;
 }
 
-/* Figma "Slider-Bar-8": 430.44 wide, centred on the artboard (x541 of 1512) */
-.carousel-controls {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  width: 430px;
-  margin: 0 auto;
+/* The 24px label reads 17 tall, which is what closes the 47px frame */
+.back-to-index span {
+  line-height: 17px;
 }
 
-.carousel-button {
+.back-to-index:hover img,
+.back-to-index:focus-visible img {
+  transform: translateY(-3px);
+}
+
+/* ---------------------------------------------------------------------------
+   Shared carousel arrow — Figma "Icon-Next-Logo". A hairline circle around a
+   chevron: 35.7 on Logos and Posters, 53.7 inside a Branding card. Ink while
+   the step exists, Grey-300 once it does not.
+   --------------------------------------------------------------------------- */
+.carousel-arrow {
+  --arrow-size: 35.7px;
   display: inline-grid;
   place-items: center;
-  width: 72px;
-  height: 72px;
+  width: var(--arrow-size);
+  height: var(--arrow-size);
   padding: 0;
-  border: 0;
+  border: 1.49px solid var(--ink);
+  border-radius: 50%;
+  color: var(--ink);
   background: transparent;
   cursor: pointer;
+  transition: color 160ms ease, border-color 160ms ease, background 160ms ease;
 }
 
-.carousel-button:disabled {
+.carousel-arrow svg {
+  display: block;
+  width: 45%;
+  height: 45%;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.carousel-arrow[data-direction="prev"] svg {
+  transform: scaleX(-1);
+}
+
+.carousel-arrow:hover:not(:disabled),
+.carousel-arrow:focus-visible:not(:disabled) {
+  color: var(--white);
+  border-color: var(--accent-strong);
+  background: var(--accent-strong);
+  outline: none;
+}
+
+.carousel-arrow:disabled {
+  color: var(--muted);
+  border-color: var(--muted);
   cursor: default;
 }
 
-.carousel-button img {
-  display: block;
-  width: 72px;
-  height: 72px;
+/* ---------------------------------------------------------------------------
+   Logos — Figma "Folio-Logo": a 1152.26 x 828 viewport that CLIPS a horizontal
+   auto-layout strip ("Folio-Logos", 9 cards of 1057.06 with a 47.6 gap). So the
+   carousel translates the strip by one 1104.66 pitch per step — the slide
+   physically moves, it does not cross-fade. Nothing here carries a shadow:
+   every node in this subtree reports `effects: []`.
+   --------------------------------------------------------------------------- */
+.logo-carousel {
+  position: relative;
+  width: 1152.26px;
+  height: 828px;
+  /* the viewport starts at x180, 45px left of the 1062 content column */
+  margin: 82px 0 0 -45px;
+  overflow: hidden;
 }
 
-.carousel-bar {
-  display: block;
-  width: 288px;
-  height: 19px;
+.logo-track {
+  display: flex;
+  gap: 47.6px;
+  /* the strip is inset by one gap, so card 1 lands on x227.6 inside the
+     x180 viewport and each step of 1104.66 brings the next one to the same x */
+  padding-left: 47.6px;
+  height: 100%;
+  transform: translateX(calc(var(--index, 0) * -1104.66px));
+  transition: transform var(--dur-logo-slide) var(--ease-in-out);
+  will-change: transform;
 }
 
-.branding-section {
-  min-height: 1080px;
-}
-
-/* Figma "Projects": 1064 wide = Project-Info 72 + 32 gap + Frame 231 960 */
-.branding-projects {
+.logo-slide {
+  flex: none;
   display: grid;
-  grid-template-columns: 72px 960px;
-  column-gap: 32px;
-  align-items: start;
-  margin-top: 78px;
+  /* mark column, then the 196 meta column at x745.69, then 115 of padding */
+  grid-template-columns: 520px 196.34px;
+  column-gap: 225.69px;
+  align-items: center;
+  width: 1057.06px;
+  height: 732.8px;
+  /* the card sits 47.6 below the viewport's top edge */
+  margin: 47.6px 0 0;
+  padding-right: 115px;
+  background: var(--white);
 }
 
-.branding-meta {
-  padding-top: 180px;
-  color: var(--ink);
-  font-size: var(--fs-body-sm);
-  font-weight: 300;
-  line-height: 1.2;
-}
-
-.branding-meta p {
-  margin: 0 0 28px;
-}
-
-.branding-meta strong,
-.branding-meta span {
+.logo-mark {
   display: block;
+  justify-self: center;
+  max-width: 310px;
+  max-height: 285px;
+  width: auto;
+  height: auto;
 }
 
-.branding-meta strong {
+/* TAT carries a mark and a separate logotype, stacked */
+.logo-mark-stack {
+  display: grid;
+  justify-items: center;
+  gap: 52px;
+}
+
+.logo-mark-stack img {
+  display: block;
+  max-width: 260px;
+  height: auto;
+}
+
+.logo-meta {
+  align-self: start;
+  padding-top: 240px;
+  color: #000000;
+  font-size: var(--fs-meta);
+  font-weight: 300;
+  line-height: 19.04px;
+}
+
+.logo-meta p {
+  margin: 0;
+}
+
+/* Figma sets "Brand name:" and "Industry:" on Barlow Medium via
+   characterStyleOverrides while the values stay on Light. */
+/* .logo-meta p outranks a bare .logo-brand, so the gap is set at that weight.
+   Figma places each note by eye — y372 on most cards, y326 on IMP, y461 on TAT
+   — so one gap has to serve all nine; 30 puts the long ones on their Figma y
+   and keeps every card clear of the arrows. */
+.logo-meta .logo-brand {
+  margin-bottom: 30px;
+}
+
+.logo-brand strong {
   font-weight: 500;
 }
 
-.branding-swatches {
+/* The arrows sit on the viewport, not the strip, so they do not travel */
+.logo-carousel-controls {
+  position: absolute;
+  left: 789.8px;
+  top: 637.6px;
   display: flex;
-  flex-direction: column;
-  gap: 21px;
-  margin-top: 8px;
+  gap: 131px;
+  z-index: 2;
 }
 
-.branding-swatch {
-  width: 42px;
-  height: 35px;
-  border: 1px solid transparent;
+/* ---------------------------------------------------------------------------
+   Branding — Figma "Minel" (1061 x 780 at x224). The project selector is a
+   465-wide meta row ABOVE a white 1061 x 727 card; the card holds the project
+   copy on the left, the swatch row and slide on the right, and its own arrows.
+   --------------------------------------------------------------------------- */
+.branding-projects {
+  margin-top: 178px;
 }
 
-.branding-swatch.is-light {
-  border-color: rgba(65, 64, 66, 0.72);
-}
-
-.branding-main {
-  width: 960px;
-}
-
+/* "Project": "See more Projects" at x820, the 01-06 buttons at x978 */
 .branding-index {
   display: flex;
   align-items: center;
-  justify-content: flex-end;
-  gap: 22px;
-  min-height: 35px;
-  margin-bottom: 29px;
+  justify-content: flex-start;
+  padding-left: 595px;
+  gap: 15px;
+  height: 25px;
+  margin-bottom: 28px;
   color: var(--ink);
-  font-size: 18px;
+  font-size: var(--fs-body-sm);
   font-weight: 300;
+  line-height: 21.6px;
 }
 
 .branding-index-buttons {
@@ -728,36 +1044,140 @@ body.about-drawer-open {
 .branding-index-button {
   padding: 0;
   border: 0;
-  color: #c4c4c4;
+  color: var(--muted);
   background: transparent;
   font-family: inherit;
-  font-size: 35.71px;
+  font-size: calc(var(--fs-slide-num) * var(--sc-scale));
   font-weight: 500;
-  line-height: 0.75;
-  letter-spacing: -0.05em;
+  line-height: 26.75px;
+  letter-spacing: var(--ls-slide-num);
   cursor: pointer;
+  transition: color 160ms ease;
 }
 
-.branding-index-button.is-active {
-  color: #a3c6cb;
+.branding-index-button.is-active,
+.branding-index-button:hover {
+  color: var(--accent);
+}
+
+/* The card: 53px of padding, a 185 copy column, then the 749 slide column */
+.branding-card {
+  position: relative;
+  display: grid;
+  grid-template-columns: 185px 749px;
+  column-gap: 21px;
+  width: 1061px;
+  height: 727px;
+  padding: 71px 53px 0;
+  background: var(--white);
+}
+
+/* Figma: the project copy is 16 / 19.2 w400 in a 185 box, 117px down the card */
+.branding-description {
+  width: 185px;
+  margin: 117px 0 0;
+  color: var(--ink);
+  font-size: var(--fs-desc);
+  font-weight: 400;
+  line-height: var(--lh-desc);
+}
+
+.branding-main {
+  width: 749px;
+}
+
+/* "Color": a 400-wide row pinned to the slide column's right edge */
+.branding-meta {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 23.68px;
+  height: 25.21px;
+  color: var(--ink);
+  font-size: var(--fs-desc);
+  font-weight: 300;
+  line-height: var(--lh-desc);
+}
+
+.branding-meta p {
+  margin: 0;
+  white-space: nowrap;
+}
+
+.branding-meta strong {
+  font-weight: 300;
+}
+
+.branding-meta span {
+  margin-left: 0.3em;
+}
+
+.branding-swatches {
+  display: flex;
+  gap: 17.57px;
+}
+
+.branding-swatch {
+  width: 32.08px;
+  height: 25.21px;
+  border: 0.76px solid transparent;
+}
+
+.branding-swatch.is-light {
+  border-color: #000000;
+}
+
+/* "Slide-Minel": a 749 x 485 viewport clipping a 749-pitch strip, so stepping
+   a slide translates rather than cross-fades. */
+.branding-frame {
+  position: relative;
+  width: 749px;
+  height: 485px;
+  margin: 32px 0 0;
+  overflow: hidden;
+  background: var(--accent-tint);
+}
+
+.branding-track {
+  display: flex;
+  height: 100%;
+  transform: translateX(calc(var(--index, 0) * -749px));
+  transition: transform var(--dur-slide) var(--ease-in);
+  will-change: transform;
+}
+
+.branding-track img {
+  flex: none;
+  display: block;
+  width: 749px;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Switching project replaces the whole strip, so that one cross-fades on the
+   GENTLE curve instead of sliding. */
+.branding-frame.is-rebuilding .branding-track {
+  transition: none;
 }
 
 .branding-frame {
-  position: relative;
-  display: grid;
-  place-items: center;
-  width: 960px;
-  height: 560px;
-  margin: 0;
-  overflow: hidden;
-  background: rgba(255, 255, 255, 0.48);
+  transition: opacity var(--dur-project) var(--ease-gentle);
 }
 
-.branding-frame img {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+.branding-projects.is-swapping-project .branding-frame {
+  transition: none;
+  opacity: 0;
+}
+
+.branding-meta,
+.branding-description {
+  transition: opacity var(--dur-project) var(--ease-gentle);
+}
+
+.branding-projects.is-swapping-project .branding-meta,
+.branding-projects.is-swapping-project .branding-description {
+  transition: none;
+  opacity: 0;
 }
 
 .branding-frame img.is-missing {
@@ -776,105 +1196,52 @@ body.about-drawer-open {
   display: block;
 }
 
-.branding-controls {
-  width: 960px;
-  margin-top: 26px;
-}
-
-
-.branding-progress {
-  --branding-steps: 6;
-  --branding-active: 0;
-  position: relative;
-  display: block;
-  flex: 0 0 288px;
-  width: 288px;
-  height: 16px;
-}
-
-.branding-progress::before {
-  content: "";
+/* The 53.7 arrows sit inside the card at its slide column's outer edges */
+.branding-arrow {
+  --arrow-size: 53.7px;
   position: absolute;
-  left: 0;
-  right: 0;
-  top: 50%;
-  height: 11px;
-  border-radius: 999px;
-  background: #d9d9d9;
-  transform: translateY(-50%);
+  top: 645px;
+  border-width: 2px;
 }
 
-.branding-progress-thumb {
-  position: absolute;
-  top: 50%;
-  left: calc((100% - 39px) * var(--branding-active) / (var(--branding-steps) - 1));
-  width: 39px;
-  height: 16px;
-  border-radius: 999px;
-  background: #a3c6cb;
-  transform: translateY(-50%);
-  transition: left 180ms ease;
-}
-.branding-description {
-  width: 956px;
-  margin: 28px auto 0;
-  color: var(--ink);
-  text-align: justify;
-  font-size: var(--fs-body-sm);
-  font-weight: 300;
-  line-height: 25px;
-}
+.branding-arrow-prev { left: 259px; }
+.branding-arrow-next { left: 954px; }
 
-.posters-section {
-  min-height: 940px;
-}
-
-.posters-section .logos-header {
-  display: flex;
-  align-items: flex-start;
-  column-gap: 32px;
-}
-
-/* Figma "Posters": 1062 wide = 3 x 334.73 cards with 28.9 gaps */
+/* ---------------------------------------------------------------------------
+   Posters — Figma "Folio Posters". v2 replaces the three-up card grid with one
+   full-bleed 1060 x 706 slide per page and a pair of 35.7 arrows under it.
+   --------------------------------------------------------------------------- */
 .posters-carousel {
-  width: min(100%, var(--container-max));
-  margin: 92px auto 0;
+  position: relative;
+  width: 1060px;
+  max-width: 100%;
+  margin: 58px auto 0;
 }
 
 .posters-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 334.73px);
-  justify-content: center;
-  gap: 28.9px;
-  min-height: 451px;
+  height: 706px;
+  overflow: hidden;
 }
 
-/* Figma: 18 / 25 w300, 1059 wide — this had no type styling at all and fell
-   back to the 16px body default. */
-.posters-description {
-  width: min(100%, 1059px);
-  margin-top: 38px;
-  padding-left: 0;
-  color: rgba(65, 64, 66, 0.82);
-  font-size: var(--fs-body-sm);
-  font-weight: 300;
-  line-height: 25px;
+.posters-track {
+  display: flex;
+  height: 100%;
+  transform: translateX(calc(var(--index, 0) * -1059.67px));
+  transition: transform var(--dur-slide) var(--ease-in);
+  will-change: transform;
 }
+
 .poster-card {
   position: relative;
+  flex: none;
   display: grid;
   place-items: center;
-  width: 334.73px;
-  height: 451px;
+  width: 1059.67px;
+  height: 706px;
   margin: 0;
   overflow: hidden;
-  background: linear-gradient(135deg, #168f96, #9fc4bf);
+  background: var(--accent-tint);
 }
-
-.poster-card:nth-child(2n) {
-  background: linear-gradient(135deg, #91b7b2, #d7e1de);
-}
-
 
 .poster-card img {
   display: block;
@@ -890,6 +1257,7 @@ body.about-drawer-open {
 .poster-card img:not(.is-missing) + .poster-placeholder-sheet {
   display: none;
 }
+
 .poster-placeholder-sheet {
   display: grid;
   place-items: center;
@@ -906,65 +1274,20 @@ body.about-drawer-open {
   text-transform: uppercase;
 }
 
+/* Arrows at x550 and x928 — 323 and 701 into the 1060 slide, 30px below it */
 .posters-controls {
-  width: 100%;
-  margin-top: 26px;
-}
-
-.posters-progress {
-  --branding-steps: 2;
-  --branding-active: 0;
-}
-
-.illustration-section {
-  min-height: 940px;
-}
-
-.illustration-section .logos-header {
   display: flex;
-  align-items: flex-start;
-  column-gap: 32px;
+  gap: 342px;
+  margin: 30px 0 0 323px;
 }
 
-/* Figma: Boot @x199 (26 left of the column), 126 wide, heading starts at 325 —
-   i.e. the icon and heading touch. */
-.illustration-title-row {
-  display: flex;
-  align-items: flex-start;
-  gap: 0;
-  margin-left: -26px;
-}
-
-/* The icon already positions this heading; skip the shared optical offset. */
-.illustration-title-row h2 {
-  margin-left: 0;
-}
-
-/* Figma "Boot": 126 x 187 */
-.illustration-heading-icon {
-  display: block;
-  width: 126px;
-  height: 187px;
-  object-fit: contain;
-  flex: 0 0 auto;
-}
-
-.illustration-heading-icon.is-missing {
-  display: none;
-}
-
-.illustration-section .logos-header p {
-  width: 670px;
-  margin: 16px 0 0 112px;
-  font-size: var(--fs-body-lg);
-  line-height: var(--lh-body-lg);
-}
-
-/* Figma "Frame 252": x251 w1196 — starts 26px right of the column but runs
-   160px past its right edge, so it must escape the gutter. */
+/* v2 moves the Boot into the collage itself, so the Illustration title is the
+   same shape as every other section. Figma "Frame 252" is 956 x 670 at x311 —
+   86px right of the content column, 246px below the heading cap. */
 .illustration-collage {
-  width: min(1196px, calc(100% + 134px));
-  margin: 70px 0 0 26px;
+  width: 956px;
+  max-width: 100%;
+  margin: 56px 0 0 86px;
 }
 
 .illustration-collage img {
@@ -973,21 +1296,311 @@ body.about-drawer-open {
   height: auto;
 }
 
+/* ---------------------------------------------------------------------------
+   Nixie — Figma "Nixie Doll", 1512 x 1188 at y8567. v2 replaces the carousel
+   and gallery with one composed still: a gradient panel, two photographs, a
+   phone mockup, the story copy and the Instagram handle. Every piece keeps its
+   artboard coordinate, so the whole thing is one 1512-wide stage.
+
+   The v1 carousels underneath are kept in the markup and hidden here — they are
+   still what the untouched mobile layout renders.
+   --------------------------------------------------------------------------- */
 .nixie-section {
-  min-height: 860px;
+  overflow: hidden;
 }
 
-.nixie-section .logos-header {
-  display: flex;
-  align-items: flex-start;
-  column-gap: 32px;
+.nixie-collage {
+  position: absolute;
+  left: 50%;
+  top: 328px;
+  width: 1512px;
+  height: 720px;
+  margin-left: -756px;
 }
 
-.nixie-section .logos-header p {
-  width: 643px;
-  margin: 18px 0 0 5px;
+.nixie-piece {
+  position: absolute;
+  display: block;
+  height: auto;
+}
+
+/* v3: Figma "Nixie-Photo-SocialMedia" — 958 x 654 at x211, i.e. the whole
+   composition in one frame. The panel, doll, phone and portrait that used to be
+   placed individually are baked into it, so one coordinate replaces four. */
+.nixie-composite { left: 211px; top: 0; width: 958px; }
+
+.nixie-collage-copy {
+  position: absolute;
+  left: 227px;
+  top: 654px;
+  width: 414px;
+  margin: 0;
+  color: var(--ink);
+  font-size: var(--fs-body-sm);
+  font-weight: 300;
+  line-height: 21.6px;
+}
+
+/* 60px glyph at x883, the handle 24 / 28.8 w500 starting at x945 */
+.nixie-collage-link {
+  position: absolute;
+  left: 883px;
+  top: 637px;
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  color: var(--accent);
   font-size: var(--fs-body-lg);
+  font-weight: 500;
   line-height: var(--lh-body-lg);
+  text-decoration: none;
+  transition: color 160ms ease;
+}
+
+.nixie-collage-link svg {
+  flex: none;
+  width: 60px;
+  height: 60px;
+  padding: 7.5px;
+}
+
+.nixie-collage-link:hover,
+.nixie-collage-link:focus-visible {
+  color: var(--accent-strong);
+  outline: none;
+}
+
+/* v1 blocks: mobile only. Scoped to the section so they win over the v1 rules
+   further down this file. */
+.nixie-section .nixie-carousel,
+.nixie-section .nixie-detail-picture,
+.nixie-section .nixie-gallery-block {
+  display: none;
+}
+
+/* Below the desktop artboard the collage cannot hold its coordinates, so the
+   v1 stack takes over again — this is the layout mobile has always rendered. */
+@media (max-width: 900px) {
+  /* -------------------------------------------------------------------------
+     v2 reset. Everything above this line is the 1512 Desktop-Final artboard and
+     carries its absolute geometry. Release it here so the tablet and mobile
+     rules that follow — which this Figma update did not touch — lay out from
+     scratch rather than fighting fixed pixel sizes.
+     ------------------------------------------------------------------------- */
+  .logos-section {
+    min-height: 0;
+    padding-bottom: 76px;
+  }
+
+  .about-section,
+  .portfolio-section,
+  .contact-section {
+    min-height: 0;
+  }
+
+  .home-section {
+    min-height: 690px;
+  }
+
+  .nav-menu a {
+    width: auto;
+    height: auto;
+  }
+
+  /* The hover arrow is a desktop affordance; the burger overlay has no hover. */
+  .nav-arrow {
+    display: none;
+  }
+
+  .hero-buttons {
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  .about-left h2 {
+    display: block;
+  }
+
+  .about-panel {
+    padding-top: 8px;
+  }
+
+  .about-copy p {
+    margin: 0 0 12px;
+  }
+
+  .logos-header {
+    height: auto;
+    margin-left: 0;
+  }
+
+  .logos-header-body {
+    width: 100%;
+  }
+
+  .portfolio-list {
+    row-gap: 0;
+    line-height: 1;
+  }
+
+  .portfolio-list li {
+    display: grid;
+    grid-template-columns: 1.55em auto;
+    align-items: baseline;
+  }
+
+  .portfolio-list li::before {
+    display: block;
+    font-weight: 400;
+  }
+
+  .portfolio-list li:first-child {
+    margin-bottom: 0;
+  }
+
+  .logo-carousel {
+    width: 100%;
+    height: auto;
+    margin: 48px 0 0;
+  }
+
+  /* Below the artboard the strips cannot hold their artboard pitch, so each
+     one becomes a full-width track and steps by 100% instead. The index comes
+     from the same JS; only the pitch changes. */
+  .logo-track,
+  .branding-track,
+  .posters-track {
+    width: 100%;
+    gap: 0;
+    padding-left: 0;
+    transform: translateX(calc(var(--index, 0) * -100%));
+  }
+
+  .logo-slide,
+  .branding-track img,
+  .poster-card {
+    flex: 0 0 100%;
+    width: 100%;
+  }
+
+  .logo-slide {
+    display: grid;
+    grid-template-columns: 1fr;
+    height: auto;
+    margin: 0;
+    padding: 24px;
+  }
+
+  .logo-meta {
+    padding-top: 24px;
+  }
+
+  .logo-brand {
+    height: auto;
+  }
+
+  .logo-carousel-controls {
+    position: static;
+    justify-content: center;
+    gap: 24px;
+    margin-top: 24px;
+  }
+
+  .branding-projects {
+    margin-top: 48px;
+  }
+
+  .branding-card {
+    display: block;
+    width: 100%;
+    height: auto;
+    padding: 24px;
+  }
+
+  .branding-description,
+  .branding-main,
+  .branding-frame {
+    width: 100%;
+  }
+
+  .branding-description {
+    margin: 24px 0 0;
+  }
+
+  .branding-frame {
+    height: auto;
+    aspect-ratio: 749 / 485;
+  }
+
+  .branding-arrow {
+    position: static;
+  }
+
+  .posters-carousel {
+    width: 100%;
+    margin-top: 48px;
+  }
+
+  .posters-grid,
+  .poster-card {
+    height: auto;
+  }
+
+  .poster-card {
+    aspect-ratio: 1060 / 706;
+  }
+
+  .posters-controls {
+    justify-content: center;
+    gap: 24px;
+    margin: 24px 0 0;
+  }
+
+  .illustration-collage {
+    width: 100%;
+    margin: 48px 0 0;
+  }
+
+  .contact-section {
+    padding: 96px 0 0;
+  }
+
+  .contact-band {
+    min-height: 0;
+    padding-bottom: 96px;
+  }
+
+  .contact-email {
+    display: inline-block;
+  }
+
+  .contact-social-links a,
+  .contact-social-links svg {
+    width: 56px;
+    height: 56px;
+  }
+
+  .contact-footer {
+    position: static;
+    margin-top: 48px;
+  }
+
+  .nixie-collage {
+    display: none;
+  }
+
+  .nixie-section {
+    overflow: visible;
+  }
+
+  .nixie-section .nixie-carousel,
+  .nixie-section .nixie-gallery-block {
+    display: block;
+  }
+
+  .nixie-section .nixie-detail-picture {
+    display: inline;
+  }
 }
 
 .nixie-carousel {
@@ -1169,60 +1782,69 @@ body.about-drawer-open {
   color: #76acb2;
 }
 
-/* Figma "Section-Contact Me": 1100 tall — the heading starts 246 in and the
-   social row clears 252 below it. The 7 <br> pairs that used to pad this out
-   have been removed from index.html. */
+/* ---------------------------------------------------------------------------
+   Contact — Figma "Section-Contact Me", 1512 x 1100 at y9802. The outlined
+   heading sits on the white page; everything under it is a full-bleed
+   #93B2B7 band, 751 tall, carrying white copy, 117px white social discs and
+   the footer rule split around the copyright line.
+   --------------------------------------------------------------------------- */
 .contact-section {
   position: relative;
   min-height: 1100px;
-  overflow: hidden;
-  padding: 246px var(--container-gutter) 252px;
+  padding: 218px 0 0;
   background: transparent;
 }
 
-
-.contact-floral {
-  position: absolute;
-  right: 0;
-  top: -56px;
-  width: min(34vw, 419px);
-  height: 896px;
-  opacity: 1;
-  pointer-events: none;
-  z-index: 0;
-}
-
-/* Figma: contact content is left-aligned on the content column (h2 x219,
-   copy x232, email x230) — not a centred 820px box. */
-.contact-content {
-  position: relative;
-  z-index: 1;
-  width: min(100%, var(--container-max));
-  margin: 0;
-  text-align: left;
-}
-
-.contact-content h2 {
-  margin: 0 0 72px -6px;
+.contact-section h2 {
+  margin: 0 0 0 calc(var(--container-gutter) - var(--heading-overhang));
   color: transparent;
-  -webkit-text-stroke: 1px var(--ink);
+  -webkit-text-stroke: var(--stroke-display) var(--ink);
   font-size: var(--fs-display);
   font-weight: 300;
   line-height: var(--lh-display);
   letter-spacing: 0;
-  text-transform: none;
 }
 
 @supports not (-webkit-text-stroke: 1px black) {
-  .contact-content h2 {
+  .contact-section h2 {
     color: var(--ink);
   }
 }
 
+/* Figma "Frame 254": full bleed, 751 tall, starting 8px into the heading box */
+.contact-band {
+  position: relative;
+  margin-top: -8px;
+  padding: 86px 0 0;
+  min-height: 751px;
+  overflow: hidden;
+  background: var(--band);
+  color: var(--white);
+}
+
+/* v3: Figma moved this. "Floral-Contactme" now clips to the band exactly
+   (1189, 10151, 323 x 750) and the vector inside sits at (1189, 10188) — so
+   37px below the band top, overflowing 387.45 past the 1512 edge. Was
+   (1185, 10150), i.e. 1px above the band. */
+.contact-floral {
+  position: absolute;
+  right: -387px;
+  top: 37px;
+  width: 710px;
+  height: auto;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.contact-content {
+  position: relative;
+  z-index: 1;
+  padding-left: calc(var(--container-gutter) + 7px);
+}
+
 .contact-copy {
   width: min(100%, 623px);
-  margin-left: 7px;
-  color: var(--ink);
+  color: var(--white);
   font-size: var(--fs-body-lg);
   font-weight: 300;
   line-height: var(--lh-body-lg);
@@ -1233,38 +1855,68 @@ body.about-drawer-open {
   margin: 0;
 }
 
+/* v2 carries the address on the Email disc alone; kept for the mobile layout */
 .contact-email {
-  display: inline-block;
-  margin-top: 70px;
-  color: var(--ink);
-  background: transparent;
-  font-size: var(--fs-body-lg);
-  font-weight: 300;
-  line-height: var(--lh-body-lg);
-  letter-spacing: 0;
-  text-decoration: underline;
-  text-underline-offset: 3px;
+  display: none;
 }
 
-.contact-email:hover,
-.contact-email:focus-visible {
-  color: var(--accent-strong);
-  outline: none;
-}
-
+/* "Social-Media" at contact scale: 117 white discs on a 170px pitch, with the
+   glyph itself in Hover green rather than reversed out. */
 .contact-social-links {
   justify-content: flex-start;
-  gap: 28px;
-  margin-top: 72px;
-}
-.placeholder-section {
-  min-height: 72vh;
-  background: transparent;
+  gap: 53px;
+  margin-top: 67px;
 }
 
-.placeholder-section.alt {
-  background: transparent;
+.contact-social-links a,
+.contact-social-links svg {
+  width: 117px;
+  height: 117px;
 }
+
+/* Figma "_Instagram" is 122 x 117 where the other three are 117 square */
+.contact-social-links a.is-wide {
+  width: 122px;
+}
+
+.contact-social-links a {
+  color: var(--accent);
+}
+
+.contact-social-links a:hover,
+.contact-social-links a:focus-visible {
+  color: var(--accent-strong);
+}
+
+/* The rule runs 0 -> 581 and 931 -> 1512, with the copyright in the 350 gap */
+.contact-footer {
+  position: absolute;
+  left: 0;
+  right: 0;
+  /* the rule runs at y10845; the copyright straddles it */
+  top: 683px;
+  display: flex;
+  align-items: center;
+  gap: 21px;
+  z-index: 1;
+}
+
+.contact-footer-rule {
+  flex: 1 1 auto;
+  height: 1px;
+  background: var(--white);
+}
+
+.contact-footer p {
+  flex: none;
+  margin: 0;
+  color: var(--white);
+  font-size: var(--fs-body-sm);
+  font-weight: 300;
+  line-height: 21.6px;
+  white-space: nowrap;
+}
+
 
 @media (max-width: 900px) {
   :root {
@@ -1282,10 +1934,6 @@ body.about-drawer-open {
     height: 28px;
   }
 
-  .back-to-top img {
-    width: 28px;
-    height: 28px;
-  }
 
   .nav-menu {
     overflow-x: auto;
@@ -1320,6 +1968,9 @@ body.about-drawer-open {
   .main-button {
     width: 271px;
     max-width: 100%;
+    /* v3 took --btn-height to 44 for the desktop component. Mobile keeps the
+       height it has always rendered until its own spec lands. */
+    height: 56px;
     font-size: 28px;
   }
 
@@ -1389,18 +2040,16 @@ body.about-drawer-open {
   }
 
   .logos-header h2 {
-    font-size: clamp(92px, 22vw, 151px);
+    /* The longest heading ("Illustrations") sits beside the 91px Boot icon in
+       this tier. At 22vw it rendered 772px wide inside a 737px container and
+       pushed the page sideways; 13.5vw keeps it inside across 521-900px. */
+    font-size: clamp(48px, 13.5vw, 150px);
   }
   .branding-section .logos-header {
     flex-wrap: wrap;
     row-gap: 28px;
   }
 
-  .branding-rule {
-    flex-basis: 100%;
-    width: 100%;
-    margin-top: 0;
-  }
 
   .logo-carousel {
     width: 100%;
@@ -1420,10 +2069,6 @@ body.about-drawer-open {
     height: 54px;
   }
 
-  .carousel-bar {
-    width: 216px;
-    height: auto;
-  }
   .branding-section {
     min-height: 760px;
   }
@@ -1491,14 +2136,7 @@ body.about-drawer-open {
     row-gap: 28px;
   }
 
-  .illustration-title-row {
-    align-items: center;
-  }
 
-  .illustration-heading-icon {
-    width: 62px;
-    height: 76px;
-  }
 
   .illustration-section .logos-header p {
     width: 100%;
@@ -1590,10 +2228,6 @@ body.about-drawer-open {
     width: 100%;
   }
 
-  .contact-content h2 {
-    margin-bottom: 44px;
-    font-size: clamp(76px, 20vw, 151px);
-  }
 
   .contact-copy,
   .contact-email {
@@ -1612,15 +2246,7 @@ body.about-drawer-open {
   /* The 900px tier has no Figma artboard — interpolate between the 1512 and 393
      boards. At full desktop size the Boot icon plus its -26px bleed overflows
      this width, so use the mobile icon size and drop the bleed. */
-  .illustration-title-row {
-    margin-left: 0;
-    flex-wrap: wrap;
-  }
 
-  .illustration-heading-icon {
-    width: 91px;
-    height: 134px;
-  }
 
   .illustration-collage {
     width: 100%;
@@ -1697,19 +2323,7 @@ body.about-drawer-open {
   text-decoration: none;
 }
 
-.nixie-social-links svg {
-  display: block;
-  width: 46px;
-  height: 46px;
-}
 
-.nixie-social-links span {
-  color: inherit;
-  font-family: Georgia, 'Times New Roman', serif;
-  font-size: 48px;
-  font-weight: 700;
-  line-height: 1;
-}
 
 
 
@@ -1774,9 +2388,10 @@ body.about-drawer-open {
     --logo-top: 82px;
   }
 
-  body {
-    background-attachment: scroll;
-  }
+  /* No backdrop override here any more. This used to force
+     `background-attachment: scroll` to dodge iOS Safari's refusal to honour a
+     fixed attachment; body::before is now a `position: fixed` layer, which iOS
+     does honour and which composites instead of repainting per scroll frame. */
 
   .site-header {
     box-shadow: 0 4px 18px rgba(214, 216, 224, 0.2);
@@ -2135,9 +2750,6 @@ body.about-drawer-open {
     height: 34px;
   }
 
-  .carousel-bar {
-    display: none;
-  }
   .branding-section {
     padding-top: 48px;
   }
@@ -2191,12 +2803,6 @@ body.about-drawer-open {
     object-fit: contain;
   }
 
-  .branding-controls {
-    order: 3;
-    width: 100%;
-    margin: 16px 0 18px;
-    justify-content: space-between;
-  }
 
   .branding-progress {
     display: none;
@@ -2255,17 +2861,6 @@ body.about-drawer-open {
     margin: 14px 0 0;
   }
 
-  .posters-description {
-    order: 1;
-    width: 100%;
-    max-width: 330px;
-    margin: 0 0 34px;
-    padding-left: 0;
-    font-size: 16px;
-    font-weight: 300;
-    line-height: 1.22;
-    text-align: justify;
-  }
 
   .posters-grid {
     order: 2;
@@ -2295,20 +2890,11 @@ body.about-drawer-open {
     justify-content: space-between;
   }
 
-  .posters-progress {
-    display: none;
-  }
   .illustration-section {
     padding-top: 48px;
   }
 
-  .illustration-title-row {
-    display: contents;
-  }
 
-  .illustration-title-row h2 {
-    margin-bottom: 22px;
-  }
 
   .illustration-section .logos-header > div {
     display: grid;
@@ -2317,13 +2903,6 @@ body.about-drawer-open {
     align-items: start;
   }
 
-  .illustration-heading-icon {
-    grid-column: 1;
-    grid-row: 2;
-    width: 84px;
-    height: auto;
-    margin-top: 4px;
-  }
 
   .illustration-section .logos-header p {
     grid-column: 2;
@@ -2486,12 +3065,6 @@ body.about-drawer-open {
     margin: 0;
   }
 
-  .contact-content h2 {
-    margin: 0 0 22px;
-    font-size: 64px;
-    line-height: 0.94;
-    letter-spacing: -0.04em;
-  }
 
   .contact-copy,
   .contact-email {
@@ -2559,9 +3132,6 @@ body.about-drawer-open {
     height: 46px;
   }
 
-  .nixie-social-links span {
-    font-size: 48px;
-  }
   .nixie-gallery-link-row .nixie-gallery-link {
     order: 1;
   }
@@ -2777,12 +3347,6 @@ body.about-drawer-open {
   }
 
   /* Figma places the contact heading 5.5px left of the column (x18.5) */
-  .contact-content h2 {
-    font-size: var(--fs-display);
-    line-height: 1;
-    letter-spacing: 0;
-    margin-left: -5px;
-  }
 
   /* Section descriptions — 16 / 19.2 w300 across the full 345 column */
   .logos-header p,
@@ -2878,14 +3442,7 @@ body.about-drawer-open {
   }
 
   /* Illustration — Boot 91 x 134 */
-  .illustration-heading-icon {
-    width: 91px;
-    height: 134px;
-  }
 
-  .illustration-title-row {
-    margin-left: 0;
-  }
 
   /* Nixie — story slide 346 x 364 */
   .nixie-frame {
@@ -2923,4 +3480,112 @@ body.about-drawer-open {
     line-height: 80px;
     letter-spacing: -3px;
   }
+}
+
+/* ===========================================================================
+   v2 carousel tracks below the desktop artboard.
+   The three sliders became translating strips in v2, and the tablet/mobile
+   rules above still size their old card model (e.g. .poster-card at 335px),
+   which breaks a 100%-per-step track. This block is appended after them so the
+   track geometry settles last.
+   =========================================================================== */
+@media (max-width: 900px) {
+  .posters-grid {
+    display: block;
+    min-height: 0;
+    gap: 0;
+  }
+
+  .logo-slide,
+  .branding-track img,
+  .poster-card {
+    flex: 0 0 100%;
+    width: 100%;
+    max-width: none;
+  }
+
+  .branding-frame {
+    height: auto;
+    aspect-ratio: 749 / 485;
+  }
+
+  .branding-track img,
+  .poster-card {
+    height: 100%;
+  }
+}
+
+/* ===========================================================================
+   v2 wrappers below the desktop artboard.
+   The v2 desktop pass introduced three elements the mobile cascade above has
+   never seen — .logo-slide's card layout, .contact-band and .contact-footer.
+   This block is appended last so it settles them without disturbing any of the
+   mobile rules, which this Figma update did not touch.
+   =========================================================================== */
+@media (max-width: 520px) {
+  .logo-carousel {
+    height: auto;
+    margin: 48px 0 24px;
+  }
+
+  .logo-slide {
+    padding: 0;
+  }
+
+  .logo-mark {
+    width: auto;
+    max-width: 100%;
+    height: auto;
+    max-height: 220px;
+  }
+
+  .logo-meta {
+    padding-top: 20px;
+  }
+
+  /* Mobile keeps the plain contact block it has always had, not the band */
+  .contact-band {
+    margin-top: 0;
+    padding: 0;
+    min-height: 0;
+    overflow: visible;
+    background: transparent;
+    color: var(--ink);
+  }
+
+  .contact-content {
+    padding-left: 0;
+  }
+
+  .contact-copy {
+    color: var(--ink);
+  }
+
+  /* v2 drops the plain-text address on desktop; mobile keeps it */
+  .contact-email {
+    display: inline-block;
+  }
+
+  .contact-footer {
+    gap: 12px;
+    margin-top: 40px;
+  }
+
+  .contact-footer-rule {
+    background: var(--muted);
+  }
+
+  .contact-footer p {
+    color: var(--ink);
+    font-size: 13px;
+    white-space: normal;
+  }
+
+  /* The discs go back to a green plate with a white glyph */
+  .contact-social-links a {
+    color: var(--accent);
+  }
+
+  /* Below 520 the discs invert to a green plate with a white glyph, which is
+     the About export — served by <picture> now that these are real assets. */
 }

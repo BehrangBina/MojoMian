@@ -14,20 +14,21 @@ BASE = 'https://mojgraphicdesign.com/'
 
 # (directory, label used in image:title, caption)
 GROUPS = [
-    ('src/Logos', 'Logo design', 'Logo design by Mojdeh'),
-    ('src/Branding', 'Brand identity', 'Brand identity project by Mojdeh'),
-    ('src/Posters', 'Poster illustration', 'Illustrative poster by Mojdeh'),
-    ('src/Nixie-Dolls', 'Character design', 'Nixie Dolls character design by Mojdeh'),
-    ('src/Gallary', 'Illustration', 'Illustration by Mojdeh'),
+    ('src/assets/logos', 'Logo design', 'Logo design by Mojdeh'),
+    ('src/assets/branding', 'Brand identity', 'Brand identity project by Mojdeh'),
+    ('src/assets/posters', 'Poster illustration', 'Illustrative poster by Mojdeh'),
+    ('src/assets/nixie-doll', 'Character design', 'Nixie Dolls character design by Mojdeh'),
 ]
 
 EXTRAS = [
-    ('src/img/Illustrations.png', 'Illustration collection',
+    ('src/assets/illustration/collage.png', 'Illustration collection',
      'Whimsical illustration collection by Mojdeh'),
-    ('src/img/nixie.png', 'Nixie Dolls', 'Nixie Dolls character design by Mojdeh'),
 ]
 
-SKIP_DIRS = ('Bar-Logo',)          # UI sprites, not portfolio work
+# Chrome, swatches and index glyphs are UI, not portfolio work. The desktop
+# images are the canonical ones, so the mobile duplicates stay out too.
+SKIP_DIRS = ('index', 'marks', 'mobile')
+SKIP_FILES = ('brand-colors.png', 'instagram.png')
 EXTS = ('.jpg', '.jpeg', '.png')
 
 
@@ -41,6 +42,8 @@ def collect():
                 continue
             for name in sorted(files):
                 if not name.lower().endswith(EXTS):
+                    continue
+                if name in SKIP_FILES:
                     continue
                 rel = os.path.join(dirpath, name).replace(os.sep, '/')
                 if rel in seen:

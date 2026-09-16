@@ -20,7 +20,7 @@
   <meta property="og:title" content="Mojo Mian | Graphic Designer, Illustrator &amp; UI/UX Designer">
   <meta property="og:description"
     content="Mojo Mian is a Melbourne-based graphic designer, illustrator and UI/UX designer with 15 years of experience in brand identity, logo design, illustration and character design.">
-  <meta property="og:image" content="https://mojgraphicdesign.com/src/img/og-image.jpg">
+  <meta property="og:image" content="https://mojgraphicdesign.com/src/assets/ui/og-image.jpg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta property="og:image:alt" content="Minel brand identity, a logo project by Mojo Graphic Design">
@@ -31,17 +31,28 @@
   <meta name="twitter:title" content="Mojo Mian | Graphic Designer, Illustrator &amp; UI/UX Designer">
   <meta name="twitter:description"
     content="Mojo Mian is a Melbourne-based graphic designer, illustrator and UI/UX designer with 15 years of experience in brand identity, logo design, illustration and character design.">
-  <meta name="twitter:image" content="https://mojgraphicdesign.com/src/img/og-image.jpg">
+  <meta name="twitter:image" content="https://mojgraphicdesign.com/src/assets/ui/og-image.jpg">
   <meta name="twitter:image:alt" content="Minel brand identity, a logo project by Mojo Graphic Design">
 
-  <link rel="icon" href="src/img/Logo.svg" type="image/svg+xml">
-  <link rel="apple-touch-icon" href="src/img/og-image.jpg">
+  <link rel="icon" href="src/assets/ui/logo-mojo.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="src/assets/ui/og-image.jpg">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
-    href="https://fonts.googleapis.com/css2?family=Barlow:wght@300;400;500&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Barlow:wght@300;400;500;600&display=swap"
     rel="stylesheet">
+  <script>
+    // Show the splash once per browsing session only. Runs before first paint,
+    // so a repeat visit never flashes the overlay.
+    try {
+      if (sessionStorage.getItem('mojo-splash-seen')) {
+        document.documentElement.className += ' no-preload';
+      } else {
+        sessionStorage.setItem('mojo-splash-seen', '1');
+      }
+    } catch (e) { /* private mode: just show it */ }
+  </script>
   <link rel="stylesheet" href="src/css/header.css">
 
   <script type="application/ld+json">
@@ -54,7 +65,7 @@
         "name": "Mojo Graphic Design",
         "url": "https://mojgraphicdesign.com/",
         "email": "mojgraphicdesign@gmail.com",
-        "image": "https://mojgraphicdesign.com/src/img/og-image.jpg",
+        "image": "https://mojgraphicdesign.com/src/assets/ui/og-image.jpg",
         "description": "Graphic design, illustration and UI/UX design - brand identity, logo design, character illustration and interface design.",
         "founder": {
           "@id": "https://mojgraphicdesign.com/#mojdeh"
@@ -115,7 +126,7 @@
         ],
         "email": "mojgraphicdesign@gmail.com",
         "url": "https://mojgraphicdesign.com/",
-        "image": "https://mojgraphicdesign.com/src/img/Profile-Photo.png",
+        "image": "https://mojgraphicdesign.com/src/assets/about/portrait.png",
         "hasOccupation": [
           {
             "@type": "Occupation",
@@ -195,24 +206,50 @@
 </head>
 
 <body>
+  <div class="preloader" id="preloader" aria-hidden="true">
+    <svg class="preloader-logo" viewBox="0 0 232 134" xmlns="http://www.w3.org/2000/svg"
+      role="presentation" focusable="false">
+      <g>
+      <path d="M231.678 122.132H219.69C219.575 122.132 219.513 122.069 219.513 121.955V118.503C219.513 117.449 219.814 116.626 220.416 116.01C221.018 115.405 221.828 115.103 222.866 115.103H228.502C229.54 115.103 230.35 115.405 230.952 116.01C231.554 116.615 231.855 117.449 231.855 118.503V121.955C231.855 122.069 231.793 122.132 231.678 122.132ZM230.765 120.797V118.482C230.755 117.835 230.537 117.314 230.121 116.938C229.706 116.563 229.135 116.365 228.398 116.354H222.97C222.243 116.354 221.662 116.542 221.247 116.918C220.821 117.293 220.613 117.814 220.613 118.471V120.787C220.613 120.787 220.634 120.86 220.686 120.86H230.703C230.703 120.86 230.775 120.839 230.775 120.787L230.765 120.797Z" fill="#414042" pathLength="1" style="--i:0"/>
+      <path d="M220.613 98.8757V104.184C220.613 104.184 220.634 104.257 220.686 104.257H225.056C225.056 104.257 225.129 104.236 225.129 104.184V100.607C225.129 100.492 225.191 100.43 225.305 100.43H226.042C226.156 100.43 226.218 100.492 226.218 100.607V104.184C226.218 104.184 226.239 104.257 226.291 104.257H230.703C230.703 104.257 230.775 104.236 230.775 104.184V98.8757C230.775 98.761 230.837 98.6984 230.952 98.6984H231.689C231.803 98.6984 231.865 98.761 231.865 98.8757V105.342C231.865 105.456 231.803 105.519 231.689 105.519H219.7C219.586 105.519 219.523 105.456 219.523 105.342V98.8757C219.523 98.761 219.586 98.6984 219.7 98.6984H220.437C220.551 98.6984 220.613 98.761 220.613 98.8757Z" fill="#414042" pathLength="1" style="--i:1"/>
+      <path d="M231.128 88.9266C230.547 89.5836 229.768 89.9069 228.793 89.9069H228.315C228.201 89.9069 228.139 89.8443 228.139 89.7296V88.864C228.139 88.7493 228.201 88.6867 228.315 88.6867H228.72C229.374 88.6867 229.903 88.4677 230.308 88.0089C230.713 87.55 230.91 86.966 230.91 86.2255C230.91 85.5268 230.723 84.9845 230.35 84.5778C229.976 84.1815 229.478 83.9729 228.865 83.9729C228.471 83.9729 228.118 84.0668 227.827 84.2545C227.537 84.4422 227.267 84.7238 227.018 85.0888C226.769 85.4538 226.457 85.9752 226.083 86.6635C225.699 87.3936 225.357 87.9671 225.056 88.3947C224.765 88.8119 224.402 89.156 223.976 89.4167C223.551 89.6775 223.032 89.8026 222.419 89.8026C221.464 89.8026 220.717 89.5002 220.177 88.8849C219.638 88.2696 219.368 87.4457 219.368 86.4237C219.368 85.3287 219.669 84.4526 220.271 83.806C220.873 83.1595 221.662 82.8362 222.648 82.8362H223.053C223.167 82.8362 223.229 82.8987 223.229 83.0134V83.8999C223.229 84.0146 223.167 84.0772 223.053 84.0772H222.668C222.015 84.0772 221.475 84.2858 221.07 84.7134C220.665 85.1409 220.458 85.7249 220.458 86.4654C220.458 87.1224 220.624 87.6438 220.966 88.0193C221.309 88.3947 221.786 88.5824 222.409 88.5824C222.814 88.5824 223.146 88.499 223.416 88.3217C223.686 88.1444 223.935 87.8837 224.153 87.55C224.371 87.2163 224.672 86.6948 225.056 85.9961C225.502 85.1931 225.876 84.5778 226.187 84.1502C226.499 83.7226 226.862 83.3785 227.267 83.1177C227.672 82.8674 228.17 82.7319 228.761 82.7319C229.748 82.7319 230.536 83.0552 231.118 83.6913C231.699 84.3275 231.99 85.1931 231.99 86.2985C231.99 87.404 231.699 88.2904 231.118 88.9475L231.128 88.9266Z" fill="#414042" pathLength="1" style="--i:2"/>
+      <path d="M231.678 73.3355H219.69C219.575 73.3355 219.513 73.2729 219.513 73.1582V72.2509C219.513 72.1362 219.575 72.0736 219.69 72.0736H231.678C231.793 72.0736 231.855 72.1362 231.855 72.2509V73.1582C231.855 73.2729 231.793 73.3355 231.678 73.3355Z" fill="#414042" pathLength="1" style="--i:3"/>
+      <path d="M231.066 61.4049C230.443 62.062 229.612 62.3853 228.585 62.3853H222.803C221.765 62.3853 220.945 62.062 220.322 61.4049C219.7 60.7479 219.388 59.8823 219.388 58.8082C219.388 58.099 219.534 57.4733 219.814 56.9414C220.094 56.3991 220.488 55.982 220.997 55.6795C221.506 55.3771 222.087 55.2311 222.741 55.2311H223.239C223.353 55.2311 223.416 55.2937 223.416 55.4084V56.3157C223.416 56.4304 223.353 56.493 223.239 56.493H222.741C222.066 56.493 221.526 56.7015 221.111 57.1291C220.696 57.5567 220.488 58.1199 220.488 58.8082C220.488 59.4965 220.696 60.0701 221.111 60.4872C221.526 60.9148 222.087 61.1234 222.782 61.1234H228.637C229.322 61.1234 229.872 60.9044 230.297 60.4768C230.723 60.0492 230.931 59.486 230.931 58.7873C230.931 58.0886 230.733 57.5358 230.329 57.1083C229.934 56.6911 229.384 56.4825 228.709 56.4825H226.789C226.789 56.4825 226.716 56.5034 226.716 56.5555V58.6309C226.716 58.7456 226.654 58.8082 226.54 58.8082H225.803C225.689 58.8082 225.626 58.7456 225.626 58.6309V55.4084C225.626 55.2937 225.689 55.2311 225.803 55.2311H228.554C229.623 55.2311 230.474 55.5544 231.097 56.201C231.719 56.8475 232.031 57.7236 232.031 58.8082C232.031 59.8928 231.719 60.7479 231.097 61.4049H231.066Z" fill="#414042" pathLength="1" style="--i:4"/>
+      <path d="M219.523 39.202V38.2947C219.523 38.1799 219.586 38.1174 219.7 38.1174H231.689C231.803 38.1174 231.865 38.1799 231.865 38.2947V39.2541C231.865 39.3584 231.824 39.4314 231.741 39.4627L222.316 44.2078C222.316 44.2078 222.284 44.2495 222.284 44.2704C222.284 44.2912 222.305 44.3017 222.336 44.3017L231.699 44.2808C231.813 44.2808 231.875 44.3434 231.875 44.4581V45.3654C231.875 45.4801 231.813 45.5427 231.699 45.5427H219.71C219.596 45.5427 219.534 45.4801 219.534 45.3654V44.406C219.534 44.3017 219.575 44.2287 219.658 44.1974L229.125 39.4523C229.125 39.4523 229.156 39.4105 229.156 39.3897C229.156 39.3688 229.135 39.3584 229.104 39.3584L219.71 39.3793C219.596 39.3793 219.534 39.3167 219.534 39.202H219.523Z" fill="#414042" pathLength="1" style="--i:5"/>
+      <path d="M212.641 132.874C211.977 133.572 211.095 133.917 210.005 133.917H203.86C202.76 133.917 201.878 133.572 201.213 132.874C200.549 132.175 200.217 131.257 200.217 130.12C200.217 129.37 200.362 128.702 200.663 128.139C200.964 127.576 201.379 127.127 201.919 126.804C202.459 126.481 203.071 126.324 203.777 126.324H204.296C204.421 126.324 204.483 126.387 204.483 126.512V127.472C204.483 127.597 204.421 127.659 204.296 127.659H203.777C203.061 127.659 202.49 127.889 202.044 128.337C201.597 128.786 201.379 129.38 201.379 130.12C201.379 130.861 201.597 131.455 202.044 131.904C202.49 132.352 203.082 132.582 203.819 132.582H210.036C210.763 132.582 211.344 132.352 211.801 131.893C212.247 131.435 212.475 130.84 212.475 130.1C212.475 129.359 212.257 128.765 211.842 128.316C211.417 127.868 210.846 127.649 210.119 127.649H208.074C208.074 127.649 208.002 127.67 208.002 127.722V129.922C208.002 130.047 207.939 130.11 207.815 130.11H207.026C206.901 130.11 206.839 130.047 206.839 129.922V126.491C206.839 126.366 206.901 126.304 207.026 126.304H209.953C211.095 126.304 211.988 126.648 212.652 127.336C213.316 128.024 213.648 128.952 213.648 130.1C213.648 131.247 213.316 132.165 212.652 132.853L212.641 132.874Z" fill="#414042" pathLength="1" style="--i:6"/>
+      <path d="M213.326 109.774L207.534 112.11C207.534 112.11 207.483 112.152 207.483 112.183V114.613C207.483 114.613 207.503 114.686 207.555 114.686H213.285C213.409 114.686 213.472 114.748 213.472 114.874V115.833C213.472 115.958 213.409 116.021 213.285 116.021H200.538C200.414 116.021 200.352 115.958 200.352 115.833V111.839C200.352 111.182 200.497 110.608 200.798 110.097C201.099 109.586 201.524 109.19 202.075 108.908C202.625 108.627 203.258 108.481 203.964 108.481C204.815 108.481 205.541 108.689 206.133 109.106C206.735 109.524 207.13 110.087 207.337 110.796C207.358 110.848 207.389 110.858 207.431 110.838L213.243 108.408L213.316 108.387C213.42 108.387 213.461 108.439 213.461 108.554V109.555C213.461 109.659 213.409 109.722 213.316 109.763L213.326 109.774ZM201.597 114.686H206.341C206.341 114.686 206.413 114.665 206.413 114.613V112.016C206.413 111.369 206.185 110.838 205.739 110.431C205.292 110.024 204.701 109.826 203.974 109.826C203.248 109.826 202.646 110.024 202.199 110.431C201.753 110.827 201.524 111.359 201.524 112.016V114.613C201.524 114.613 201.545 114.686 201.597 114.686Z" fill="#414042" pathLength="1" style="--i:7"/>
+      <path d="M213.316 91.8988L210.97 92.5245C210.97 92.5245 210.918 92.5662 210.918 92.6184V97.1132C210.918 97.1132 210.939 97.1966 210.97 97.2071L213.316 97.8328C213.43 97.8537 213.482 97.9267 213.482 98.0414V99.0217C213.482 99.0843 213.462 99.1364 213.43 99.1677C213.399 99.199 213.347 99.2094 213.285 99.199L200.539 95.674C200.424 95.6532 200.373 95.5802 200.373 95.4655V94.2557C200.373 94.141 200.424 94.0784 200.539 94.0471L213.285 90.5222L213.337 90.5013C213.441 90.5013 213.482 90.5639 213.482 90.6891V91.6902C213.482 91.8049 213.43 91.8675 213.316 91.8988ZM209.797 96.8838C209.797 96.8838 209.829 96.8421 209.829 96.8212V92.9208C209.829 92.9208 209.829 92.8791 209.797 92.8583C209.777 92.8374 209.766 92.8374 209.746 92.8583L202.21 94.8502C202.21 94.8502 202.168 94.871 202.168 94.8919C202.168 94.9023 202.179 94.9127 202.21 94.9336L209.746 96.9151C209.746 96.9151 209.777 96.9151 209.797 96.9151V96.8838Z" fill="#414042" pathLength="1" style="--i:8"/>
+      <path d="M201.348 74.3992C202.012 73.7735 202.905 73.4711 203.995 73.4711C205.085 73.4711 205.957 73.7839 206.611 74.3992C207.265 75.0145 207.597 75.8384 207.597 76.8396V79.6449C207.597 79.6449 207.617 79.7179 207.669 79.7179H213.295C213.42 79.7179 213.482 79.7805 213.482 79.9057V80.8651C213.482 80.9903 213.42 81.0528 213.295 81.0528H200.538C200.414 81.0528 200.352 80.9903 200.352 80.8651V76.8396C200.352 75.8384 200.684 75.025 201.358 74.3992H201.348ZM205.822 75.4108C205.375 75.0145 204.773 74.806 204.026 74.806C203.279 74.806 202.656 75.0041 202.199 75.4108C201.742 75.8176 201.514 76.3494 201.514 77.0064V79.6449C201.514 79.6449 201.535 79.7179 201.587 79.7179H206.424C206.424 79.7179 206.496 79.6971 206.496 79.6449V77.0064C206.496 76.339 206.268 75.8071 205.822 75.4108Z" fill="#414042" pathLength="1" style="--i:9"/>
+      <path d="M200.362 57.3794V56.42C200.362 56.2948 200.425 56.2322 200.549 56.2322H213.296C213.42 56.2322 213.482 56.2948 213.482 56.42V57.3794C213.482 57.5046 213.42 57.5671 213.296 57.5671H207.566C207.566 57.5671 207.493 57.588 207.493 57.6401V62.3122C207.493 62.3122 207.514 62.3852 207.566 62.3852H213.296C213.42 62.3852 213.482 62.4478 213.482 62.573V63.5324C213.482 63.6576 213.42 63.7201 213.296 63.7201H200.549C200.425 63.7201 200.362 63.6576 200.362 63.5324V62.573C200.362 62.4478 200.425 62.3852 200.549 62.3852H206.248C206.248 62.3852 206.32 62.3644 206.32 62.3122V57.6401C206.32 57.6401 206.3 57.5671 206.248 57.5671H200.549C200.425 57.5671 200.362 57.5046 200.362 57.3794Z" fill="#414042" pathLength="1" style="--i:10"/>
+      <path d="M213.296 45.5948H200.549C200.425 45.5948 200.362 45.5323 200.362 45.4071V44.4477C200.362 44.3225 200.425 44.2599 200.549 44.2599H213.296C213.42 44.2599 213.482 44.3225 213.482 44.4477V45.4071C213.482 45.5323 213.42 45.5948 213.296 45.5948Z" fill="#414042" pathLength="1" style="--i:11"/>
+      <path d="M212.621 32.9134C211.946 33.6121 211.053 33.9562 209.943 33.9562H203.891C202.781 33.9562 201.888 33.6121 201.224 32.9134C200.559 32.2146 200.217 31.2969 200.217 30.1602C200.217 29.0234 200.549 28.0744 201.213 27.3861C201.878 26.6874 202.76 26.3432 203.86 26.3432H204.026C204.151 26.3432 204.213 26.4058 204.213 26.5309L204.255 27.4904C204.255 27.6155 204.203 27.6781 204.088 27.6781H203.829C203.102 27.6781 202.521 27.9075 202.064 28.3664C201.608 28.8253 201.39 29.4197 201.39 30.1602C201.39 30.9006 201.608 31.495 202.054 31.9435C202.5 32.3919 203.092 32.6214 203.829 32.6214H210.047C210.783 32.6214 211.375 32.3919 211.821 31.9435C212.268 31.495 212.486 30.9006 212.486 30.1602C212.486 29.4197 212.257 28.8253 211.811 28.3664C211.365 27.9075 210.773 27.6781 210.047 27.6781H209.787C209.673 27.6781 209.621 27.6155 209.621 27.4904L209.673 26.5309C209.673 26.4058 209.735 26.3432 209.86 26.3432H209.995C211.095 26.3432 211.977 26.6874 212.641 27.3861C213.306 28.0848 213.648 29.013 213.648 30.1602C213.648 31.3073 213.306 32.2251 212.641 32.9134H212.621Z" fill="#414042" pathLength="1" style="--i:12"/>
+      <path d="M64.2719 26.0408C61.542 26.7395 60.6909 28.2934 60.2342 29.6387C53.0617 50.7884 46.3044 71.4792 39.1008 92.6184C39.1008 92.6288 39.1008 92.6393 39.0904 92.6601C38.6129 94.0576 36.6615 94.1097 36.1114 92.7331C34.7205 89.2499 32.7691 84.3483 31.866 82.0749L28.7002 74.0864C22.7421 59.0376 16.7841 43.9888 10.8572 28.9296C9.95418 26.6456 8.49062 25.5715 5.99945 25.5715C3.94424 25.6236 2.14853 26.4371 0.80953 27.8971C0.14522 28.6271 -0.57099 30.035 0.674592 33.4452L19.8669 83.8999C23.6452 93.4319 31.347 112.621 31.347 112.631C32.1152 114.55 34.9696 114.936 36.0284 112.172L56.5389 55.0433C57.0475 53.552 59.7048 45.501 61.4175 40.3387C61.677 39.567 62.8084 39.7547 62.8084 40.5681C62.7772 64.2311 62.4243 104.851 62.4243 105.352C62.4243 110.952 60.2653 112.381 58.8121 113.403C58.0959 113.904 57.2551 114.206 56.3936 114.3C55.7189 114.373 55.5009 115.301 56.103 115.624C58.1789 116.74 61.2099 116.845 63.0679 116.636C67.8114 116.083 73.6449 114.436 73.7695 106.979C74.1743 82.3356 74.5583 58.5057 74.5895 33.8728C74.5895 29.9516 70.4479 24.4764 64.2615 26.0616L64.2719 26.0408Z" fill="#414042" pathLength="1" style="--i:13"/>
+      <path d="M191.052 73.3042L192.214 25.7905H179.634C179.634 30.3166 179.634 44.0409 179.655 48.7652C179.686 64.033 179.706 79.8222 179.478 94.3496C179.405 99.0634 178.617 104.361 177.122 110.076C174.797 119.024 169.7 125.073 161.998 128.035C157.608 129.724 153.207 130.579 148.92 130.579C143.377 130.579 137.907 129.151 132.675 126.314C128.025 123.801 124.579 120.755 121.953 116.803C122.005 116.803 122.057 116.803 122.109 116.803C123.354 116.73 124.403 116.678 125.441 116.532C149.605 113.215 166.919 91.6381 164.853 67.4119C162.86 43.9783 142.941 25.634 119.514 25.634C117.012 25.634 114.49 25.853 112.009 26.2806C88.9036 30.2644 72.6383 51.0074 74.1745 74.5244C75.6277 96.6022 93.9378 115.166 115.87 116.772C116.275 116.803 116.67 116.845 117.137 116.907L117.427 116.938C117.593 117.126 117.811 117.418 118.009 117.668C118.185 117.898 118.351 118.106 118.486 118.263L119.099 118.982C121.102 121.339 123.001 123.571 125.326 125.49C132.063 131.059 140.284 134 149.086 134C161.967 134 174.859 127.659 182.717 117.46C191.415 106.176 191.259 92.8165 191.093 78.6855C191.072 76.9021 191.052 75.098 191.041 73.3146L191.052 73.3042ZM149.46 55.9715C150.466 57.9008 151.214 60.0283 151.297 62.3018C151.297 62.5312 151.276 63.9183 151.276 63.9183C151.276 63.9183 149.605 63.887 149.086 63.9183C144.529 64.2728 140.263 65.128 136.371 66.442C137.689 65.2323 138.665 63.6575 139.101 61.9055C140.055 58.0781 138.561 54.1464 135.488 51.946C136.89 50.8822 138.249 50.2252 139.91 50.2252C143.896 50.3608 147.581 52.3631 149.46 55.9611V55.9715ZM114.791 111.265L114.583 111.234C99.709 108.919 87.0248 88.6137 86.4435 73.3459C86.1114 64.8151 87.9278 56.5034 91.6957 49.3179C94.5294 43.9053 100.726 34.2795 110.338 30.6712C112.954 29.6908 115.767 29.1903 118.704 29.1903C125.43 29.1903 132.364 31.8183 137.73 36.3966C140.595 38.8369 143.086 41.83 145.183 45.3237C143.066 44.1661 140.761 43.509 138.405 43.436H137.896C129.977 43.436 121.237 49.4639 120.842 58.464V58.8707C120.842 58.9958 120.822 59.121 120.811 59.2566C120.728 61.8012 121.652 64.2207 123.417 66.0457C125.181 67.8812 127.558 68.8824 130.101 68.8824C130.278 68.8824 130.454 68.8824 130.631 68.8719C126.987 70.7387 123.832 73.0956 121.289 75.8801C113.13 84.8072 110.463 99.9394 114.781 111.286L114.791 111.265ZM125.223 81.2718C132.021 72.96 142.308 69.4664 151.349 71.4896C155.075 80.0099 153.663 90.8246 146.875 99.1364C140.076 107.448 129.79 110.942 120.749 108.919C117.023 100.398 118.434 89.5836 125.223 81.2718Z" fill="#414042" pathLength="1" style="--i:14"/>
+      <path d="M150.062 1.5956C148.473 8.74977 151.214 16.8947 157.732 22.276C164.251 27.6572 172.731 28.7731 179.405 25.8218C180.994 18.6676 178.253 10.5227 171.735 5.1414C165.216 -0.239876 156.736 -1.35576 150.062 1.5956Z" fill="#A3C6CB" pathLength="1" style="--i:15"/>
+      </g>
+    </svg>
+  </div>
+
   <header class="site-header" id="top">
     <a class="logo-link" href="#top" aria-label="Mojo graphic design home">
-      <img class="logo" src="src/img/Logo.svg" alt="Mojo Graphic Design">
+      <img class="logo" src="src/assets/ui/logo-mojo.svg" alt="Mojo Graphic Design">
     </a>
     <button class="mobile-menu-button" type="button" aria-label="Open menu" aria-expanded="false"
       aria-controls="primary-nav">
-      <img src="src/Mobile/Mobile/Icons/Icon-Burger.png" alt="" width="50" height="52" loading="lazy" decoding="async">
+      <img src="src/assets/mobile/ui/icons/burger.png" alt="" width="50" height="52" loading="lazy" decoding="async">
     </button>
 
     <nav class="primary-nav" id="primary-nav" aria-label="Primary navigation">
       <a class="back-to-top" href="#top" aria-label="Back to top">
-        <img src="src/img/Icon-Up.png" alt="" width="54" height="54" loading="lazy" decoding="async">
+        <svg viewBox="0 0 32 20" aria-hidden="true" focusable="false">
+          <path d="M3 17 16 4l13 13" />
+        </svg>
       </a>
 
       <div class="nav-menu">
-        <a href="#about">About me</a>
-        <a href="#portfolio">Portfolio</a>
-        <a href="#contact">Contact me</a>
+        <a href="#about"><span>About me</span><img class="nav-arrow" src="src/assets/ui/icons/nav-arrow-hover.svg" alt="" aria-hidden="true" width="59" height="59" loading="lazy" decoding="async"></a>
+        <a href="#portfolio"><span>Portfolio</span><img class="nav-arrow" src="src/assets/ui/icons/nav-arrow-hover.svg" alt="" aria-hidden="true" width="59" height="59" loading="lazy" decoding="async"></a>
+        <a href="#contact"><span>Contact me</span><img class="nav-arrow" src="src/assets/ui/icons/nav-arrow-hover.svg" alt="" aria-hidden="true" width="59" height="59" loading="lazy" decoding="async"></a>
       </div>
     </nav>
   </header>
@@ -221,65 +258,51 @@
     <section class="home-section" aria-labelledby="home-title">
       <div class="home-content">
         <h1 id="home-title">Strategic Branding. Timeless Design. Lasting Impact.</h1>
-        <a class="main-button" href="#portfolio">See My Works</a>
+        <div class="hero-buttons">
+          <a class="main-button" href="#portfolio">See My works</a>
+        </div>
       </div>
     </section>
 
     <section id="about" class="about-section">
       <div class="about-left">
         <picture class="profile-picture">
-          <source media="(max-width: 520px)" srcset="src/Mobile/Mobile/About-Me-Section/Profile-Photo.png"><img
-            class="profile-photo" src="src/img/Profile-Photo.png" alt="Mojdeh portrait" width="521" height="417" loading="lazy" decoding="async">
+          <source media="(max-width: 520px)" srcset="src/assets/mobile/about/portrait.png"><img
+            class="profile-photo" src="src/assets/about/portrait.png" alt="Mojdeh portrait" width="521" height="417" loading="lazy" decoding="async">
         </picture>
         <h2>I&rsquo;m Mojdeh</h2>
-        <p class="about-role">Graphic Designer<br><br>Illustrator<br><br>UI/UX Designer</p>
-        <br />
+        <p class="about-role">Graphic Designer &amp; Branding Specialist</p>
         <button class="about-read-more" type="button" data-about-open>Click to read more</button>
         <div class="about-copy">
-          <p>I&rsquo;m Mojdeh, but you can call me Mojo.<br>I&rsquo;m a graphic designer with 15 years of professional
-            experience and a university degree in Graphic Design. I specialise in logo design and branding, creating
-            visual identities that are simple, thoughtful, and built to last.</p>
-          <p>One of the things I value most is understanding the people I work with. Every business has its own story,
-            goals, and audience, so I take the time to listen before I start designing. Whether you&rsquo;re looking for
-            something bold and playful or clean, minimal, and premium, I shape each project around what feels right for
-            your brand.</p>
-          <p>I believe good design is more than making something look beautiful. It should solve problems, build trust,
-            and leave a lasting impression. I always respect the brief, while bringing the experience and perspective
-            needed to help clients make confident design decisions.</p>
+          <p>I&rsquo;m Mojdeh, but you can call me Mojo. I&rsquo;m a graphic designer with 15 years of professional
+            experience, with a strong focus on logo design and brand identity. I create thoughtful, distinctive visual
+            identities that are simple, considered, and built to last. For me, good design starts with understanding the
+            people behind the business.</p>
+          <p>Every brand has its own story, goals, personality, and audience, so I take the time to listen, ask the right
+            questions, and understand what makes each business unique before I begin designing. My style can adapt to the
+            brand and its audience, from bold and playful to clean, minimal, and premium. I don&rsquo;t believe in using
+            the same approach for every project. Instead, I develop each identity around what feels right for the brand
+            and what it needs to communicate.</p>
+          <p>I believe good design is about more than looking beautiful. It should have a clear purpose, solve problems,
+            build trust, and make a lasting impression. I respect the brief, bring my experience to the table, and work
+            closely with my clients to create design that feels both considered and true to their brand.</p>
         </div>
         <div class="social-links" aria-label="Social links">
-          <a href="mailto:mojgraphicdesign@gmail.com" aria-label="Email"><svg viewBox="0 0 46 46" aria-hidden="true"
-              focusable="false">
-              <circle cx="23" cy="23" r="23" fill="currentColor" />
-              <path d="M11.5 15h23v16h-23V15Zm2.9 3.1 8.6 6.2 8.6-6.2H14.4Zm17.2 10V21.6L23 27.8l-8.6-6.2v6.5h17.2Z"
-                fill="#fff" />
-            </svg></a>
-          <a href="https://www.linkedin.com/in/mojdesign/" aria-label="LinkedIn" rel="me noopener" target="_blank"><svg viewBox="0 0 46 46" aria-hidden="true" focusable="false">
-              <circle cx="23" cy="23" r="23" fill="currentColor" />
-              <circle cx="14.5" cy="15.5" r="2.6" fill="#fff" />
-              <rect x="12" y="19.5" width="5" height="13.5" fill="#fff" />
-              <path
-                d="M19.5 19.5h4.8v1.85h.07c.67-1.2 2.3-2.2 4.3-2.2 4.6 0 5.45 2.85 5.45 6.55V33h-5v-6.4c0-1.53-.03-3.5-2.13-3.5-2.13 0-2.46 1.66-2.46 3.38V33h-5z"
-                fill="#fff" />
-            </svg></a>
-          <a href="#" aria-label="Instagram"><svg viewBox="0 0 46 46" aria-hidden="true" focusable="false">
-              <circle cx="23" cy="23" r="23" fill="currentColor" />
-              <rect x="12.5" y="12.5" width="21" height="21" rx="6.2" fill="none" stroke="#fff" stroke-width="3" />
-              <circle cx="23" cy="23" r="5.5" fill="none" stroke="#fff" stroke-width="3" />
-              <circle cx="29.5" cy="16.6" r="1.9" fill="#fff" />
-            </svg></a>
-          <a href="#" aria-label="Telegram"><svg viewBox="0 0 46 46" aria-hidden="true" focusable="false">
-              <circle cx="23" cy="23" r="23" fill="currentColor" />
-              <path
-                d="M34.76 13.88 29.9 36.75c-.33 1.46-1.2 1.81-2.43 1.13l-7.4-5.45-3.57 3.44c-.4.4-.72.72-1.48.72l.53-7.54 13.73-12.4c.6-.53-.13-.82-.92-.29L11.39 27.04 4.08 24.75c-1.59-.5-1.62-1.59.33-2.35l28.56-11c1.33-.49 2.49.31 1.79 2.48Z"
-                fill="#fff" />
-            </svg></a>
-          <a href="https://au.pinterest.com/mojodesigncollection/" aria-label="Pinterest" rel="me noopener" target="_blank"><svg viewBox="0 0 46 46" aria-hidden="true" focusable="false">
-              <circle cx="23" cy="23" r="23" fill="currentColor" />
-              <path
-                d="M23.2 9.8c-7.5 0-11.3 5.4-11.3 9.9 0 2.7 1 5.1 3.2 6 .36.15.69 0 .79-.39.07-.27.25-.96.33-1.25.11-.39.07-.53-.22-.87-.62-.73-1.02-1.68-1.02-3.02 0-4 3-7.58 7.82-7.58 4.26 0 6.6 2.6 6.6 6.08 0 4.58-2.03 8.44-5.04 8.44-1.66 0-2.9-1.37-2.5-3.05.48-2.01 1.41-4.18 1.41-5.63 0-1.3-.7-2.38-2.14-2.38-1.7 0-3.06 1.76-3.06 4.11 0 1.5.51 2.51.51 2.51l-2.06 8.73c-.61 2.59-.09 5.76-.05 6.08.02.19.27.24.38.09.16-.21 2.22-2.75 2.92-5.29.2-.72 1.14-4.46 1.14-4.46.56 1.08 2.21 2.03 3.96 2.03 5.21 0 8.75-4.75 8.75-11.11 0-4.81-4.07-9.29-10.43-9.29Z"
-                fill="#fff" />
-            </svg></a>
+          <!-- Figma "Social-Media" (3343:3304): four 46 discs on a 67px pitch at
+               (223, 2451). About reverses Contact's colours — #A3C6CB disc,
+               white glyph — so it uses its own exported set. -->
+          <a href="mailto:mojgraphicdesign@gmail.com" aria-label="Email"><img
+              src="src/assets/about/icons/email.svg" alt="" width="46" height="46" loading="lazy"
+              decoding="async"></a>
+          <a class="is-wide" href="#" aria-label="Instagram"><img
+              src="src/assets/about/icons/instagram.svg" alt="" width="48" height="46" loading="lazy"
+              decoding="async"></a>
+          <a href="#" aria-label="Telegram"><img
+              src="src/assets/about/icons/telegram.svg" alt="" width="46" height="46" loading="lazy"
+              decoding="async"></a>
+          <a href="https://au.pinterest.com/mojodesigncollection/" aria-label="Pinterest" rel="me noopener"
+            target="_blank"><img src="src/assets/about/icons/pinterest.svg" alt="" width="46" height="46"
+              loading="lazy" decoding="async"></a>
         </div>
       </div>
 
@@ -346,7 +369,7 @@
       </div>
     </div>
     <section id="portfolio" class="portfolio-section">
-      <img class="portfolio-floral" src="src/img/Floral.png" alt="" aria-hidden="true" width="443" height="733" loading="lazy" decoding="async">
+      <img class="portfolio-floral" src="src/assets/ui/floral.svg" alt="" aria-hidden="true" width="711" height="733" loading="lazy" decoding="async">
       <div class="portfolio-inner">
         <h2>Index:</h2>
         <ol class="portfolio-list">
@@ -360,174 +383,227 @@
     </section>
     <section id="logos" class="logos-section" aria-labelledby="logos-title">
       <div class="logos-header">
-        <div>
-          <h2 id="logos-title">Logos</h2>
-          <p>A selection of final logo designs created for different projects, with a focus on simplicity, balance, and
-            creating memorable visual identities.</p>
+        <h2 id="logos-title">Logos</h2>
+        <div class="logos-header-body">
+          <span class="logos-rule" aria-hidden="true"></span>
+          <p>A selection of final logo designs that showcase my approach to creating distinctive and memorable
+            identities. Each logo is carefully considered in terms of concept, typography, shape, balance, and visual
+            simplicity, with a focus on creating marks that are clear, versatile, and suited to the brand they
+            represent.</p>
         </div>
-        <span class="logos-rule" aria-hidden="true"></span>
       </div>
       <a class="back-to-index" href="#portfolio" aria-label="Back to portfolio index">
-        <img src="src/img/Icon-Back-To-Index.png" alt="" width="53" height="48" loading="lazy" decoding="async">
-        
+        <img src="src/assets/ui/icons/angle-up.svg" alt="" width="30" height="30" loading="lazy" decoding="async">
+        <span>Index</span>
       </a>
 
       <div class="logo-carousel" data-logo-carousel>
+        <div class="logo-track" data-logo-track>
         <figure class="logo-slide is-active">
-          <img src="src/Logos/Logo-Curly.jpg" alt="Curly logo design" width="1062" height="692" loading="lazy" decoding="async">
+          <img class="logo-mark" src="src/assets/logos/marks/curly.svg" width="304" height="245" alt="Curly logo mark" loading="lazy" decoding="async">
+          <figcaption class="logo-meta">
+            <p class="logo-brand"><strong>Brand name:</strong> CURLY<br><strong>Industry:</strong> Contemporary Jewellery</p>
+            <p class="logo-note">A custom Farsi logotype designed to reflect the brand&rsquo;s feminine, elegant, and distinctive character, with soft, flowing forms that echo the delicate nature of jewellery.</p>
+          </figcaption>
         </figure>
         <figure class="logo-slide">
-          <img src="src/Logos/Logo-Dornik.jpg" alt="Dornik logo design" width="1062" height="692" loading="lazy" decoding="async">
+          <img class="logo-mark" src="src/assets/logos/marks/minel.svg" width="299" height="138" alt="Minel logo mark" loading="lazy" decoding="async">
+          <figcaption class="logo-meta">
+            <p class="logo-brand"><strong>Brand name:</strong> MINEL<br><strong>Industry:</strong> Fashion</p>
+            <p class="logo-note">Minimal logotype designed for a contemporary fashion brand, with a clean and refined visual approach.</p>
+          </figcaption>
         </figure>
         <figure class="logo-slide">
-          <img src="src/Logos/Logo-Mahsa.jpg" alt="Mahsa logo design" width="1062" height="692" loading="lazy" decoding="async">
+          <img class="logo-mark" src="src/assets/logos/marks/shahpasand.svg" width="271" height="253" alt="Shah Pasand logo mark" loading="lazy" decoding="async">
+          <figcaption class="logo-meta">
+            <p class="logo-brand"><strong>Brand name:</strong> SHAH PASAND<br><strong>Industry:</strong> Jewellery and accessories</p>
+            <p class="logo-note">Contemporary jewellery and accessories inspired by Persian art, history and heritage.</p>
+          </figcaption>
         </figure>
         <figure class="logo-slide">
-          <img src="src/Logos/Logo-Minel.jpg" alt="Minel logo design" width="1062" height="692" loading="lazy" decoding="async">
+          <img class="logo-mark" src="src/assets/logos/marks/rfi.svg" width="271" height="232" alt="Rise for Iran logo mark" loading="lazy" decoding="async">
+          <figcaption class="logo-meta">
+            <p class="logo-brand"><strong>Brand name:</strong> RFI<br><strong>Industry:</strong> Human Rights &amp; Iranian Patriotism</p>
+            <p class="logo-note">Rise for Iran, logo is based on the ancient Persian Huma Bird, simplified into a clean and distinctive mark. The upward movement of the bird represents rising, hope, and progress, while its Persian roots connect the design to Iranian heritage, identity, and the spirit of Iran.</p>
+          </figcaption>
         </figure>
         <figure class="logo-slide">
-          <img src="src/Logos/Logo-Rise.jpg" alt="Rise logo design" width="1062" height="692" loading="lazy" decoding="async">
+          <img class="logo-mark" src="src/assets/logos/marks/mahsa.svg" width="273" height="231" alt="Mahsa logo mark" loading="lazy" decoding="async">
+          <figcaption class="logo-meta">
+            <p class="logo-brand"><strong>Brand name:</strong> MAHSA<br><strong>Industry:</strong> Arts &amp; Culture</p>
+            <p class="logo-note">Custom logotype designed for a playwriting festival in memory of Mahsa Amini.</p>
+          </figcaption>
         </figure>
         <figure class="logo-slide">
-          <img src="src/Logos/Logo-ShahPasand.jpg" alt="ShahPasand logo design" width="1062" height="692" loading="lazy" decoding="async">
+          <span class="logo-mark logo-mark-stack"><img src="src/assets/logos/marks/tat.svg" width="251" height="144" alt="TAT System logo mark" loading="lazy" decoding="async"><img src="src/assets/logos/marks/tat-type.svg" width="171" height="137" alt="" aria-hidden="true" loading="lazy" decoding="async"></span>
+          <figcaption class="logo-meta">
+            <p class="logo-brand"><strong>Brand name:</strong> TAT SYSTEM<br><strong>Industry:</strong> Office Furniture</p>
+            <p class="logo-note">Logo design inspired by the shape of a chair, paired with custom Persian and English logotypes to create a distinctive identity.</p>
+          </figcaption>
         </figure>
         <figure class="logo-slide">
-          <img src="src/Logos/Logo-Shahrzad.jpg" alt="Shahrzad logo design" width="1062" height="692" loading="lazy" decoding="async">
+          <img class="logo-mark" src="src/assets/logos/marks/imp.svg" width="278" height="282" alt="IMP logo mark" loading="lazy" decoding="async">
+          <figcaption class="logo-meta">
+            <p class="logo-brand"><strong>Brand name:</strong> IMP<br><strong>Industry:</strong> Political Organisation</p>
+            <p class="logo-note">The logo draws from Iran&rsquo;s rich monarchical heritage, combining the historic Lion and Sun emblem with the Pahlavi Crown to create a strong connection to the country&rsquo;s royal history. Traditional Iranian motifs are woven into the design, adding cultural depth while giving the identity a classic, dignified, and enduring character.</p>
+          </figcaption>
         </figure>
         <figure class="logo-slide">
-          <img src="src/Logos/Logo-Tat.jpg" alt="Tat logo design" width="1062" height="692" loading="lazy" decoding="async">
+          <img class="logo-mark" src="src/assets/logos/marks/dornik.svg" width="308" height="115" alt="Dornik logo mark" loading="lazy" decoding="async">
+          <figcaption class="logo-meta">
+            <p class="logo-brand"><strong>Brand name:</strong> DORNIK<br><strong>Industry:</strong> Security &amp; Surveillance</p>
+            <p class="logo-note">Custom logotype designed to establish a distinctive, modern, and recognisable brand identity.</p>
+          </figcaption>
         </figure>
-      </div>
+        <figure class="logo-slide">
+          <img class="logo-mark" src="src/assets/logos/marks/shahrzad.svg" width="227" height="256" alt="Shahrzad logo mark" loading="lazy" decoding="async">
+          <figcaption class="logo-meta">
+            <p class="logo-brand"><strong>Brand name:</strong> SHAHRZAD<br><strong>Industry:</strong> Social Enterprise, Women&rsquo;s Empowerment &amp; Community Development</p>
+            <p class="logo-note">The organisation supports migrant women in turning their creative skills and handmade work into employment and income.</p>
+          </figcaption>
+        </figure>
+        </div>
 
-      <div class="carousel-controls" aria-label="Logo carousel controls">
-        <button class="carousel-button" type="button" data-carousel-prev aria-label="Previous logo">
-          <img src="src/Logos/Bar-Logo/Arrow-Lef-inactive.png" alt="" width="72" height="72" loading="lazy" decoding="async">
-        </button>
-        <img class="carousel-bar" src="src/Logos/Bar-Logo/01.png" alt="Slide 1 of 8" data-carousel-bar width="288" height="19" loading="lazy" decoding="async">
-        <button class="carousel-button" type="button" data-carousel-next aria-label="Next logo">
-          <img src="src/Logos/Bar-Logo/Arrow-Right-Active.png" alt="" width="72" height="72" loading="lazy" decoding="async">
-        </button>
+        <div class="logo-carousel-controls" aria-label="Logo carousel controls">
+          <button class="carousel-arrow" type="button" data-direction="prev" data-carousel-prev
+            aria-label="Previous logo"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m9 5 7 7-7 7" /></svg></button>
+          <button class="carousel-arrow" type="button" data-direction="next" data-carousel-next
+            aria-label="Next logo"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m9 5 7 7-7 7" /></svg></button>
+        </div>
       </div>
     </section>
     <section id="branding" class="logos-section branding-section" aria-labelledby="branding-title">
       <div class="logos-header">
-        <div>
-          <h2 id="branding-title">Branding</h2>
-          <p class="section-description">A selection of 6 branding projects. Click on each project to discover the full process and explore the
-            complete brand identity.</p>
+        <h2 id="branding-title">Branding</h2>
+        <div class="logos-header-body">
+          <span class="logos-rule" aria-hidden="true"></span>
+          <p>A strong brand identity starts with understanding the brand&rsquo;s personality, tone, values, and
+            audience. I create visual identities that capture the right feel for each brand, from the core concept and
+            visual language to the brand guidelines that keep everything clear and consistent across different
+            applications.</p>
         </div>
-        <span class="branding-rule" aria-hidden="true"></span>
       </div>
       <a class="back-to-index" href="#portfolio" aria-label="Back to portfolio index">
-        <img src="src/img/Icon-Back-To-Index.png" alt="" width="53" height="48" loading="lazy" decoding="async">
-        
+        <img src="src/assets/ui/icons/angle-up.svg" alt="" width="30" height="30" loading="lazy" decoding="async">
+        <span>Index</span>
       </a>
 
       <div class="branding-projects" data-branding-carousel>
-        <aside class="branding-meta" aria-live="polite">
-          <p><strong>Project :</strong><span data-branding-project></span></p>
-          <p><strong>Industry:</strong><span data-branding-industry></span></p>
-          <div class="branding-swatches" data-branding-swatches aria-label="Brand colors"></div>
-        </aside>
+        <div class="branding-index" aria-label="Branding project selector">
+          <span>See more Projects</span>
+          <div class="branding-index-buttons" data-branding-index></div>
+        </div>
 
-        <div class="branding-main">
-          <div class="branding-index" aria-label="Branding project selector">
-            <span>See more Projects</span>
-            <div class="branding-index-buttons" data-branding-index></div>
-          </div>
-
-          <figure class="branding-frame">
-            <img data-branding-image alt="">
-            <figcaption class="branding-image-fallback" data-branding-fallback>Branding image pending</figcaption>
-          </figure>
-
-          <div class="carousel-controls branding-controls" aria-label="Branding carousel controls">
-            <button class="carousel-button" type="button" data-branding-prev aria-label="Previous branding project">
-              <img src="src/Logos/Bar-Logo/Arrow-Lef-inactive.png" alt="" width="72" height="72" loading="lazy" decoding="async">
-            </button>
-            <span class="branding-progress" data-branding-bar role="img" aria-label="Slide 1 of 6"><span
-                class="branding-progress-thumb" aria-hidden="true"></span></span>
-            <button class="carousel-button" type="button" data-branding-next aria-label="Next branding project">
-              <img src="src/Logos/Bar-Logo/Arrow-Right-Active.png" alt="" width="72" height="72" loading="lazy" decoding="async">
-            </button>
-          </div>
-
+        <div class="branding-card">
           <p class="branding-description" data-branding-description></p>
+
+          <div class="branding-main">
+            <aside class="branding-meta" aria-live="polite">
+              <p><strong>Project :</strong><span data-branding-project></span></p>
+              <p><strong>Industry:</strong><span data-branding-industry></span></p>
+              <div class="branding-swatches" data-branding-swatches aria-label="Brand colors"></div>
+            </aside>
+
+            <figure class="branding-frame">
+              <div class="branding-track" data-branding-track></div>
+              <figcaption class="branding-image-fallback" data-branding-fallback>Branding image pending</figcaption>
+            </figure>
+          </div>
+
+          <button class="carousel-arrow branding-arrow branding-arrow-prev" type="button" data-direction="prev"
+            data-branding-prev aria-label="Previous branding project slide"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m9 5 7 7-7 7" /></svg></button>
+          <button class="carousel-arrow branding-arrow branding-arrow-next" type="button" data-direction="next"
+            data-branding-next aria-label="Next branding project slide"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m9 5 7 7-7 7" /></svg></button>
         </div>
       </div>
     </section>
     <section id="posters" class="logos-section posters-section" aria-labelledby="posters-title">
       <div class="logos-header posters-header">
-        <div>
-          <h2 id="posters-title">Posters</h2>
+        <h2 id="posters-title">Posters</h2>
+        <div class="logos-header-body">
+          <span class="logos-rule" aria-hidden="true"></span>
+          <p>A selection of poster designs exploring different visual styles, compositions, and ways of communicating an
+            idea through image and typography.</p>
         </div>
-        <span class="branding-rule posters-rule" aria-hidden="true"></span>
       </div>
       <a class="back-to-index" href="#portfolio" aria-label="Back to portfolio index">
-        <img src="src/img/Icon-Back-To-Index.png" alt="" width="53" height="48" loading="lazy" decoding="async">
-        
+        <img src="src/assets/ui/icons/angle-up.svg" alt="" width="30" height="30" loading="lazy" decoding="async">
+        <span>Index</span>
       </a>
 
       <div class="posters-carousel" data-posters-carousel>
         <div class="posters-grid" data-posters-grid aria-live="polite"></div>
-        <p class="posters-description">A series of posters created to honour Mahsa Amini&rsquo;s story and the emotions
-          surrounding her tragic death. The minimal illustrative designs focus on symbolism and visual storytelling,
-          expressing a powerful message through simplicity and thoughtful composition.</p>
 
-        <div class="carousel-controls posters-controls" aria-label="Posters carousel controls">
-          <button class="carousel-button" type="button" data-posters-prev aria-label="Previous poster page">
-            <img src="src/Logos/Bar-Logo/Arrow-Lef-inactive.png" alt="" width="72" height="72" loading="lazy" decoding="async">
-          </button>
-          <span class="branding-progress posters-progress" data-posters-bar role="img" aria-label="Page 1 of 2"><span
-              class="branding-progress-thumb" aria-hidden="true"></span></span>
-          <button class="carousel-button" type="button" data-posters-next aria-label="Next poster page">
-            <img src="src/Logos/Bar-Logo/Arrow-Right-Active.png" alt="" width="72" height="72" loading="lazy" decoding="async">
-          </button>
+        <div class="posters-controls" aria-label="Posters carousel controls">
+          <button class="carousel-arrow" type="button" data-direction="prev" data-posters-prev
+            aria-label="Previous poster"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m9 5 7 7-7 7" /></svg></button>
+          <button class="carousel-arrow" type="button" data-direction="next" data-posters-next
+            aria-label="Next poster"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m9 5 7 7-7 7" /></svg></button>
         </div>
       </div>
     </section>
     <section id="illustration" class="logos-section illustration-section" aria-labelledby="illustration-title">
       <div class="logos-header illustration-header">
-        <div>
-          <div class="illustration-title-row">
-            <img class="illustration-heading-icon" src="src/Mobile/Mobile/Illustration/Boot.png" alt=""
-              aria-hidden="true" width="91" height="134" loading="lazy" decoding="async">
-            <h2 id="illustration-title">Illustrations</h2>
-          </div>
+        <h2 id="illustration-title">Illustration</h2>
+        <div class="logos-header-body">
+          <span class="logos-rule" aria-hidden="true"></span>
           <p>A series of whimsical illustrations created for MojoDesign Collection, developed for stickers, branding,
             and visual storytelling. Each illustration combines imagination, character, and playful details to create
             unique designs with personality.</p>
         </div>
-        <span class="branding-rule illustration-rule" aria-hidden="true"></span>
       </div>
       <a class="back-to-index" href="#portfolio" aria-label="Back to portfolio index">
-        <img src="src/img/Icon-Back-To-Index.png" alt="" width="53" height="48" loading="lazy" decoding="async">
-        
+        <img src="src/assets/ui/icons/angle-up.svg" alt="" width="30" height="30" loading="lazy" decoding="async">
+        <span>Index</span>
       </a>
 
       <div class="illustration-collage" aria-label="Illustration collection">
-        <img src="src/Mobile/Mobile/Illustration/Illustrations.png" alt="Whimsical illustration collection" width="391" height="555" loading="lazy" decoding="async">
+        <img src="src/assets/illustration/collage.png" alt="Whimsical illustration collection" width="956" height="670"
+          loading="lazy" decoding="async">
       </div>
     </section>
     <section id="nixie-dolls" class="logos-section nixie-section" aria-labelledby="nixie-title">
       <div class="logos-header nixie-header">
-        <div>
-          <h2 id="nixie-title">Nixie Dolls</h2>
+        <h2 id="nixie-title">Nixie Dolls</h2>
+        <div class="logos-header-body">
+          <span class="logos-rule" aria-hidden="true"></span>
           <p>Nixie Dolls is an original character-based collection created from concept to completion. Each handmade
             doll is designed, sculpted, styled, and photographed by me, combining character design, storytelling, and
             traditional craft techniques to bring unique personalities to life.</p>
         </div>
-        <span class="branding-rule nixie-rule" aria-hidden="true"></span>
       </div>
       <a class="back-to-index" href="#portfolio" aria-label="Back to portfolio index">
-        <img src="src/img/Icon-Back-To-Index.png" alt="" width="53" height="48" loading="lazy" decoding="async">
-        
+        <img src="src/assets/ui/icons/angle-up.svg" alt="" width="30" height="30" loading="lazy" decoding="async">
+        <span>Index</span>
       </a>
 
+
+      <!-- v2 desktop collage. The v1 carousels below it still drive the mobile
+           layout, which this Figma update did not touch. -->
+      <div class="nixie-collage" aria-hidden="false">
+        <!-- v3: Figma composes these as one frame, "Nixie-Photo-SocialMedia"
+             (958 x 654 at x211), so the four separately-positioned pieces are
+             now a single exported still. -->
+        <img class="nixie-piece nixie-composite" src="src/assets/nixie-doll/composite.png"
+          alt="Handmade Nixie art dolls photographed beside a phone showing the Nixie Dolls Instagram feed"
+          width="958" height="654" loading="lazy" decoding="async">
+        <p class="nixie-collage-copy">Nixies are my collection of one of a kind handmade art dolls, created for
+          collectors who love character, imagination, and little stories. The collection explores two worlds, Fairy and
+          Adventures, with each Nixie given her own personality, style, and story.</p>
+        <a class="nixie-collage-link" href="https://www.instagram.com/mojodesigncollection/" rel="me noopener"
+          target="_blank">
+          <svg viewBox="0 0 45 45" aria-hidden="true" focusable="false">
+            <rect x="1.5" y="1.5" width="42" height="42" rx="12.5" fill="none" stroke="currentColor" stroke-width="3" />
+            <circle cx="22.5" cy="22.5" r="10.5" fill="none" stroke="currentColor" stroke-width="3" />
+            <circle cx="35" cy="10" r="2.8" fill="currentColor" />
+          </svg>
+          <span>MojoDesignCollection</span>
+        </a>
+      </div>
       <div class="nixie-carousel" data-nixie-carousel>
         <button class="nixie-button nixie-button-prev" type="button" data-nixie-prev
           aria-label="Previous Nixie Dolls slide">
-          <img src="src/img/Icon-Up.png" alt="" width="54" height="54" loading="lazy" decoding="async">
+          <img src="src/assets/ui/icons/angle-up.svg" alt="" width="30" height="30" loading="lazy" decoding="async">
         </button>
         <figure class="nixie-frame">
           <img data-nixie-image alt="">
@@ -536,12 +612,12 @@
         <p class="nixie-mobile-caption">Every Nixie begins with concept exploration and visual storytelling.</p>
         <button class="nixie-button nixie-button-next" type="button" data-nixie-next
           aria-label="Next Nixie Dolls slide">
-          <img src="src/img/Icon-Up.png" alt="" width="54" height="54" loading="lazy" decoding="async">
+          <img src="src/assets/ui/icons/angle-up.svg" alt="" width="30" height="30" loading="lazy" decoding="async">
         </button>
       </div>
       <picture class="nixie-detail-picture">
-        <source media="(max-width: 520px)" srcset="src/Mobile/Mobile/Nixie-Dolls/nixie-intro.png"><img
-          class="nixie-detail-image" src="src/img/nixie.png" alt="Nixie Dolls collection detail" width="1162" height="841" loading="lazy" decoding="async">
+        <source media="(max-width: 520px)" srcset="src/assets/mobile/nixie-doll/nixie-intro.png"><img
+          class="nixie-detail-image" src="src/assets/nixie-doll/hero-mobile.png" alt="Nixie Dolls collection detail" width="1162" height="841" loading="lazy" decoding="async">
       </picture>
       <div class="nixie-gallery-block">
         <div class="nixie-gallery-carousel" data-nixie-gallery-carousel>
@@ -549,17 +625,17 @@
           <div class="carousel-controls nixie-gallery-controls" aria-label="Nixie Dolls gallery carousel controls">
             <button class="carousel-button" type="button" data-nixie-gallery-prev
               aria-label="Previous Nixie Dolls gallery page">
-              <img src="src/Logos/Bar-Logo/Arrow-Lef-inactive.png" alt="" width="72" height="72" loading="lazy" decoding="async">
+              <img src="src/assets/mobile/ui/icons/carousel-prev-disabled.png" alt="" width="72" height="72" loading="lazy" decoding="async">
             </button>
             <span class="branding-progress nixie-gallery-progress" data-nixie-gallery-bar role="img"
               aria-label="Page 1 of 2"><span class="branding-progress-thumb" aria-hidden="true"></span></span>
             <button class="carousel-button" type="button" data-nixie-gallery-next
               aria-label="Next Nixie Dolls gallery page">
-              <img src="src/Logos/Bar-Logo/Arrow-Right-Active.png" alt="" width="72" height="72" loading="lazy" decoding="async">
+              <img src="src/assets/mobile/ui/icons/carousel-next.png" alt="" width="72" height="72" loading="lazy" decoding="async">
             </button>
           </div>
         </div>
-        <img class="nixie-hi-image" src="src/Mobile/Mobile/Nixie-Dolls/nixie-hi.png"
+        <img class="nixie-hi-image" src="src/assets/mobile/nixie-doll/nixie-hi.png"
           alt="Nixie Dolls social media preview" width="299" height="412" loading="lazy" decoding="async">
         <div class="nixie-gallery-copy">
           <p>A collection of social media visuals created for Nixie Dolls, combining photography, illustration, and
@@ -568,59 +644,51 @@
           <div class="nixie-gallery-link-row">
             <p class="nixie-gallery-link">View more Nixie Dolls<br>on Instagram and Etsy.</p>
             <div class="nixie-social-links" aria-label="Nixie Dolls social links">
-              <a href="#" aria-label="Nixie Dolls Instagram"><img src="src/Mobile/Mobile/Icons/instagram-Nixie.png"
+              <a href="#" aria-label="Nixie Dolls Instagram"><img src="src/assets/nixie-doll/instagram.png"
                   alt="" width="56" height="56" loading="lazy" decoding="async"></a>
-              <a href="https://www.etsy.com/shop/MojoDesignCollection" aria-label="Nixie Dolls Etsy" rel="me noopener" target="_blank"><img src="src/Mobile/Mobile/Icons/Etsy.png" alt="" width="56" height="56" loading="lazy" decoding="async"></a>
+              <a href="https://www.etsy.com/shop/MojoDesignCollection" aria-label="Nixie Dolls Etsy" rel="me noopener" target="_blank"><img src="src/assets/ui/icons/etsy.png" alt="" width="56" height="56" loading="lazy" decoding="async"></a>
             </div>
           </div>
         </div>
       </div>
     </section>
     <section id="contact" class="contact-section" aria-labelledby="contact-title">
-      <img class="contact-floral" src="src/img/Floral-Contactme.png" alt="" aria-hidden="true" width="419" height="896" loading="lazy" decoding="async">
-      <div class="contact-content">
-        <h2 id="contact-title">Contact Me</h2>
-        <div class="contact-copy">
-          <p>Have a project in mind?
-            Whether you need a new logo, brand identity, or creative design support,
-            feel free to get in touch. I'd
-            love to hear your story and explore how we can create something meaningful together.</p>
+      <h2 id="contact-title">Contact Me</h2>
 
+      <div class="contact-band">
+        <img class="contact-floral" src="src/assets/ui/floral.svg" alt="" aria-hidden="true" width="711" height="733"
+          loading="lazy" decoding="async">
+        <div class="contact-content">
+          <div class="contact-copy">
+            <p>Have a project in mind?<br>
+              Whether you need a new logo, brand identity, or creative design support, feel free to get in touch.
+              I&rsquo;d love to hear your story and explore how we can create something meaningful together.</p>
+          </div>
+          <a class="contact-email" href="mailto:mojgraphicdesign@gmail.com">mojgraphicdesign@gmail.com</a>
+          <div class="social-links contact-social-links" aria-label="Social links">
+          <!-- Figma "Social-Media" (3387:4695): four 117 discs on a 53px gap at
+               (230, 10448) — white disc, #A3C6CB glyph, Instagram 122 wide.
+               These are the exported assets, not hand-drawn approximations. -->
+          <a href="mailto:mojgraphicdesign@gmail.com" aria-label="Email"><picture><source media="(max-width: 520px)"
+                srcset="src/assets/about/icons/email.svg"><img src="src/assets/contact/icons/email.png" alt=""
+                width="117" height="117" loading="lazy" decoding="async"></picture></a>
+          <a class="is-wide" href="#" aria-label="Instagram"><picture><source media="(max-width: 520px)"
+                srcset="src/assets/about/icons/instagram.svg"><img src="src/assets/contact/icons/instagram.png" alt=""
+                width="123" height="117" loading="lazy" decoding="async"></picture></a>
+          <a href="#" aria-label="Telegram"><picture><source media="(max-width: 520px)"
+                srcset="src/assets/about/icons/telegram.svg"><img src="src/assets/contact/icons/telegram.png" alt=""
+                width="117" height="117" loading="lazy" decoding="async"></picture></a>
+          <a href="https://au.pinterest.com/mojodesigncollection/" aria-label="Pinterest" rel="me noopener"
+            target="_blank"><picture><source media="(max-width: 520px)"
+                srcset="src/assets/about/icons/pinterest.svg"><img src="src/assets/contact/icons/pinterest.png" alt=""
+                width="117" height="117" loading="lazy" decoding="async"></picture></a>
+          </div>
         </div>
-        <a class="contact-email" href="mailto:mojgraphicdesign@gmail.com">mojgraphicdesign@gmail.com</a>
-        <div class="social-links contact-social-links" aria-label="Social links">
-          <a href="mailto:mojgraphicdesign@gmail.com" aria-label="Email"><svg viewBox="0 0 46 46" aria-hidden="true"
-              focusable="false">
-              <circle cx="23" cy="23" r="23" fill="currentColor" />
-              <path d="M11.5 15h23v16h-23V15Zm2.9 3.1 8.6 6.2 8.6-6.2H14.4Zm17.2 10V21.6L23 27.8l-8.6-6.2v6.5h17.2Z"
-                fill="#fff" />
-            </svg></a>
-          <a href="https://www.linkedin.com/in/mojdesign/" aria-label="LinkedIn" rel="me noopener" target="_blank"><svg viewBox="0 0 46 46" aria-hidden="true" focusable="false">
-              <circle cx="23" cy="23" r="23" fill="currentColor" />
-              <circle cx="14.5" cy="15.5" r="2.6" fill="#fff" />
-              <rect x="12" y="19.5" width="5" height="13.5" fill="#fff" />
-              <path
-                d="M19.5 19.5h4.8v1.85h.07c.67-1.2 2.3-2.2 4.3-2.2 4.6 0 5.45 2.85 5.45 6.55V33h-5v-6.4c0-1.53-.03-3.5-2.13-3.5-2.13 0-2.46 1.66-2.46 3.38V33h-5z"
-                fill="#fff" />
-            </svg></a>
-          <a href="#" aria-label="Instagram"><svg viewBox="0 0 46 46" aria-hidden="true" focusable="false">
-              <circle cx="23" cy="23" r="23" fill="currentColor" />
-              <rect x="12.5" y="12.5" width="21" height="21" rx="6.2" fill="none" stroke="#fff" stroke-width="3" />
-              <circle cx="23" cy="23" r="5.5" fill="none" stroke="#fff" stroke-width="3" />
-              <circle cx="29.5" cy="16.6" r="1.9" fill="#fff" />
-            </svg></a>
-          <a href="#" aria-label="Telegram"><svg viewBox="0 0 46 46" aria-hidden="true" focusable="false">
-              <circle cx="23" cy="23" r="23" fill="currentColor" />
-              <path
-                d="M34.76 13.88 29.9 36.75c-.33 1.46-1.2 1.81-2.43 1.13l-7.4-5.45-3.57 3.44c-.4.4-.72.72-1.48.72l.53-7.54 13.73-12.4c.6-.53-.13-.82-.92-.29L11.39 27.04 4.08 24.75c-1.59-.5-1.62-1.59.33-2.35l28.56-11c1.33-.49 2.49.31 1.79 2.48Z"
-                fill="#fff" />
-            </svg></a>
-          <a href="https://au.pinterest.com/mojodesigncollection/" aria-label="Pinterest" rel="me noopener" target="_blank"><svg viewBox="0 0 46 46" aria-hidden="true" focusable="false">
-              <circle cx="23" cy="23" r="23" fill="currentColor" />
-              <path
-                d="M23.2 9.8c-7.5 0-11.3 5.4-11.3 9.9 0 2.7 1 5.1 3.2 6 .36.15.69 0 .79-.39.07-.27.25-.96.33-1.25.11-.39.07-.53-.22-.87-.62-.73-1.02-1.68-1.02-3.02 0-4 3-7.58 7.82-7.58 4.26 0 6.6 2.6 6.6 6.08 0 4.58-2.03 8.44-5.04 8.44-1.66 0-2.9-1.37-2.5-3.05.48-2.01 1.41-4.18 1.41-5.63 0-1.3-.7-2.38-2.14-2.38-1.7 0-3.06 1.76-3.06 4.11 0 1.5.51 2.51.51 2.51l-2.06 8.73c-.61 2.59-.09 5.76-.05 6.08.02.19.27.24.38.09.16-.21 2.22-2.75 2.92-5.29.2-.72 1.14-4.46 1.14-4.46.56 1.08 2.21 2.03 3.96 2.03 5.21 0 8.75-4.75 8.75-11.11 0-4.81-4.07-9.29-10.43-9.29Z"
-                fill="#fff" />
-            </svg></a>
+
+        <div class="contact-footer">
+          <span class="contact-footer-rule" aria-hidden="true"></span>
+          <p>&copy; 2026 Mojo Design. All rights reserved.</p>
+          <span class="contact-footer-rule" aria-hidden="true"></span>
         </div>
       </div>
     </section>

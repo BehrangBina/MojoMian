@@ -8,7 +8,10 @@
 import { readFileSync, writeFileSync, existsSync, mkdirSync } from 'node:fs';
 
 const FILE_KEY = '2wKuuyvVF063XGTA8cI5MJ';
-const PAGES = ['Desktop', 'Mobile'];
+// The file was restructured on 2026-09-12: the old `Desktop` page was replaced by
+// `Desktop-Final` (the v2 artboard) and `Desktop Assets` (components + the token set).
+// `Design Spec` holds auto-generated Spectral redline overlays only — nothing to pull.
+const PAGES = ['Desktop-Final', 'Desktop Assets', 'Mobile'];
 const RAW = 'spec/raw/file.json';
 const offline = process.argv.includes('--offline');
 
@@ -78,17 +81,22 @@ function strokeColor(node) {
 
 const round = (n) => (typeof n === 'number' ? Math.round(n * 100) / 100 : n);
 
+const ARTBOARD_TYPES = new Set(['FRAME', 'SECTION', 'COMPONENT_SET', 'COMPONENT']);
+
 // Flatten one page into records whose x/y are relative to the artboard they sit in.
 function flatten(page) {
   const out = [];
   const walk = (node, path, artboard, origin, depth) => {
     const box = node.absoluteBoundingBox;
-    // The first top-level FRAME on the page is the artboard everything is measured against.
-    if (!artboard && node.type === 'FRAME' && box) {
+    // The first top-level container on the page is the artboard everything is measured against.
+    // `Desktop Assets` has no FRAME at depth 0 — its children are SECTIONs and COMPONENT_SETs
+    // sitting at raw canvas coordinates — so those count as artboards too.
+    if (!artboard && ARTBOARD_TYPES.has(node.type) && box) {
       artboard = node.name;
       origin = { x: box.x, y: box.y };
     }
     const rec = {
+      id: node.id,
       name: node.name,
       type: node.type,
       artboard,
@@ -152,7 +160,8 @@ for (const wanted of PAGES) {
     continue;
   }
   const records = flatten(page);
-  const file = `spec/${wanted.toLowerCase()}.json`;
+  const slug = wanted.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+  const file = `spec/${slug}.json`;
   writeFileSync(file, JSON.stringify(records, null, 2));
 
   const texts = records.filter((r) => r.font);
