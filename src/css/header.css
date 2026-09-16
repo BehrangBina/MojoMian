@@ -818,9 +818,22 @@ body.about-drawer-open {
   background: rgba(65, 64, 66, 0.75);
 }
 
-/* Nixie's description runs wider than the shared 414 */
+/* Nixie's description is the one that collides with the back-to-index link: its
+   heading is the widest of the five, so the flex row pushes this column further
+   right than any other section's, and Figma's 482 then overran the Index link
+   by 19px.
+
+   It stops 118px short of the content column's right edge (1287), which is
+   exactly where the composite below it ends (211 + 958 = 1169) — so the copy
+   and the image share a right edge, and the Index link keeps clearance
+   whatever the heading does.
+
+   Expressed as a width rather than a right margin on purpose: the <=900 block
+   below already resets this element to `width: 100%`, so a width is overridden
+   cleanly, whereas a margin survives into the mobile cascade and pushed the
+   page 109px wider than the viewport. */
 .nixie-section .logos-header p {
-  width: 482px;
+  width: calc(100% - 118px);
 }
 /* Figma "Icon-Back-To-Index": 52 x 47 at x1213 — 22px inside the content
    column's right edge, level with the section description. */
