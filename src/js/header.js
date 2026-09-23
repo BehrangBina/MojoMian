@@ -120,10 +120,13 @@ internalLinks.forEach((link) => {
   });
 });
 
-// The back-to-top caret is not in `internalLinks`; it takes the same treatment.
-document.querySelectorAll('.back-to-top').forEach((link) => {
+// The back-to-top caret and the logo are not in `internalLinks`; they take the
+// same treatment. The logo needs it most: its #top is the header, which is
+// fixed on phones, and a browser will not scroll to a fixed element.
+document.querySelectorAll('.back-to-top, .logo-link').forEach((link) => {
   link.addEventListener('click', (event) => {
     event.preventDefault();
+    setMobileMenu(false);
     animateScrollTo(0, 200, EASING.linear);
     history.pushState(null, '', '#top');
   });

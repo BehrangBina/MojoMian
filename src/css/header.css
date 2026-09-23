@@ -2807,6 +2807,31 @@ body.panel-open {
     border-radius: 6px;
   }
 
+  /* Holding a finger or mouse on these must not select their label or draw
+     a box; the ring above is for keyboard focus only. */
+  .mobile-menu-button,
+  .primary-nav a,
+  .nav-portfolio-toggle,
+  .section-more,
+  .about-read-more,
+  .mobile-panel-close,
+  .carousel-arrow,
+  .branding-index-button {
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    user-select: none;
+  }
+
+  .mobile-menu-button:active,
+  .primary-nav a:active,
+  .nav-portfolio-toggle:active,
+  .section-more:active,
+  .about-read-more:active,
+  .mobile-panel-close:active {
+    outline: none;
+  }
+
   .section-more svg {
     flex: none;
     width: 28.5px;
@@ -2950,11 +2975,14 @@ body.panel-open {
     letter-spacing: -2.12px;
   }
 
+  /* The slide is 391 x 253 on the iPhone 16 and scales with the phone; the
+     arrows, copy and card height hang off its bottom edge. */
   .branding-card {
+    --slide-h: calc((100vw - 2px) * 253 / 391);
     position: relative;
     display: block;
     width: calc(100% - 2px);
-    height: 620px;
+    height: calc(367px + var(--slide-h));
     margin: 17.4px 0 0;
     padding: 0;
     border-radius: 15px 15px 0 0;
@@ -3022,14 +3050,14 @@ body.panel-open {
     top: 108px;
     left: 0;
     width: 100%;
-    height: 253px;
+    height: var(--slide-h);
     margin: 0;
     aspect-ratio: auto;
   }
 
   .branding-arrow {
     position: absolute;
-    top: 389px;
+    top: calc(136px + var(--slide-h));
   }
 
   .branding-arrow-prev { left: 16px; }
@@ -3037,7 +3065,7 @@ body.panel-open {
 
   .branding-description {
     position: absolute;
-    top: 443.2px;
+    top: calc(190.2px + var(--slide-h));
     left: 16px;
     right: 14px;
     width: auto;
@@ -3057,13 +3085,14 @@ body.panel-open {
   }
 
   .posters-grid {
-    height: 437px;
+    height: auto;
     overflow: hidden;
   }
 
+  /* 393 x 437 on the iPhone 16; wider phones scale the card, not crop it */
   .poster-card {
-    height: 437px;
-    aspect-ratio: auto;
+    height: auto;
+    aspect-ratio: 393 / 437;
     background: transparent;
   }
 
@@ -3073,7 +3102,7 @@ body.panel-open {
 
   .posters-controls {
     position: absolute;
-    top: 218px;
+    top: calc(100% * 218 / 437);
     left: 16px;
     right: 13px;
     justify-content: space-between;
@@ -3124,7 +3153,7 @@ body.panel-open {
   .nixie-mobile-phone {
     display: block;
     width: calc(100% - 2px);
-    max-width: 392px;
+    max-width: none;
     height: auto;
     margin-left: 2px;
   }
@@ -3149,9 +3178,10 @@ body.panel-open {
 
   .nixie-collage-link {
     top: auto;
-    left: 43px;
-    /* Figma's 66 frame trims the handle to its caps; the CSS box is 69 */
-    bottom: 17.7px;
+    /* (43, 17.7 from the bottom) on the 393 phone image, scaled with it.
+       Figma's 66 frame trims the handle to its caps; the CSS box is 69. */
+    left: calc(100vw * 43 / 393);
+    bottom: calc(100vw * 17.7 / 393);
     flex-direction: column;
     gap: 9.3px;
     width: 150px;
@@ -3186,7 +3216,7 @@ body.panel-open {
   }
 
   .contact-band {
-    min-height: 714px;
+    min-height: max(714px, 100vw * 714 / 393);
     margin: 0;
     padding: 0;
     background: var(--band) url("../assets/mobile/ui/backgrounds/contact-band.jpg") center top / 100% auto no-repeat;
@@ -3234,7 +3264,8 @@ body.panel-open {
 
   .contact-footer {
     position: absolute;
-    top: 673.2px;
+    top: auto;
+    bottom: 21.6px;
     left: 0;
     right: 0;
     display: block;

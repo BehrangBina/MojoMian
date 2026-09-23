@@ -7,7 +7,7 @@ import json
 import re
 import sys
 
-PINTEREST = 'https://au.pinterest.com/mojodesigncollection/'
+PINTEREST = 'https://au.pinterest.com/mojgraphicdesign/'
 LINKEDIN = 'https://www.linkedin.com/in/mojdesign/'
 ETSY = 'https://www.etsy.com/shop/MojoDesignCollection'
 
