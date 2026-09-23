@@ -15,7 +15,7 @@ mirror the page's sections, so a path alone tells you which part of the site dra
 ui/           logo-mojo.svg, og-image.jpg, floral.svg
   icons/      nav-arrow-hover, angle-up, carousel-next[-disabled], carousel-prev[-disabled], etsy
   headings/   outlined section wordmarks + their 0.75 rules (see audit v3 §4 — not wired in)
-  backgrounds/hero-blur.jpg, contact-band.jpg
+  backgrounds/hero-blur.jpg, contact-band.jpg (clean 2x band with the floral baked in, 1512 × 877)
   buttons/    hero-button.png, hero-button-hover.png
 about/        portrait.png, floral-back.png, icons/{email,instagram,telegram,pinterest}.svg
 logos/

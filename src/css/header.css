@@ -21,7 +21,7 @@
   --accent-tint: #f6f9fa;    /* Green-100      */
   --muted: #c4c4c4;          /* Grey-300       */
   --track: #d9d9d9;
-  --band: #93b2b7;           /* Contact band, "Frame 254"           */
+  --band: #a3c6ca;           /* Contact band, "Frame 254" — matches contact-band.jpg */
   --floral: rgba(163, 195, 196, 0.15); /* decorative Floral vectors */
   --shadow: rgba(214, 216, 224, 0.25);
   --button-shadow: 0 4px 20px rgba(214, 216, 224, 0.25);  /* BTN-Main + BTN-Outline */
@@ -1804,14 +1804,19 @@ body.about-drawer-open {
 .contact-section {
   position: relative;
   min-height: 1100px;
-  padding: 218px 0 0;
+  /* v4: "Frame 254" now starts at y10025 — 126 higher — and carries the heading */
+  padding: 223px 0 0;
   background: transparent;
 }
 
+/* v4: the heading sits on the band in a white outline, its glyphs 122px below
+   the band top at x219 (Figma "Contact Me" 3475:510) */
 .contact-section h2 {
-  margin: 0 0 0 calc(var(--container-gutter) - var(--heading-overhang));
+  position: relative;
+  z-index: 1;
+  margin: 87px 0 0 calc(var(--container-gutter) - var(--heading-overhang));
   color: transparent;
-  -webkit-text-stroke: var(--stroke-display) var(--ink);
+  -webkit-text-stroke: var(--stroke-display) var(--white);
   font-size: var(--fs-display);
   font-weight: 300;
   line-height: var(--lh-display);
@@ -1820,38 +1825,27 @@ body.about-drawer-open {
 
 @supports not (-webkit-text-stroke: 1px black) {
   .contact-section h2 {
-    color: var(--ink);
+    color: var(--white);
   }
 }
 
-/* Figma "Frame 254": full bleed, 751 tall, starting 8px into the heading box */
+/* Figma "Frame 254": full bleed, 1512 x 877 from y10025, heading included.
+   contact-band.jpg is that frame exported at 2x, "Floral-Contactme" baked in;
+   pinned right so wider viewports extend it with the matching colour. */
 .contact-band {
   position: relative;
-  margin-top: -8px;
-  padding: 86px 0 0;
-  min-height: 751px;
+  padding: 0;
+  min-height: 877px;
   overflow: hidden;
-  background: var(--band);
+  background: var(--band) url("../assets/ui/backgrounds/contact-band.jpg") right top / 1512px 877px no-repeat;
   color: var(--white);
-}
-
-/* v3: Figma moved this. "Floral-Contactme" now clips to the band exactly
-   (1189, 10151, 323 x 750) and the vector inside sits at (1189, 10188) — so
-   37px below the band top, overflowing 387.45 past the 1512 edge. Was
-   (1185, 10150), i.e. 1px above the band. */
-.contact-floral {
-  position: absolute;
-  right: -387px;
-  top: 37px;
-  width: 710px;
-  height: auto;
-  pointer-events: none;
-  z-index: 0;
 }
 
 .contact-content {
   position: relative;
   z-index: 1;
+  /* copy at y261 in the band */
+  margin-top: 35px;
   padding-left: calc(var(--container-gutter) + 7px);
 }
 
@@ -1878,7 +1872,8 @@ body.about-drawer-open {
 .contact-social-links {
   justify-content: flex-start;
   gap: 53px;
-  margin-top: 67px;
+  /* discs at y437 in the band */
+  margin-top: 32px;
 }
 
 .contact-social-links a,
@@ -1907,7 +1902,7 @@ body.about-drawer-open {
   left: 0;
   right: 0;
   /* the rule runs at y10845; the copyright straddles it */
-  top: 683px;
+  top: 809px;
   display: flex;
   align-items: center;
   gap: 21px;
@@ -2227,13 +2222,6 @@ body.about-drawer-open {
   .contact-section {
     min-height: 520px;
     padding: 72px 24px;
-  }
-  .contact-floral {
-    right: 0px;
-    top: 0px;
-    width: 250px;
-    opacity: 0.22;
-    position: fixed;
   }
 
 
@@ -3556,7 +3544,19 @@ body.about-drawer-open {
     padding-top: 20px;
   }
 
-  /* Mobile keeps the plain contact block it has always had, not the band */
+  /* Mobile keeps the plain contact block it has always had, not the band —
+     so the heading goes back to its ink outline, flush with the section top */
+  .contact-section h2 {
+    margin-top: 0;
+    -webkit-text-stroke-color: var(--ink);
+  }
+
+  @supports not (-webkit-text-stroke: 1px black) {
+    .contact-section h2 {
+      color: var(--ink);
+    }
+  }
+
   .contact-band {
     margin-top: 0;
     padding: 0;
