@@ -103,12 +103,19 @@ internalLinks.forEach((link) => {
     const href = link.getAttribute('href');
     if (!href || !href.startsWith('#') || href === '#') return;
 
-    const target = href === '#top' ? document.body : document.querySelector(href);
+    let target = href === '#top' ? document.body : document.querySelector(href);
     if (!target) return;
+    // Phones drop the Index section, so "See My works" lands on the first
+    // section after it instead of on a zero-height box at the top of the page.
+    while (target.nextElementSibling && target.getClientRects().length === 0) {
+      target = target.nextElementSibling;
+    }
 
     event.preventDefault();
     const [duration, easing] = scrollMotionFor(link);
-    animateScrollTo(target.getBoundingClientRect().top + window.scrollY, duration, easing);
+    // The phone header is fixed, so a section has to stop below it.
+    const offset = mobileMediaQuery.matches && header && target !== document.body ? header.offsetHeight : 0;
+    animateScrollTo(target.getBoundingClientRect().top + window.scrollY - offset, duration, easing);
     history.pushState(null, '', href);
   });
 });
@@ -127,8 +134,20 @@ window.addEventListener('resize', syncCollapsedMenu);
 syncCollapsedMenu();
 const menuToggle = document.querySelector('.mobile-menu-button');
 
+const portfolioToggle = document.querySelector('.nav-portfolio-toggle');
+
+function setPortfolioList(open) {
+  portfolioToggle?.setAttribute('aria-expanded', open ? 'true' : 'false');
+  portfolioToggle?.parentElement.classList.toggle('is-open', open);
+}
+
+portfolioToggle?.addEventListener('click', () => {
+  setPortfolioList(portfolioToggle.getAttribute('aria-expanded') !== 'true');
+});
+
 function setMobileMenu(open) {
   if (!nav || !menuToggle) return;
+  if (!open) setPortfolioList(false);
   nav.classList.toggle('is-mobile-open', open);
   menuToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
   menuToggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
@@ -151,24 +170,48 @@ mobileMediaQuery.addEventListener('change', (event) => {
   if (!event.matches) setMobileMenu(false);
 });
 
-const aboutDrawer = document.querySelector('[data-about-drawer]');
-const aboutOpen = document.querySelector('[data-about-open]');
-const aboutClose = document.querySelector('[data-about-close]');
+// Mobile-Final "Read More" panel. About brings its own copy (a <template>);
+// every section opener copies in its own heading and description, so the
+// section text lives in one place.
+const panel = document.querySelector('[data-panel]');
+const panelTitle = panel?.querySelector('[data-panel-title]');
+const panelBody = panel?.querySelector('[data-panel-body]');
+const panelClose = panel?.querySelector('[data-panel-close]');
+let panelOpener = null;
 
-function setAboutDrawer(open) {
-  if (!aboutDrawer) return;
-  aboutDrawer.classList.toggle('is-open', open);
-  aboutDrawer.setAttribute('aria-hidden', open ? 'false' : 'true');
-  document.body.classList.toggle('about-drawer-open', open);
+function setPanel(open, opener) {
+  if (!panel) return;
+  if (open) {
+    const aboutCopy = opener.dataset.panelOpen === 'about' && panel.querySelector('[data-panel-about]');
+    const section = opener.closest('section');
+    panelTitle.textContent = aboutCopy ? 'About Me' : section.querySelector('h2').textContent;
+    panelBody.replaceChildren(aboutCopy
+      ? aboutCopy.content.cloneNode(true)
+      : section.querySelector('.logos-header-body p').cloneNode(true));
+    panel.classList.toggle('is-about', Boolean(aboutCopy));
+    panelOpener = opener;
+  }
+  panel.classList.toggle('is-open', open);
+  panel.setAttribute('aria-hidden', open ? 'false' : 'true');
+  document.body.classList.toggle('panel-open', open);
+  if (open) {
+    panel.scrollTop = 0;
+    panelClose?.focus({ preventScroll: true });
+  } else if (panelOpener) {
+    panelOpener.focus({ preventScroll: true });
+    panelOpener = null;
+  }
 }
 
-aboutOpen?.addEventListener('click', () => setAboutDrawer(true));
-aboutClose?.addEventListener('click', () => setAboutDrawer(false));
-aboutDrawer?.addEventListener('click', (event) => {
-  if (event.target === aboutDrawer) setAboutDrawer(false);
+document.querySelectorAll('[data-panel-open]').forEach((opener) => {
+  opener.addEventListener('click', () => setPanel(true, opener));
 });
+panelClose?.addEventListener('click', () => setPanel(false));
 window.addEventListener('keydown', (event) => {
-  if (event.key === 'Escape') setAboutDrawer(false);
+  if (event.key === 'Escape' && panel?.classList.contains('is-open')) setPanel(false);
+});
+mobileMediaQuery.addEventListener('change', (event) => {
+  if (!event.matches && panel?.classList.contains('is-open')) setPanel(false);
 });
 
 // Figma "Folio-Logos" is a horizontal auto-layout strip of 1057.06 cards on a
@@ -213,8 +256,6 @@ const brandingProjects = [
     industry: 'Fashion',
     slug: 'minel',
     slideCount: 6,
-    mobileSlideCount: 10,
-    mobileExtensions: { 10: 'png' },
     colors: ['#DFD3B3', '#F8FBF9', '#000000'],
     description: 'MINEL required a modern and minimal brand identity that matched the elegance of the fashion industry. I created a clean logo and visual style using a colour palette to achieve a sophisticated, timeless, and premium look.'
   },
@@ -224,7 +265,6 @@ const brandingProjects = [
     industry: 'Beauty',
     slug: 'moji',
     slideCount: 6,
-    mobileSlideCount: 6,
     colors: ['#CF4F37', '#5B8C76', '#E6E2DF'],
     description: 'MOJI BEAUTY needed a fresh and memorable identity that reflected the creativity and personal touch of a brow artist. I designed a handmade-style logo with a vibrant green and orange colour palette to create a warm, energetic, and approachable brand presence.'
   },
@@ -234,7 +274,6 @@ const brandingProjects = [
     industry: 'Social Enterprise',
     slug: 'shahrzad',
     slideCount: 6,
-    mobileSlideCount: 6,
     colors: ['#5D8179', '#F3ECE1', '#E8BBAA'],
     description: 'SHAHRZAD identity was created to present women\'s creativity, craftsmanship, and empowerment through art. The handmade floral portrait logo combines elements of drawing and sewing, symbolising artistic expression and the skills developed through the organisation\'s programs. A soft palette of deep green, warm beige, and muted pink creates a warm and meaningful visual presence.'
   },
@@ -244,7 +283,6 @@ const brandingProjects = [
     industry: 'Fashion',
     slug: 'curly',
     slideCount: 6,
-    mobileSlideCount: 6,
     colors: ['#A8644B', '#E8E8E8', '#E5D6C4'],
     description: 'CURLY, an online jewellery brand, needed a Farsi logotype that blends heritage with modern elegance. I created a minimalist design and refined palette of chestnut brown, soft grey, and warm beige to build a feminine, sophisticated, and timeless brand identity.'
   },
@@ -254,7 +292,6 @@ const brandingProjects = [
     industry: 'Food',
     slug: 'miss-broccoli',
     slideCount: 6,
-    mobileSlideCount: 9,
     colors: ['#007B3A', '#FF6500', '#D0021B', '#83C83E'],
     description: 'MISS BROCCOLI needed a playful brand identity built around a unique character logo: a woman with broccoli-inspired hair. The vibrant colour palette reflects freshness, energy, and the natural qualities of the brand, creating a memorable and approachable visual identity.'
   },
@@ -264,20 +301,19 @@ const brandingProjects = [
     industry: 'Food',
     slug: 'knight-coffee',
     slideCount: 6,
-    mobileSlideCount: 6,
     colors: ['#8BC5C1', '#E3BE38', '#3E5664'],
     description: 'KNIGHT COFFEE, a coffee brand and cafe, needed a visual identity inspired by medieval and classic patterns. The logo features a knight character combined with decorative elements, creating a distinctive and memorable brand identity. The selected colour palette brings together deep blue-grey, soft teal, and warm yellow tones to create a unique and welcoming cafe atmosphere.'
   }
 ];
 
+// Phones get Mobile-Final's own 391 x 253 set: mostly the desktop slides at
+// half the weight, with a few re-picked for the narrow card.
 function getBrandingSlides(project, useMobile = mobileMediaQuery.matches) {
-  const count = useMobile ? (project.mobileSlideCount || project.slideCount) : project.slideCount;
   const basePath = useMobile ? 'src/assets/mobile/branding' : 'src/assets/branding';
 
-  return Array.from({ length: count }, (_, index) => {
+  return Array.from({ length: project.slideCount }, (_, index) => {
     const slideNumber = String(index + 1).padStart(2, '0');
-    const extension = useMobile && project.mobileExtensions?.[index + 1] ? project.mobileExtensions[index + 1] : 'jpg';
-    return `${basePath}/${project.slug}/slide-${slideNumber}.${extension}`;
+    return `${basePath}/${project.slug}/slide-${slideNumber}.jpg`;
   });
 }
 
@@ -425,12 +461,13 @@ initBrandingCarousel();
 
 // `title` is the visible fallback caption; `alt` is the descriptive text for
 // search engines and screen readers, drawn from this section's own copy.
-// v2 "Folio Posters": four full-bleed 1060 x 706 slides, one per page.
+// v2 "Folio Posters": four full-bleed 1060 x 706 slides, one per page. Phones
+// show Mobile-Final's 393 x 437 cards, which carry their own teal plate.
 const posterItems = [
-  { title: 'Poster 01', alt: 'Poster design exploring image and typography, Reza Shah series 1', image: 'src/assets/posters/reza-shah-01.jpg' },
-  { title: 'Poster 02', alt: 'Poster design exploring image and typography, Reza Shah series 2', image: 'src/assets/posters/reza-shah-02.jpg' },
-  { title: 'Poster 03', alt: 'Minimal illustrative poster 1 from the Mahsa Amini series', image: 'src/assets/posters/mahsa-amini-01.jpg' },
-  { title: 'Poster 04', alt: 'Minimal illustrative poster 2 from the Mahsa Amini series', image: 'src/assets/posters/mahsa-amini-02.jpg' }
+  { title: 'Poster 01', alt: 'Poster design exploring image and typography, Reza Shah series 1', image: 'src/assets/posters/reza-shah-01.jpg', mobileImage: 'src/assets/mobile/posters/slide-01.png' },
+  { title: 'Poster 02', alt: 'Poster design exploring image and typography, Reza Shah series 2', image: 'src/assets/posters/reza-shah-02.jpg', mobileImage: 'src/assets/mobile/posters/slide-02.png' },
+  { title: 'Poster 03', alt: 'Minimal illustrative poster 1 from the Mahsa Amini series', image: 'src/assets/posters/mahsa-amini-01.jpg', mobileImage: 'src/assets/mobile/posters/slide-03.png' },
+  { title: 'Poster 04', alt: 'Minimal illustrative poster 2 from the Mahsa Amini series', image: 'src/assets/posters/mahsa-amini-02.jpg', mobileImage: 'src/assets/mobile/posters/slide-04.png' }
 ];
 
 function initPostersCarousel() {
@@ -454,12 +491,13 @@ function initPostersCarousel() {
   // every slide is built once and the strip translates.
   const track = document.createElement('div');
   track.className = 'posters-track';
+  const posterSrc = (item) => (mobileMediaQuery.matches ? item.mobileImage : item.image);
   posterItems.forEach((item, i) => {
     const card = document.createElement('figure');
     card.className = 'poster-card';
 
     const image = document.createElement('img');
-    image.src = item.image;
+    image.src = posterSrc(item);
     image.alt = item.alt || item.title;
     image.loading = i === 0 ? 'eager' : 'lazy';
     image.decoding = 'async';
@@ -491,7 +529,13 @@ function initPostersCarousel() {
 
   prev?.addEventListener('click', () => renderPage(activePage - 1));
   next?.addEventListener('click', () => renderPage(activePage + 1));
-  mobileMediaQuery.addEventListener?.('change', () => renderPage(0));
+  mobileMediaQuery.addEventListener?.('change', () => {
+    track.querySelectorAll('img').forEach((image, i) => {
+      image.classList.remove('is-missing');
+      image.src = posterSrc(posterItems[i]);
+    });
+    renderPage(0);
+  });
   renderPage(0);
 }
 

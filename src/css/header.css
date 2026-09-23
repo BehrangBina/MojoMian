@@ -96,7 +96,6 @@
   --dur-project: 800ms;      /* Branding 02-06 SMART_ANIMATE GENTLE  */
 }
 
-
 /* ---------------------------------------------------------------------------
    Splash preloader — the logo draws itself, then fills.
    Mirrors the outlined section headings (-webkit-text-stroke) elsewhere on the
@@ -185,7 +184,6 @@ body.is-preloading {
     animation: none;
   }
 }
-
 
 * {
   box-sizing: border-box;
@@ -517,11 +515,18 @@ select {
   cursor: pointer;
 }
 
-.mobile-about-drawer {
+/* Phone-only pieces of Mobile-Final; the <=520 block shows them. */
+.mobile-panel,
+.nav-portfolio,
+.section-more,
+.branding-index-label-mobile,
+.nixie-mobile-dolls,
+.nixie-mobile-phone,
+.nixie-copy-break {
   display: none;
 }
 
-body.about-drawer-open {
+body.panel-open {
   overflow: hidden;
 }
 /* Figma: the biography is 20 / 28 w300 in a 413 box — v2 opened the leading
@@ -574,7 +579,6 @@ body.about-drawer-open {
 .social-links a:focus-visible img {
   opacity: 0.82;
 }
-
 
 .social-links a:hover,
 .social-links a:focus-visible {
@@ -1718,7 +1722,6 @@ body.about-drawer-open {
   padding-top: 100px;
 }
 
-
 /* Figma: "Dolls" grid 737 @x225 + 61 gap + copy column 264 @x1023 = 1062 */
 .nixie-gallery-block {
   display: grid;
@@ -1925,7 +1928,6 @@ body.about-drawer-open {
   white-space: nowrap;
 }
 
-
 @media (max-width: 900px) {
   :root {
     --header-height: 280px;
@@ -1941,7 +1943,6 @@ body.about-drawer-open {
     width: 28px;
     height: 28px;
   }
-
 
   .nav-menu {
     overflow-x: auto;
@@ -2040,7 +2041,6 @@ body.about-drawer-open {
     row-gap: 28px;
   }
 
-
 .back-to-index {
     left: auto;
     right: 24px;
@@ -2057,7 +2057,6 @@ body.about-drawer-open {
     flex-wrap: wrap;
     row-gap: 28px;
   }
-
 
   .logo-carousel {
     width: 100%;
@@ -2144,8 +2143,6 @@ body.about-drawer-open {
     row-gap: 28px;
   }
 
-
-
   .illustration-section .logos-header p {
     width: 100%;
     margin: 12px 0 0;
@@ -2224,11 +2221,9 @@ body.about-drawer-open {
     padding: 72px 24px;
   }
 
-
   .contact-content {
     width: 100%;
   }
-
 
   .contact-copy,
   .contact-email {
@@ -2248,54 +2243,16 @@ body.about-drawer-open {
      boards. At full desktop size the Boot icon plus its -26px bleed overflows
      this width, so use the mobile icon size and drop the bleed. */
 
-
   .illustration-collage {
     width: 100%;
     margin-left: 0;
   }
 }
 
-
-
-
-
-
-
-/* Mobile About Drawer Overrides */
-
-/* Mobile Detail Section Overrides */
-
-/* Mobile Branding Order Overrides */
-
-/* Mobile Posters Overrides */
-
-/* Mobile Illustration Overrides */
-
-/* Mobile Nixie Caption Controls */
-
-/* Mobile Nixie Gallery Layout */
-
-/* Mobile About Alignment Refinement */
-
-
-/* Mobile About Tools Pill Sizing */
-
-
-/* Mobile Nixie Gallery Copy Order */
-
-
-/* Mobile Contact Heading Alignment */
-
-
-/* Mobile Contact Social Icons */
-
-
 /* Mobile Nixie Detail Picture */
 .nixie-detail-picture {
   display: block;
 }
-
-
 
 /* Nixie Social Follow Block */
 .nixie-hi-image {
@@ -2324,19 +2281,6 @@ body.about-drawer-open {
   text-decoration: none;
 }
 
-
-
-
-
-/* Mobile Nixie Social Position */
-
-
-/* Mobile Nixie Follow Text */
-
-
-/* Mobile Nixie Instagram Icon Size */
-
-
 /* Nixie Social Image Assets */
 .nixie-social-links img {
   display: block;
@@ -2345,1142 +2289,12 @@ body.about-drawer-open {
   object-fit: contain;
 }
 
-
-
-/* Mobile Navbar Figma Size */
-
-
-/* Mobile Nixie Story Carousel Size */
-
-
 /* Contact Social Image Assets */
 .contact-social-links img {
   display: block;
   width: 100%;
   height: 100%;
   object-fit: contain;
-}
-
-/* Mobile Contact Social Even Spacing */
-
-
-
-/* Mobile Menu Overlay */
-
-
-/* ===========================================================================
-   FIGMA MOBILE SPEC — artboard "Home", 393 wide, content column 345 @ x24.
-   Values from spec/mobile.json. This block is authoritative: it is last in
-   the cascade and supersedes the earlier append-only 520px blocks.
-   =========================================================================== */
-
-/* ===========================================================================
-   MOBILE (<= 520px) — single consolidated block.
-   Merged from 24 separate append-only blocks, concatenated in their
-   original source order so the cascade is unchanged. Later rules still win;
-   the Figma-derived section at the end is authoritative.
-   =========================================================================== */
-@media (max-width: 520px) {
-  :root {
-    --header-height: 278px;
-    --logo-width: 128px;
-    --logo-height: 74px;
-    --logo-left: 62px;
-    --logo-top: 82px;
-  }
-
-  /* No backdrop override here any more. This used to force
-     `background-attachment: scroll` to dodge iOS Safari's refusal to honour a
-     fixed attachment; body::before is now a `position: fixed` layer, which iOS
-     does honour and which composites instead of repainting per scroll frame. */
-
-  .site-header {
-    box-shadow: 0 4px 18px rgba(214, 216, 224, 0.2);
-  }
-
-  .logo-link {
-    width: var(--logo-width);
-    height: var(--logo-height);
-  }
-
-  .mobile-menu-button {
-    position: absolute;
-    top: 98px;
-    right: 38px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 36px;
-    height: 40px;
-    z-index: 30;
-  }
-
-  .mobile-menu-button img {
-    width: 28px;
-  }
-
-  .primary-nav {
-    display: none;
-  }
-
-  .home-section {
-    min-height: 350px;
-    padding: 68px 36px 56px;
-  }
-
-  .home-content {
-    width: 100%;
-    align-items: center;
-    text-align: center;
-    gap: 28px;
-  }
-
-  .home-content h1 {
-    width: 100%;
-    font-size: clamp(30px, 7.6vw, 34px);
-    line-height: 1.12;
-    letter-spacing: -0.04em;
-    text-align: center;
-  }
-
-  .main-button {
-    width: 218px;
-    height: 45px;
-    border-radius: 15px;
-    font-size: 22px;
-    line-height: 1;
-  }
-
-  .about-section {
-    display: block;
-    min-height: 430px;
-    padding: 50px 24px 54px;
-  }
-
-  .about-left {
-    position: relative;
-    width: 100%;
-    min-height: 346px;
-  }
-
-  .profile-photo {
-    width: min(94vw, 404px);
-    margin: 0 auto;
-  }
-
-  .about-left h2 {
-    position: absolute;
-    top: 4px;
-    right: 10px;
-    margin: 0;
-    font-size: 28px;
-    line-height: 1;
-    letter-spacing: -0.04em;
-    text-transform: uppercase;
-  }
-
-  .about-role,
-  .about-copy,
-  .about-panel,
-  .social-links:not(.contact-social-links) {
-    display: none;
-  }
-  .about-section {
-    min-height: auto;
-    padding: 0 32px 58px;
-  }
-
-  .about-left {
-    min-height: 360px;
-    margin-bottom: 18px;
-  }
-
-  .profile-photo {
-    width: min(104vw, 448px);
-    max-width: none;
-    margin: -4px 0 0 50%;
-    transform: translateX(-50%);
-  }
-
-  .about-left h2 {
-    top: 4px;
-    right: 0;
-    font-size: 28px;
-    color: #000000;
-  }
-
-  .about-role {
-    position: absolute;
-    top: 72px;
-    right: 0;
-    display: block;
-    margin: 0;
-    color: #ffffff;
-    font-size: 16px;
-    font-weight: 500;
-    line-height: 1.18;
-    text-align: left;
-    text-transform: uppercase;
-  }
-
-  .about-read-more {
-    display: block;
-    width: max-content;
-    margin: -4px auto 0;
-    color: var(--ink);
-    font-size: 16px;
-    font-weight: 400;
-    line-height: 1.2;
-  }
-
-  .about-copy,
-  .social-links:not(.contact-social-links) {
-    display: none;
-  }
-
-  .about-panel {
-    display: block;
-    width: 100%;
-    max-width: none;
-    padding-top: 16px;
-    color: var(--ink);
-    font-size: 16px;
-    font-weight: 300;
-    line-height: 1.22;
-  }
-
-  .about-panel section {
-    margin: 0 0 18px;
-  }
-
-  .about-panel h3 {
-    margin: 0 0 8px;
-    color: var(--ink);
-    font-size: 20px;
-    font-weight: 500;
-    line-height: 1.1;
-    text-transform: none;
-  }
-
-  .about-panel section:first-child h3 {
-    text-transform: uppercase;
-  }
-
-  .about-panel p {
-    max-width: 260px;
-    font-size: 16px;
-    line-height: 1.22;
-  }
-
-  .about-panel ul {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 110px));
-    column-gap: 2px;
-    row-gap: 0;
-    font-size: 16px;
-    line-height: 1.22;
-  }
-
-  .pill-list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 11px 10px;
-  }
-
-  .pill-list span {
-    min-height: 38px;
-    padding: 8px 16px;
-    border-radius: 16px;
-    font-size: 16px;
-    line-height: 1;
-  }
-
-  .mobile-about-drawer {
-    position: fixed;
-    inset: 0;
-    z-index: 1000;
-    display: block;
-    overflow-y: auto;
-    background: #ffffff;
-    transform: translateX(100%);
-    transition: transform 300ms ease;
-    pointer-events: none;
-  }
-
-  .mobile-about-drawer.is-open {
-    transform: translateX(0);
-    pointer-events: auto;
-  }
-
-  .mobile-about-close {
-    position: absolute;
-    top: 32px;
-    right: 30px;
-    z-index: 1002;
-    display: grid;
-    place-items: center;
-    width: 44px;
-    height: 44px;
-    border: 0;
-    padding: 0;
-    color: #414042;
-    background: transparent;
-    font-size: 38px;
-    font-weight: 300;
-    line-height: 1;
-    cursor: pointer;
-  }
-
-  .mobile-about-close span {
-    display: block;
-    transform: scaleX(1.08);
-  }
-
-  .mobile-about-close::before,
-  .mobile-about-close::after {
-    content: "";
-    display: none;
-    position: absolute;
-    top: 21px;
-    left: 6px;
-    width: 32px;
-    height: 4px;
-    border-radius: 999px;
-    background: #414042;
-  }
-
-  .mobile-about-close::before {
-    transform: rotate(45deg);
-  }
-
-  .mobile-about-close::after {
-    transform: rotate(-45deg);
-  }
-
-  .mobile-about-content {
-    width: min(100%, 330px);
-    padding: 136px 32px 44px;
-    color: var(--ink);
-  }
-
-  .mobile-about-content h2 {
-    margin: 0 0 16px;
-    color: transparent;
-    -webkit-text-stroke: 1px var(--ink);
-    /* Figma mobile "I'm Mojdeh": 42 / 35.37 w400 ls-2.1 */
-    font-size: var(--fs-hero);
-    font-weight: 400;
-    line-height: 35.37px;
-    letter-spacing: var(--ls-hero);
-  }
-
-  .mobile-about-content p {
-    margin: 0 0 22px;
-    font-size: 16px;
-    font-weight: 300;
-    line-height: 1.16;
-  }
-  .logos-section {
-    min-height: auto;
-    padding: 48px 28px 58px;
-    overflow: hidden;
-  }
-
-  .logos-header,
-  .branding-section .logos-header,
-  .posters-section .logos-header,
-  .illustration-section .logos-header,
-  .nixie-section .logos-header {
-    display: block;
-  }
-
-  .logos-header h2 {
-    margin: 0 0 18px;
-    font-size: 64px;
-    line-height: 0.94;
-    letter-spacing: -0.04em;
-  }
-
-  .logos-header p,
-  .illustration-section .logos-header p,
-  .nixie-section .logos-header p {
-    width: 100%;
-    max-width: 330px;
-    margin: 0;
-    font-size: 16px;
-    line-height: 1.22;
-    text-align: justify;
-  }
-
-  .logos-rule,
-  .branding-rule,
-  .posters-rule,
-  .illustration-rule,
-  .nixie-rule,
-  .back-to-index {
-    display: none;
-  }
-
-  .logo-carousel {
-    width: 100%;
-    height: 250px;
-    margin: 72px 0 40px;
-  }
-
-  .logo-slide {
-    background: transparent;
-  }
-
-  .logo-slide img {
-    width: 100%;
-    height: 250px;
-    max-height: none;
-    object-fit: contain;
-  }
-
-  .carousel-controls {
-    width: 100%;
-    margin: 0;
-    justify-content: space-between;
-    gap: 0;
-  }
-
-  .carousel-button,
-  .carousel-button img {
-    width: 34px;
-    height: 34px;
-  }
-
-  .branding-section {
-    padding-top: 48px;
-  }
-
-  .branding-projects {
-    display: grid;
-    grid-template-columns: 1fr;
-    row-gap: 0;
-    margin-top: 34px;
-  }
-
-  .branding-main {
-    display: contents;
-  }
-
-  .branding-index {
-    order: 1;
-    display: block;
-    margin: 0 0 22px;
-    min-height: 0;
-    text-align: center;
-    font-size: 10px;
-    line-height: 1;
-    text-transform: uppercase;
-  }
-
-  .branding-index span {
-    display: block;
-    margin-bottom: 12px;
-  }
-
-  .branding-index-buttons {
-    justify-content: space-between;
-    gap: 0;
-    width: 100%;
-  }
-
-  .branding-index-button {
-    font-size: 31px;
-    line-height: 0.85;
-  }
-
-  .branding-frame {
-    order: 2;
-    width: 100%;
-    height: 360px;
-    background: rgba(255, 255, 255, 0.34);
-  }
-
-  .branding-frame img {
-    object-fit: contain;
-  }
-
-
-  .branding-progress {
-    display: none;
-  }
-
-  .branding-meta {
-    order: 4;
-    display: block;
-    padding-top: 0;
-    margin: 0 0 20px;
-    font-size: 16px;
-    line-height: 1.2;
-  }
-
-  .branding-meta p {
-    margin: 0 0 8px;
-  }
-
-  .branding-meta strong,
-  .branding-meta span {
-    display: inline;
-  }
-
-  .branding-meta strong {
-    margin-right: 4px;
-  }
-
-  .branding-swatches {
-    flex-direction: row;
-    flex-wrap: wrap;
-    gap: 12px;
-    margin-top: 30px;
-  }
-
-  .branding-swatch {
-    width: 16px;
-    height: 14px;
-  }
-
-  .branding-description {
-    order: 5;
-    width: 100%;
-    margin: 0;
-    font-size: 16px;
-    line-height: 1.42;
-    text-align: justify;
-  }
-  .posters-section {
-    padding-top: 48px;
-  }
-
-  .posters-carousel {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    margin: 14px 0 0;
-  }
-
-
-  .posters-grid {
-    order: 2;
-    display: grid;
-    grid-template-columns: 1fr;
-    justify-items: center;
-    gap: 0;
-    min-height: 408px;
-  }
-
-  .poster-card {
-    width: 100%;
-    max-width: 318px;
-    height: 408px;
-  }
-
-  .poster-card img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-
-  .posters-controls {
-    order: 3;
-    width: 100%;
-    margin: 12px 0 0;
-    justify-content: space-between;
-  }
-
-  .illustration-section {
-    padding-top: 48px;
-  }
-
-
-
-  .illustration-section .logos-header > div {
-    display: grid;
-    grid-template-columns: 92px 1fr;
-    column-gap: 18px;
-    align-items: start;
-  }
-
-
-  .illustration-section .logos-header p {
-    grid-column: 2;
-    grid-row: 2;
-    width: auto;
-    max-width: none;
-    margin: 0;
-    font-size: 16px;
-    line-height: 1.18;
-    text-align: left;
-  }
-
-  .illustration-collage {
-    width: 100%;
-    margin: 38px 0 0;
-  }
-
-  .illustration-collage img {
-    width: 100%;
-    height: auto;
-  }
-  .nixie-carousel {
-    display: grid;
-    grid-template-columns: 46px 1fr 46px;
-    row-gap: 0;
-    align-items: center;
-    width: 100%;
-    margin-top: 56px;
-    padding: 0;
-    border-radius: 8px;
-    overflow: hidden;
-    background: rgba(255, 255, 255, 0.78);
-  }
-
-  .nixie-frame {
-    grid-column: 1 / -1;
-    width: 100%;
-    height: auto;
-    aspect-ratio: 1226 / 597;
-    margin: 0;
-  }
-
-  .nixie-mobile-caption {
-    grid-column: 2;
-    display: block;
-    margin: 0;
-    padding: 18px 10px 18px;
-    color: var(--ink);
-    font-size: 16px;
-    font-weight: 300;
-    line-height: 1.15;
-    text-align: center;
-  }
-
-  .nixie-button {
-    position: static;
-    grid-row: 2;
-    width: 46px;
-    height: 46px;
-    align-self: center;
-    justify-self: center;
-    margin-top: 30px;
-  }
-
-  .nixie-button-prev {
-    grid-column: 1;
-  }
-
-  .nixie-button-next {
-    grid-column: 3;
-  }
-  .nixie-gallery-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 8px;
-  }
-
-  .nixie-gallery-card {
-    width: 100%;
-    height: auto;
-    aspect-ratio: 1 / 1.28;
-  }
-
-  .nixie-gallery-controls {
-    display: flex;
-    width: 100%;
-    margin-top: 14px;
-    justify-content: space-between;
-  }
-  .about-section {
-    padding: 0 32px 58px;
-  }
-
-  .about-left {
-    max-width: 366px;
-    min-height: auto;
-    margin: 0 auto 22px;
-  }
-
-  .profile-picture {
-    display: block;
-    width: 100%;
-  }
-
-  .profile-photo {
-    width: 100%;
-    max-width: 346px;
-    margin: 0 auto;
-    transform: none;
-  }
-
-  .about-left h2,
-  .about-role {
-    display: none;
-  }
-
-  .about-read-more {
-    margin: 8px auto 0;
-  }
-  .about-panel section:nth-of-type(4) .pill-list {
-    max-width: 260px;
-    gap: 11px 10px;
-  }
-
-  .about-panel section:nth-of-type(4) .pill-list span {
-    flex: 0 0 calc((100% - 10px) / 2);
-    min-width: 0;
-    padding: 8px 10px;
-  }
-  .nixie-gallery-block {
-    display: flex;
-    flex-direction: column;
-  }
-
-  .nixie-gallery-carousel {
-    order: 2;
-  }
-
-  .nixie-gallery-copy {
-    display: contents;
-  }
-
-  .nixie-gallery-copy p:first-child {
-    order: 1;
-    margin: 0 0 24px;
-    font-size: 16px;
-    line-height: 1.22;
-    text-align: justify;
-  }
-
-  .nixie-gallery-link {
-    order: 3;
-    margin-top: 24px !important;
-  }
-  .contact-section {
-    padding: 48px 28px 58px;
-  }
-
-  .contact-content {
-    width: 100%;
-    margin: 0;
-  }
-
-
-  .contact-copy,
-  .contact-email {
-    font-size: 16px;
-    line-height: 1.22;
-  }
-  .contact-social-links {
-    width: min(100%, 342px);
-    gap: 0;
-    justify-content: space-between;
-    margin-top: 31px;
-  }
-
-  .contact-social-links a,
-  .contact-social-links svg {
-    width: 63.18px;
-    height: 63.18px;
-  }
-
-  .contact-social-links a {
-    flex: 0 0 63.18px;
-  }
-  .nixie-detail-picture {
-    display: block;
-    width: 100%;
-    margin: 40px auto 0;
-  }
-
-  .nixie-detail-picture .nixie-detail-image {
-    width: 100%;
-    margin: 0;
-    padding-top: 0;
-  }
-  .nixie-hi-image {
-    order: 3;
-    display: block;
-    width: 100%;
-    max-width: 344px;
-    height: auto;
-    margin: 58px auto 0;
-  }
-
-  .nixie-gallery-link-row {
-    order: 4;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 22px;
-    margin-top: 30px;
-  }
-
-  .nixie-gallery-link-row .nixie-gallery-link {
-    margin: 0 !important;
-  }
-
-  .nixie-social-links {
-    flex: 0 0 auto;
-    gap: 24px;
-    margin-top: 0;
-  }
-
-  .nixie-social-links a,
-  .nixie-social-links svg {
-    width: 46px;
-    height: 46px;
-  }
-
-  .nixie-gallery-link-row .nixie-gallery-link {
-    order: 1;
-  }
-
-  .nixie-social-links {
-    order: 2;
-  }
-  .nixie-gallery-link-row .nixie-gallery-link {
-    width: 203px;
-    color: #76acb2;
-    font-size: 16px;
-    line-height: 1.1;
-    white-space: nowrap;
-  }
-  .nixie-social-links a:first-child,
-  .nixie-social-links a:first-child svg {
-    width: 56px;
-    height: 56px;
-  }
-  .nixie-social-links a:first-child,
-  .nixie-social-links a:first-child img {
-    width: 56px;
-    height: 56px;
-  }
-  :root {
-    --header-height: 163px;
-    --logo-width: 148px;
-    --logo-height: 86px;
-    --logo-left: 32px;
-    --logo-top: 58px;
-  }
-
-  .site-header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 163px;
-    box-shadow: 0 4px 18px rgba(214, 216, 224, 0.2);
-  }
-
-  .mobile-menu-button {
-    top: 76px;
-    right: 39px;
-    width: 42px;
-    height: 55px;
-  }
-
-  .mobile-menu-button img {
-    width: 36px;
-  }
-
-  main {
-    padding-top: 163px;
-  }
-  .nixie-carousel {
-    width: min(100%, 346px);
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  .nixie-frame {
-    height: 280px;
-    aspect-ratio: auto;
-  }
-
-  .nixie-frame img {
-    object-fit: cover;
-  }
-  /* Figma specced 4 icons at 63.18; LinkedIn makes 5, and more may be added or
-     removed, so distribute by count rather than hard-coding the column list. */
-  .contact-social-links {
-    display: grid;
-    grid-auto-flow: column;
-    grid-auto-columns: 1fr;
-    justify-items: center;
-    align-items: center;
-    width: min(100%, 342px);
-    gap: 0;
-  }
-
-  .contact-social-links a {
-    display: grid;
-    place-items: center;
-    width: 63.18px;
-    height: 63.18px;
-  }
-
-  .contact-social-links img {
-    width: 63.18px;
-    height: 63.18px;
-    object-fit: contain;
-  }
-  .primary-nav.is-mobile-open {
-    position: fixed;
-    top: var(--header-height);
-    left: 0;
-    right: 0;
-    bottom: auto;
-    display: flex;
-    align-items: flex-start;
-    justify-content: center;
-    width: 100%;
-    height: calc(100dvh - var(--header-height));
-    padding: 56px 32px 48px;
-    background: var(--white);
-    box-shadow: 0 12px 25px var(--shadow);
-    z-index: 25;
-  }
-
-  .primary-nav.is-mobile-open .back-to-top {
-    display: none;
-  }
-
-  .primary-nav.is-mobile-open .nav-menu {
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    gap: 44px;
-    width: 100%;
-    height: auto;
-    padding-right: 0;
-  }
-
-  .primary-nav.is-mobile-open .nav-menu a {
-    font-size: 28px;
-  }
-
-  /* Burger morphs into an X while the menu is open */
-  .mobile-menu-button[aria-expanded="true"] img {
-    visibility: hidden;
-  }
-
-  .mobile-menu-button[aria-expanded="true"]::before,
-  .mobile-menu-button[aria-expanded="true"]::after {
-    content: "";
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 34px;
-    height: 3px;
-    border-radius: 2px;
-    background: #000000;
-  }
-
-  .mobile-menu-button[aria-expanded="true"]::before {
-    transform: translate(-50%, -50%) rotate(45deg);
-  }
-
-  .mobile-menu-button[aria-expanded="true"]::after {
-    transform: translate(-50%, -50%) rotate(-45deg);
-  }
-
-  body.mobile-menu-open {
-    overflow: hidden;
-  }
-  :root {
-    --container-max: 345px;
-    --fs-display: 64px;
-    --fs-hero: 42px;
-    --fs-index: 38px;
-    --fs-slide-num: 33.57px;
-    --fs-button: 24.11px;
-    --fs-pill: 20.22px;
-    --fs-body-lg: 20px;
-    --fs-body: 18px;
-    --fs-body-sm: 16px;
-    --ls-hero: -2.1px;
-    --ls-index-num: 0px;
-  }
-
-  /* Hero — Figma h1 42/42 w400 ls-2.1 in a 343 box @x25 */
-  .home-content h1 {
-    width: 343px;
-    font-size: var(--fs-hero);
-    line-height: 42px;
-    letter-spacing: var(--ls-hero);
-  }
-
-  .main-button {
-    width: 218px;
-    font-size: var(--fs-button);
-  }
-
-  /* Earlier 520px blocks hard-code a 28px section padding, which overrides the
-     container gutter and narrows the 345 column to 330. Re-assert the gutter. */
-  .logos-section,
-  .contact-section,
-  .about-section,
-  .portfolio-inner,
-  .home-section {
-    padding-left: var(--container-gutter);
-    padding-right: var(--container-gutter);
-  }
-
-  .logos-header p,
-  .logos-header h2,
-  .posters-description,
-  .contact-copy,
-  .contact-email,
-  .nixie-carousel,
-  .illustration-title-row {
-    margin-left: 0;
-    margin-right: 0;
-  }
-
-  /* Section headings — 64 w300, no tracking (the CSS had ls -2.56) */
-  .logos-header h2 {
-    font-size: var(--fs-display);
-    line-height: 1;
-    letter-spacing: 0;
-    margin-left: 0;
-  }
-
-  /* Figma places the contact heading 5.5px left of the column (x18.5) */
-
-  /* Section descriptions — 16 / 19.2 w300 across the full 345 column */
-  .logos-header p,
-  .logos-header p.section-description,
-  .illustration-section .logos-header p,
-  .nixie-section .logos-header p,
-  .posters-description {
-    width: 345px;
-    /* earlier blocks clamp these to max-width:330 */
-    max-width: 345px;
-    margin-left: 0;
-    font-size: var(--fs-body-sm);
-    font-weight: 300;
-    line-height: 19.2px;
-  }
-
-  /* Exception: on mobile the illustration copy is inset beside the Boot icon
-     (Figma x122, 245 wide) rather than filling the column. */
-  .illustration-section .logos-header p {
-    width: 245px;
-    max-width: 245px;
-    /* the mobile header grid already indents this past the Boot icon;
-       Figma puts it at x122, 12px left of that track. */
-    margin-left: -12px;
-  }
-
-  /* About panel — body 18 / 21.6 w300, headings 20 / 24 w500 */
-  .about-panel {
-    font-size: var(--fs-body);
-    line-height: 21.6px;
-  }
-
-  .about-panel h3 {
-    font-size: var(--fs-body-lg);
-    line-height: 24px;
-  }
-
-  /* Tools / Languages pills — 20.22 w300, rows pitch 53 */
-  .pill-list span {
-    font-size: var(--fs-pill);
-    font-weight: 300;
-  }
-
-  .pill-list {
-    gap: 15px 12px;
-  }
-
-  /* Portfolio — "INDEX:" 42 / 35.37 ls-2.1; rows 38 @ pitch 50,
-     number column 45.45 wide (x22 -> x67.45) */
-  .portfolio-inner h2 {
-    font-size: var(--fs-hero);
-    line-height: 35.37px;
-    letter-spacing: var(--ls-hero);
-  }
-
-  .portfolio-list {
-    font-size: var(--fs-index);
-    font-weight: 300;
-    line-height: 1;
-  }
-
-  .portfolio-list li {
-    grid-template-columns: 45.45px auto;
-    column-gap: 0;
-    height: 50px;
-  }
-
-  .portfolio-list li::before {
-    font-weight: 400;
-    line-height: 1;
-    letter-spacing: 0;
-  }
-
-  /* Branding — the mobile slide is full-bleed 392 x 388 */
-  .branding-frame {
-    width: 100vw;
-    max-width: none;
-    height: 388px;
-    margin-left: calc(50% - 50vw);
-  }
-
-  .branding-index-button {
-    font-size: var(--fs-slide-num);
-    line-height: 25.14px;
-    letter-spacing: -1.68px;
-  }
-
-  /* Posters — card 341 x 437 @x26 */
-  .poster-card {
-    width: 341px;
-    max-width: 341px;
-    height: 437px;
-  }
-
-  /* Illustration — Boot 91 x 134 */
-
-
-  /* Nixie — story slide 346 x 364 */
-  .nixie-frame {
-    width: 346px;
-    height: 364px;
-  }
-
-  /* Figma mobile "Contact" frame: 435 tall, heading 108 in, 54 below the icons */
-  .contact-section {
-    min-height: 435px;
-    padding-top: 108px;
-    padding-bottom: 54px;
-  }
-
-  /* Contact — copy and email 16 / 19.2 w300 */
-  .contact-copy,
-  .contact-email {
-    font-size: var(--fs-body-sm);
-    line-height: 19.2px;
-    letter-spacing: 0;
-    margin-left: 0;
-  }
-
-  /* Burger overlay — Figma menu items are left-aligned at x48, 60 / 80 w400 ls-3 */
-  .primary-nav.is-mobile-open .nav-menu {
-    align-items: flex-start;
-    /* the overlay already applies 32px of side padding */
-    padding-left: 16px;
-  }
-
-  .primary-nav.is-mobile-open .nav-menu a {
-    justify-content: flex-start;
-    font-size: 60px;
-    font-weight: 400;
-    line-height: 80px;
-    letter-spacing: -3px;
-  }
 }
 
 /* ===========================================================================
@@ -3517,88 +2331,915 @@ body.about-drawer-open {
 }
 
 /* ===========================================================================
-   v2 wrappers below the desktop artboard.
-   The v2 desktop pass introduced three elements the mobile cascade above has
-   never seen — .logo-slide's card layout, .contact-band and .contact-footer.
-   This block is appended last so it settles them without disturbing any of the
-   mobile rules, which this Figma update did not touch.
+   PHONES (<= 520px) — Figma page "Mobile-Final", frame "Folio-Logo"
+   (4169:44059), 393 wide (iPhone 16). This is the only phone block; tablet
+   (521-900) and desktop never see it.
+
+   Figma trims these text boxes to the cap height, so a Figma y is the top of
+   the capitals. A CSS line box starts (line-height / 2 - 0.3 x size) above
+   that in Barlow, which is where the fractional offsets below come from:
+   64/64 -> 12.8, 20/24 -> 6, 18/21.6 -> 5.4, 16/19.2 -> 4.8, 14/16.8 -> 4.2.
+   Comments give the frame's own (x, y).
    =========================================================================== */
 @media (max-width: 520px) {
-  .logo-carousel {
+  :root {
+    --header-height: 163px;
+    --logo-width: 115px;
+    --logo-height: 66.42px;
+    --logo-left: 15.5px;
+    --logo-top: 72px;
+    --container-gutter: 15px;
+  }
+
+  /* --- Nav Bar: fixed 393 x 163, logo (15.5, 72), burger 50 x 52 (336.5, 82) */
+  .site-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: var(--header-height);
+    padding: 0;
+    box-shadow: 0 4px 18px rgba(214, 216, 224, 0.2);
+    z-index: 30;
+  }
+
+  main {
+    padding-top: var(--header-height);
+  }
+
+  .mobile-menu-button {
+    position: absolute;
+    top: 82px;
+    right: 6.5px;
+    display: block;
+    width: 50px;
+    height: 52px;
+    cursor: pointer;
+  }
+
+  .mobile-menu-button img {
+    width: 50px;
+    height: 52px;
+  }
+
+  .mobile-menu-button .menu-icon-close,
+  .mobile-menu-button[aria-expanded="true"] .menu-icon-burger {
+    display: none;
+  }
+
+  .mobile-menu-button[aria-expanded="true"] .menu-icon-close {
+    display: block;
+  }
+
+  body.mobile-menu-open {
+    overflow: hidden;
+  }
+
+  /* "Drop": 95% white under the bar. PORTFOLIO / ABOUT ME / CONTACT ME are
+     60 / 80 w400 ls-3 small caps (so 49.4 on screen, 34.6 caps) at x48 on a
+     100 pitch from y87, caps 25 into each row; Portfolio's dropdown lists the
+     sections at 22 / 34 w400 ls-1.1, first cap 25 below its row. */
+  .primary-nav {
+    display: none;
+  }
+
+  .primary-nav.is-mobile-open {
+    position: fixed;
+    top: var(--header-height);
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: block;
     height: auto;
-    margin: 48px 0 24px;
+    overflow-y: auto;
+    background: rgba(255, 255, 255, 0.95);
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    box-shadow: none;
+    z-index: 25;
+  }
+
+  .primary-nav .back-to-top,
+  .nav-menu > a[href="#portfolio"] {
+    display: none;
+  }
+
+  .primary-nav.is-mobile-open .nav-menu {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0;
+    width: 100%;
+    height: auto;
+    padding: 87px 0 48px 48px;
+    overflow: visible;
+  }
+
+  .nav-portfolio {
+    display: block;
+  }
+
+  .nav-menu > a,
+  .nav-portfolio-toggle {
+    display: flex;
+    align-items: flex-start;
+    width: auto;
+    height: 100px;
+    padding: 0;
+    border: 0;
+    color: var(--ink);
+    background: transparent;
+    font-size: calc(60px * var(--sc-scale));
+    font-weight: 400;
+    line-height: 80px;
+    letter-spacing: -3px;
+    text-transform: uppercase;
+    cursor: pointer;
+  }
+
+  .nav-portfolio-toggle svg {
+    flex: none;
+    width: 27px;
+    height: 16.4px;
+    /* Figma's chevron is at x303.5, 4.5 below the label's centre */
+    margin: 38.8px 0 0 34.2px;
+    fill: none;
+    stroke: var(--ink);
+    stroke-width: 4;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    transition: transform 200ms ease;
+  }
+
+  .nav-portfolio.is-open .nav-portfolio-toggle svg {
+    transform: rotate(180deg);
+  }
+
+  .nav-portfolio-list {
+    display: none;
+    margin: 14.6px 0 15.4px;
+    padding: 0;
+    list-style: none;
+  }
+
+  .nav-portfolio.is-open .nav-portfolio-list {
+    display: block;
+  }
+
+  .nav-portfolio-list a {
+    display: block;
+    width: auto;
+    height: auto;
+    color: var(--ink);
+    font-size: 22px;
+    font-weight: 400;
+    line-height: 34px;
+    letter-spacing: -1.1px;
+    text-decoration: none;
+    text-transform: none;
+  }
+
+  /* --- Hero: h1 cap (110, 216) in a 225 box, 48 w400 ls-2.4 small caps at
+     39.97; BTN-Main 146 x 33 r18 at (110, 477). About's photo is at y585. */
+  .home-section {
+    min-height: 0;
+    height: 422px;
+    padding: 0;
+  }
+
+  .home-content {
+    position: absolute;
+    top: 45px;
+    left: 110px;
+    right: auto;
+    width: 225px;
+    margin: 0;
+    align-items: flex-start;
+    gap: 29px;
+    text-align: left;
+  }
+
+  .home-content h1 {
+    width: 225px;
+    font-size: calc(48px * var(--sc-scale));
+    line-height: 39.97px;
+    letter-spacing: -2.4px;
+    text-align: left;
+  }
+
+  .main-button {
+    width: 146px;
+    height: 33px;
+    padding: 0;
+    border-radius: 18px;
+    font-size: 18px;
+  }
+
+  /* --- About: portrait 293 x 234 centred at y585, role (cap 862) and "More
+     about me" (cap 901) centred, the Resume column at x15 from cap 983, then
+     the 46px discs at (18, 1665). .about-left dissolves so its pieces and the
+     Resume <aside> share one column and can be put in Figma's order. */
+  .about-section {
+    display: flex;
+    flex-direction: column;
+    row-gap: 0;
+    min-height: 0;
+    padding: 0;
+  }
+
+  .about-left {
+    display: contents;
+  }
+
+  .about-left h2,
+  .about-copy {
+    display: none;
+  }
+
+  .profile-picture {
+    order: 1;
+    display: block;
+    width: 293px;
+    margin: 0 auto;
+  }
+
+  .profile-photo {
+    width: 293px;
+    max-width: none;
+    height: auto;
+    margin: 0;
+    transform: none;
+  }
+
+  .about-role {
+    order: 2;
+    margin: 37px 0 0;
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 24px;
+    text-align: center;
+  }
+
+  .about-read-more {
+    order: 3;
+    display: block;
+    width: max-content;
+    margin: 16px auto 0;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 19.2px;
+  }
+
+  .about-panel {
+    order: 4;
+    display: block;
+    width: auto;
+    max-width: none;
+    margin: 61.6px 0 0;
+    padding: 0 17px 0 15px;
+    font-size: 18px;
+    font-weight: 300;
+    line-height: 21.6px;
+  }
+
+  .about-panel h3 {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 24px;
+  }
+
+  .about-panel p {
+    max-width: 284px;
+    margin: 6.6px 0 0;
+  }
+
+  /* Education, Abilities, Tools, Languages: caps at 1095, 1173, 1294, 1549 */
+  .about-panel section:nth-of-type(2) { margin-top: 16.6px; }
+  .about-panel section:nth-of-type(3) { margin-top: 25.8px; }
+  .about-panel section:nth-of-type(4) { margin-top: 23.9px; }
+  .about-panel section:nth-of-type(5) { margin-top: 14.8px; }
+
+  /* Tools and Languages are 24 / 28.8 */
+  .about-panel section:nth-of-type(n + 4) h3 {
+    font-size: 24px;
+    line-height: 28.8px;
+  }
+
+  /* Abilities: two columns, the second at x134, on a 21 pitch */
+  .about-panel ul {
+    display: grid;
+    grid-template-columns: 119px auto;
+    margin: 8.9px 0 0;
+    line-height: 21px;
+  }
+
+  /* BTN-Main pills: 41 tall, r16.5, 12 apart both ways */
+  .pill-list {
+    gap: 12px;
+    margin-top: 11.4px;
+  }
+
+  .pill-list span {
+    min-height: 41px;
+    padding: 0 16px;
+    border-radius: 16.5px;
+    font-size: 20px;
+  }
+
+  .about-section .social-links:not(.contact-social-links) {
+    order: 5;
+    display: flex;
+    gap: 21px;
+    margin: 42px 0 0 18px;
+  }
+
+  /* The Index section is gone on phones; the nav's Portfolio list replaces it */
+  .portfolio-section,
+  .back-to-index {
+    display: none;
+  }
+
+  /* --- Section headings: 64 w300 outline at x14 (Logos x10). "Read More ->"
+     ends at x380.5, its box 31 below the heading cap — 56 on Illustration,
+     whose heading is too wide to share the row. The description moves into
+     the Read More panel. --pad-top lands each cap on its Figma y, measured
+     from the end of the section before. */
+  .logos-section {
+    min-height: 0;
+    padding: var(--pad-top) 0 0;
+    overflow: hidden;
+  }
+
+  #logos                { --pad-top: 137.2px; }  /* 1711 -> cap 1861 */
+  .branding-section     { --pad-top: 91.2px; }   /* 2512 -> cap 2616 */
+  .posters-section      { --pad-top: 99.2px; }   /* 3420 -> cap 3532 */
+  .illustration-section { --pad-top: 105.2px; }  /* 4047 -> cap 4165 */
+  .nixie-section        { --pad-top: 152.2px; }  /* 4916 -> cap 5081 */
+
+  .logos-header {
+    position: relative;
+    display: block;
+    height: auto;
+    margin: 0;
+    padding: 0 0 0 14px;
+  }
+
+  #logos .logos-header {
+    padding-left: 10px;
+  }
+
+  .logos-header h2 {
+    margin: 0;
+    font-size: 64px;
+    line-height: 64px;
+    letter-spacing: 0;
+  }
+
+  .logos-header-body {
+    display: none;
+  }
+
+  .section-more {
+    position: absolute;
+    top: 43.8px;
+    right: 12.5px;
+    display: flex;
+    align-items: flex-start;
+    gap: 6px;
+    padding: 0;
+    border: 0;
+    color: var(--ink);
+    background: transparent;
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 19.2px;
+    cursor: pointer;
+  }
+
+  .illustration-section .section-more {
+    top: 68.8px;
+  }
+
+  .section-more svg {
+    flex: none;
+    width: 28.5px;
+    height: 28.5px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.1;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  /* --- Logos: 391 x 555 white card r20 at y1957; the mark centred on its
+     Figma box, arrows 36 at y278 (x16 / x341), brand cap 343, note cap 394. */
+  .logo-carousel {
+    position: relative;
+    width: calc(100% - 2px);
+    height: 555px;
+    margin: 44.8px 0 0;
+    border-radius: 20px;
+    background: var(--white);
+    overflow: hidden;
   }
 
   .logo-slide {
+    position: relative;
+    display: block;
+    height: 555px;
+    margin: 0;
     padding: 0;
+    background: transparent;
   }
 
-  .logo-mark {
-    width: auto;
-    max-width: 100%;
+  .logo-slide .logo-mark {
+    position: absolute;
+    left: 50%;
+    top: var(--mark-y);
+    width: var(--mark-w);
+    max-width: none;
     height: auto;
-    max-height: 220px;
+    max-height: none;
+    transform: translate(-50%, -50%);
+  }
+
+  .logo-slide:nth-child(1) { --mark-w: 199px; --mark-y: 145px; }    /* Curly */
+  .logo-slide:nth-child(2) { --mark-w: 222px; --mark-y: 160.5px; }  /* Minel */
+  .logo-slide:nth-child(3) { --mark-w: 184px; --mark-y: 160px; }    /* Shah Pasand */
+  .logo-slide:nth-child(4) { --mark-w: 180px; --mark-y: 163px; }    /* RFI */
+  .logo-slide:nth-child(5) { --mark-w: 196px; --mark-y: 163px; }    /* Mahsa */
+  .logo-slide:nth-child(6) { --mark-w: 164px; --mark-y: 168.5px; }  /* TAT */
+  .logo-slide:nth-child(7) { --mark-w: 200px; --mark-y: 153.5px; }  /* IMP */
+  .logo-slide:nth-child(8) { --mark-w: 237px; --mark-y: 151px; }    /* Dornik */
+  .logo-slide:nth-child(9) { --mark-w: 166px; --mark-y: 167px; }    /* Shahrzad */
+
+  /* TAT: the 164 chair mark over the 111 logotype, 11 apart */
+  .logo-mark-stack {
+    gap: 11px;
+  }
+
+  .logo-mark-stack img {
+    width: 164px;
+    max-width: none;
+    max-height: none;
+  }
+
+  .logo-mark-stack img + img {
+    width: 111px;
   }
 
   .logo-meta {
-    padding-top: 20px;
-  }
-
-  /* Mobile keeps the plain contact block it has always had, not the band —
-     so the heading goes back to its ink outline, flush with the section top */
-  .contact-section h2 {
-    margin-top: 0;
-    -webkit-text-stroke-color: var(--ink);
-  }
-
-  @supports not (-webkit-text-stroke: 1px black) {
-    .contact-section h2 {
-      color: var(--ink);
-    }
-  }
-
-  .contact-band {
-    margin-top: 0;
+    position: absolute;
+    top: 338.2px;
+    left: 17px;
+    right: 15px;
+    width: auto;
     padding: 0;
-    min-height: 0;
-    overflow: visible;
-    background: transparent;
+    font-size: 16px;
+    line-height: 19.2px;
+  }
+
+  .logo-meta .logo-brand {
+    margin: 0 0 12.6px;
+  }
+
+  .logo-carousel-controls {
+    position: absolute;
+    top: 278px;
+    left: 16px;
+    right: 14px;
+    justify-content: space-between;
+    gap: 0;
+    margin: 0;
+  }
+
+  .logo-carousel .carousel-arrow,
+  .branding-arrow,
+  .posters-controls .carousel-arrow {
+    --arrow-size: 36px;
+    border-width: 1.49px;
+  }
+
+  /* --- Branding: "Select a project" (cap 2729) and 01-06 (cap 2754) centred
+     over a 391 x 620 white card r15/0 at y2800. In the card: meta row y52,
+     slide 391 x 253 at y108, arrows y389 (x16 / x341), copy cap y448. */
+  .branding-projects {
+    display: block;
+    margin: 57.6px 0 0;
+  }
+
+  .branding-index {
+    display: block;
+    height: auto;
+    margin: 0;
+    padding: 0;
     color: var(--ink);
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 16.8px;
+    text-align: center;
   }
 
-  .contact-content {
-    padding-left: 0;
+  .branding-index-label {
+    display: none;
   }
 
-  .contact-copy {
-    color: var(--ink);
+  .branding-index-label-mobile {
+    display: block;
   }
 
-  /* v2 drops the plain-text address on desktop; mobile keeps it */
-  .contact-email {
-    display: inline-block;
+  .branding-index-buttons {
+    justify-content: space-between;
+    gap: 0;
+    width: auto;
+    margin: 9.2px 0 0;
+    padding: 0 15px 0 14px;
   }
 
-  .contact-footer {
-    gap: 12px;
-    margin-top: 40px;
+  .branding-index-button {
+    font-size: 42.42px;
+    font-weight: 500;
+    line-height: 31.8px;
+    letter-spacing: -2.12px;
   }
 
-  .contact-footer-rule {
-    background: var(--muted);
+  .branding-card {
+    position: relative;
+    display: block;
+    width: calc(100% - 2px);
+    height: 620px;
+    margin: 17.4px 0 0;
+    padding: 0;
+    border-radius: 15px 15px 0 0;
+    background: var(--white);
   }
 
-  .contact-footer p {
-    color: var(--ink);
-    font-size: 13px;
+  .branding-main {
+    display: block;
+    width: auto;
+  }
+
+  .branding-meta {
+    position: absolute;
+    top: 52px;
+    left: 16px;
+    right: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 0;
+    min-height: 17px;
+    height: auto;
+    margin: 0;
+    padding: 0;
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 16.8px;
+  }
+
+  .branding-meta p {
+    margin: 0;
+  }
+
+  /* "Industry:" starts at x142 */
+  .branding-meta p:first-child {
+    flex: none;
+    width: 126px;
+  }
+
+  .branding-meta p + p {
+    flex: 1 1 auto;
+    min-width: 0;
     white-space: normal;
   }
 
-  /* The discs go back to a green plate with a white glyph */
-  .contact-social-links a {
-    color: var(--accent);
+  .branding-meta strong {
+    display: inline;
+    font-weight: 500;
   }
 
-  /* Below 520 the discs invert to a green plate with a white glyph, which is
-     the About export — served by <picture> now that these are real assets. */
+  .branding-swatches {
+    flex: none;
+    flex-direction: row;
+    gap: 15px;
+    margin: 0 0 0 auto;
+  }
+
+  .branding-swatch {
+    width: 20px;
+    height: 17px;
+  }
+
+  .branding-frame {
+    position: absolute;
+    top: 108px;
+    left: 0;
+    width: 100%;
+    height: 253px;
+    margin: 0;
+    aspect-ratio: auto;
+  }
+
+  .branding-arrow {
+    position: absolute;
+    top: 389px;
+  }
+
+  .branding-arrow-prev { left: 16px; }
+  .branding-arrow-next { left: auto; right: 14px; }
+
+  .branding-description {
+    position: absolute;
+    top: 443.2px;
+    left: 16px;
+    right: 14px;
+    width: auto;
+    margin: 0;
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 19.2px;
+    text-align: left;
+  }
+
+  /* --- Posters: the 393 x 437 slides carry their own teal r15 card; white
+     36px arrows ride on it at y218 (x16 / x344). */
+  .posters-carousel {
+    position: relative;
+    width: 100%;
+    margin: 26.8px 0 0;
+  }
+
+  .posters-grid {
+    height: 437px;
+    overflow: hidden;
+  }
+
+  .poster-card {
+    height: 437px;
+    aspect-ratio: auto;
+    background: transparent;
+  }
+
+  .poster-card img {
+    object-fit: contain;
+  }
+
+  .posters-controls {
+    position: absolute;
+    top: 218px;
+    left: 16px;
+    right: 13px;
+    justify-content: space-between;
+    gap: 0;
+    margin: 0;
+    pointer-events: none;
+  }
+
+  .posters-controls .carousel-arrow {
+    color: var(--white);
+    border-color: var(--white);
+    pointer-events: auto;
+  }
+
+  .posters-controls .carousel-arrow:disabled {
+    color: var(--white);
+    border-color: var(--white);
+    opacity: 0.45;
+  }
+
+  /* --- Illustration: one 393 x 660 collage at y4256 */
+  .illustration-collage {
+    width: 100%;
+    margin: 39.8px 0 0;
+  }
+
+  /* --- Nixie: dolls 391 x 279 at (2, 5173), copy cap (15, 5455) 16 / 19.2
+     w300 in 365, phone 392 x 471 at (2, 5614) with the Instagram handle on it
+     at (43, 5997). The v1 carousels stay for the tablet only. */
+  .nixie-section .nixie-carousel,
+  .nixie-section .nixie-detail-picture,
+  .nixie-section .nixie-gallery-block,
+  .nixie-composite {
+    display: none;
+  }
+
+  .nixie-collage {
+    position: relative;
+    top: auto;
+    left: auto;
+    display: block;
+    width: auto;
+    height: auto;
+    margin: 40.8px 0 0;
+  }
+
+  .nixie-mobile-dolls,
+  .nixie-mobile-phone {
+    display: block;
+    width: calc(100% - 2px);
+    max-width: 392px;
+    height: auto;
+    margin-left: 2px;
+  }
+
+  .nixie-collage-copy {
+    position: static;
+    width: auto;
+    max-width: 365px;
+    margin: -1.8px 0 0 15px;
+    font-size: 16px;
+    line-height: 19.2px;
+  }
+
+  .nixie-copy-break {
+    display: block;
+    height: 19.2px;
+  }
+
+  .nixie-mobile-phone {
+    margin-top: 29.4px;
+  }
+
+  .nixie-collage-link {
+    top: auto;
+    left: 43px;
+    /* Figma's 66 frame trims the handle to its caps; the CSS box is 69 */
+    bottom: 17.7px;
+    flex-direction: column;
+    gap: 9.3px;
+    width: 150px;
+    font-size: 15.79px;
+    line-height: 18.9px;
+  }
+
+  .nixie-collage-link svg {
+    width: 41px;
+    height: 41px;
+    padding: 0;
+  }
+
+  .nixie-collage-link svg rect {
+    fill: currentColor;
+  }
+
+  .nixie-collage-link svg circle {
+    stroke: var(--white);
+  }
+
+  .nixie-collage-link svg circle:last-child {
+    fill: var(--white);
+  }
+
+  /* --- Contact: "Frame 254" 393 x 714, floral baked into its export. Heading
+     cap (15, 90) in a white outline, copy cap (17, 204) 18 / 21.6 w400 in 203,
+     49px white discs at y466 on a 22 gap, the copyright cap y678 centred. */
+  .contact-section {
+    min-height: 0;
+    padding: 0;
+  }
+
+  .contact-band {
+    min-height: 714px;
+    margin: 0;
+    padding: 0;
+    background: var(--band) url("../assets/mobile/ui/backgrounds/contact-band.jpg") center top / 100% auto no-repeat;
+  }
+
+  .contact-section h2 {
+    margin: 77.2px 0 0 15px;
+    font-size: 64px;
+    line-height: 64px;
+  }
+
+  .contact-content {
+    width: auto;
+    margin: 57.4px 0 0;
+    padding: 0 0 0 17px;
+  }
+
+  .contact-copy {
+    width: 203px;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 21.6px;
+  }
+
+  .contact-email {
+    display: none;
+  }
+
+  .contact-social-links {
+    display: flex;
+    gap: 22px;
+    margin: 73px 0 0;
+  }
+
+  .contact-social-links a,
+  .contact-social-links svg {
+    flex: none;
+    width: 49px;
+    height: 49px;
+  }
+
+  .contact-social-links a.is-wide {
+    width: 51px;
+  }
+
+  .contact-footer {
+    position: absolute;
+    top: 673.2px;
+    left: 0;
+    right: 0;
+    display: block;
+    margin: 0;
+    text-align: center;
+  }
+
+  .contact-footer-rule {
+    display: none;
+  }
+
+  .contact-footer p {
+    font-size: 16px;
+    line-height: 19.2px;
+    white-space: normal;
+  }
+
+  /* --- Read More panel: Figma frames "About me" / "Logos" / ... 393 x 937.
+     X 50 x 52 at (282, 140); heading cap x56 y315 (About y214); body cap
+     y395 (About y281), 16 / 19.2 w300 justified in 276. */
+  .mobile-panel {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    display: block;
+    overflow-y: auto;
+    background: var(--white);
+    transform: translateX(100%);
+    visibility: hidden;
+    transition: transform 300ms ease, visibility 0s linear 300ms;
+  }
+
+  .mobile-panel.is-open {
+    transform: none;
+    visibility: visible;
+    transition: transform 300ms ease;
+  }
+
+  .mobile-panel-close {
+    position: absolute;
+    top: 140px;
+    left: 282px;
+    width: 50px;
+    height: 52px;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    cursor: pointer;
+  }
+
+  .mobile-panel-close img {
+    display: block;
+    width: 50px;
+    height: 52px;
+  }
+
+  .mobile-panel-content {
+    padding: 302.2px 0 64px 56px;
+  }
+
+  .mobile-panel.is-about .mobile-panel-content {
+    padding-top: 201.2px;
+  }
+
+  .mobile-panel-content h2 {
+    margin: 0;
+    color: transparent;
+    -webkit-text-stroke: var(--stroke-display) var(--ink);
+    font-size: 64px;
+    font-weight: 300;
+    line-height: 64px;
+    letter-spacing: 0;
+  }
+
+  .mobile-panel-body {
+    width: 276px;
+    margin-top: 24px;
+    color: #000000;
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 19.2px;
+    text-align: justify;
+  }
+
+  .mobile-panel.is-about .mobile-panel-body {
+    margin-top: 11px;
+  }
+
+  .mobile-panel-body p {
+    width: auto;
+    margin: 0;
+    color: inherit;
+    font: inherit;
+  }
 }

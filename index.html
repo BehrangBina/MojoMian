@@ -236,7 +236,8 @@
     </a>
     <button class="mobile-menu-button" type="button" aria-label="Open menu" aria-expanded="false"
       aria-controls="primary-nav">
-      <img src="src/assets/mobile/ui/icons/burger.png" alt="" width="50" height="52" loading="lazy" decoding="async">
+      <img class="menu-icon-burger" src="src/assets/mobile/ui/icons/burger.png" alt="" width="50" height="52" decoding="async">
+      <img class="menu-icon-close" src="src/assets/mobile/ui/icons/close.png" alt="" width="50" height="52" decoding="async">
     </button>
 
     <nav class="primary-nav" id="primary-nav" aria-label="Primary navigation">
@@ -247,6 +248,21 @@
       </a>
 
       <div class="nav-menu">
+        <!-- Phones only: Mobile-Final replaces the Index section with this
+             dropdown at the head of the burger menu. -->
+        <div class="nav-portfolio">
+          <button class="nav-portfolio-toggle" type="button" aria-expanded="false" aria-controls="nav-portfolio-list">
+            <span>Portfolio</span>
+            <svg viewBox="0 0 28 17" aria-hidden="true" focusable="false"><path d="M2.5 2.5 14 14 25.5 2.5" /></svg>
+          </button>
+          <ul class="nav-portfolio-list" id="nav-portfolio-list">
+            <li><a href="#logos">Logos</a></li>
+            <li><a href="#branding">Branding</a></li>
+            <li><a href="#posters">Posters</a></li>
+            <li><a href="#illustration">Illustrations</a></li>
+            <li><a href="#nixie-dolls">Nixie Dolls</a></li>
+          </ul>
+        </div>
         <a href="#about"><span>About me</span><img class="nav-arrow" src="src/assets/ui/icons/nav-arrow-hover.svg" alt="" aria-hidden="true" width="59" height="59" loading="lazy" decoding="async"></a>
         <a href="#portfolio"><span>Portfolio</span><img class="nav-arrow" src="src/assets/ui/icons/nav-arrow-hover.svg" alt="" aria-hidden="true" width="59" height="59" loading="lazy" decoding="async"></a>
         <a href="#contact"><span>Contact me</span><img class="nav-arrow" src="src/assets/ui/icons/nav-arrow-hover.svg" alt="" aria-hidden="true" width="59" height="59" loading="lazy" decoding="async"></a>
@@ -267,12 +283,12 @@
     <section id="about" class="about-section">
       <div class="about-left">
         <picture class="profile-picture">
-          <source media="(max-width: 520px)" srcset="src/assets/mobile/about/portrait.png"><img
+          <source media="(max-width: 520px)" srcset="src/assets/mobile/about/portrait.png" width="293" height="234"><img
             class="profile-photo" src="src/assets/about/portrait.png" alt="Mojdeh portrait" width="521" height="417" loading="lazy" decoding="async">
         </picture>
         <h2>I&rsquo;m Mojdeh</h2>
         <p class="about-role">Graphic Designer &amp; Branding Specialist</p>
-        <button class="about-read-more" type="button" data-about-open>Click to read more</button>
+        <button class="about-read-more" type="button" data-panel-open="about">More about me</button>
         <div class="about-copy">
           <p>I&rsquo;m Mojdeh, but you can call me Mojo. I&rsquo;m a graphic designer with 15 years of professional
             experience, with a strong focus on logo design and brand identity. I create thoughtful, distinctive visual
@@ -351,22 +367,34 @@
         </section>
       </aside>
     </section>
-    <div class="mobile-about-drawer" data-about-drawer aria-hidden="true">
-      <button class="mobile-about-close" type="button" data-about-close aria-label="Close about panel"><span
-          aria-hidden="true">X</span></button>
-      <div class="mobile-about-content">
-        <h2>About Me</h2>
-        <p>I'm Mojdeh, but you can call me Mojo.<br>I'm a graphic designer with 15 years of professional experience and
-          a university degree in Graphic Design.</p>
-        <p>I specialise in logo design and branding, creating visual identities that are simple, thoughtful, and built
-          to last. One of the things I value most is understanding the people I work with. Every business has its own
-          story, goals, and audience, so I take the time to listen before I start designing. Whether you're looking for
-          something bold and playful or clean, minimal, and premium, I shape each project around what feels right for
-          your brand.</p>
-        <p>I believe good design is more than making something look beautiful. It should solve problems, build trust,
-          and leave a lasting impression. I always respect the brief, while bringing the experience and perspective
-          needed to help clients make confident design decisions.</p>
+    <!-- Phones only: Mobile-Final's full-screen "Read More" panel (393 x 937
+         frames "About me", "Logos", "Branding", ...). One panel serves every
+         opener; section openers copy their own heading and description in, so
+         only About — whose line breaks differ from the desktop copy — keeps its
+         text here. -->
+    <div class="mobile-panel" data-panel role="dialog" aria-modal="true" aria-labelledby="mobile-panel-title"
+      aria-hidden="true">
+      <button class="mobile-panel-close" type="button" data-panel-close aria-label="Close"><img
+          src="src/assets/mobile/ui/icons/close.png" alt="" width="50" height="52" decoding="async"></button>
+      <div class="mobile-panel-content">
+        <h2 id="mobile-panel-title" data-panel-title>About Me</h2>
+        <div class="mobile-panel-body" data-panel-body></div>
       </div>
+      <template data-panel-about>
+        <p>I&rsquo;m Mojdeh, but you can call me Mojo.</p>
+        <p>I&rsquo;m a graphic designer with 15 years of professional experience, with a strong focus on logo design and
+          brand identity. I create thoughtful, distinctive visual identities that are simple, considered, and built to
+          last.</p>
+        <p>For me, good design starts with understanding the people behind the business. Every brand has its own story,
+          goals, personality, and audience, so I take the time to listen, ask the right questions, and understand what
+          makes each business unique before I begin designing.</p>
+        <p>My style can adapt to the brand and its audience, from bold and playful to clean, minimal, and premium. I
+          don&rsquo;t believe in using the same approach for every project. Instead, I develop each identity around what
+          feels right for the brand and what it needs to communicate.</p>
+        <p>I believe good design is about more than looking beautiful. It should have a clear purpose, solve problems,
+          build trust, and make a lasting impression. I respect the brief, bring my experience to the table, and work
+          closely with my clients to create design that feels both considered and true to their brand.</p>
+      </template>
     </div>
     <section id="portfolio" class="portfolio-section">
       <img class="portfolio-floral" src="src/assets/ui/floral.svg" alt="" aria-hidden="true" width="711" height="733" loading="lazy" decoding="async">
@@ -384,6 +412,8 @@
     <section id="logos" class="logos-section" aria-labelledby="logos-title">
       <div class="logos-header">
         <h2 id="logos-title">Logos</h2>
+        <button class="section-more" type="button" data-panel-open>Read More<svg viewBox="0 0 24 24"
+            aria-hidden="true" focusable="false"><path d="M5 12h14M12 5l7 7-7 7" /></svg></button>
         <div class="logos-header-body">
           <span class="logos-rule" aria-hidden="true"></span>
           <p>A selection of final logo designs that showcase my approach to creating distinctive and memorable
@@ -475,6 +505,8 @@
     <section id="branding" class="logos-section branding-section" aria-labelledby="branding-title">
       <div class="logos-header">
         <h2 id="branding-title">Branding</h2>
+        <button class="section-more" type="button" data-panel-open>Read More<svg viewBox="0 0 24 24"
+            aria-hidden="true" focusable="false"><path d="M5 12h14M12 5l7 7-7 7" /></svg></button>
         <div class="logos-header-body">
           <span class="logos-rule" aria-hidden="true"></span>
           <p>A strong brand identity starts with understanding the brand&rsquo;s personality, tone, values, and
@@ -490,7 +522,8 @@
 
       <div class="branding-projects" data-branding-carousel>
         <div class="branding-index" aria-label="Branding project selector">
-          <span>See more Projects</span>
+          <span class="branding-index-label">See more Projects</span>
+          <span class="branding-index-label-mobile">Select a project</span>
           <div class="branding-index-buttons" data-branding-index></div>
         </div>
 
@@ -520,6 +553,8 @@
     <section id="posters" class="logos-section posters-section" aria-labelledby="posters-title">
       <div class="logos-header posters-header">
         <h2 id="posters-title">Posters</h2>
+        <button class="section-more" type="button" data-panel-open>Read More<svg viewBox="0 0 24 24"
+            aria-hidden="true" focusable="false"><path d="M5 12h14M12 5l7 7-7 7" /></svg></button>
         <div class="logos-header-body">
           <span class="logos-rule" aria-hidden="true"></span>
           <p>A selection of poster designs exploring different visual styles, compositions, and ways of communicating an
@@ -545,6 +580,8 @@
     <section id="illustration" class="logos-section illustration-section" aria-labelledby="illustration-title">
       <div class="logos-header illustration-header">
         <h2 id="illustration-title">Illustration</h2>
+        <button class="section-more" type="button" data-panel-open>Read More<svg viewBox="0 0 24 24"
+            aria-hidden="true" focusable="false"><path d="M5 12h14M12 5l7 7-7 7" /></svg></button>
         <div class="logos-header-body">
           <span class="logos-rule" aria-hidden="true"></span>
           <p>A series of whimsical illustrations created for MojoDesign Collection, developed for stickers, branding,
@@ -558,13 +595,18 @@
       </a>
 
       <div class="illustration-collage" aria-label="Illustration collection">
-        <img src="src/assets/illustration/collage.png" alt="Whimsical illustration collection" width="956" height="670"
-          loading="lazy" decoding="async">
+        <picture>
+          <source media="(max-width: 520px)" srcset="src/assets/mobile/illustration/collage.png" width="393"
+            height="660"><img src="src/assets/illustration/collage.png" alt="Whimsical illustration collection"
+            width="956" height="670" loading="lazy" decoding="async">
+        </picture>
       </div>
     </section>
     <section id="nixie-dolls" class="logos-section nixie-section" aria-labelledby="nixie-title">
       <div class="logos-header nixie-header">
         <h2 id="nixie-title">Nixie Dolls</h2>
+        <button class="section-more" type="button" data-panel-open>Read More<svg viewBox="0 0 24 24"
+            aria-hidden="true" focusable="false"><path d="M5 12h14M12 5l7 7-7 7" /></svg></button>
         <div class="logos-header-body">
           <span class="logos-rule" aria-hidden="true"></span>
           <p>Nixie Dolls is an original character-based collection created from concept to completion. Each handmade
@@ -587,9 +629,15 @@
         <img class="nixie-piece nixie-composite" src="src/assets/nixie-doll/composite.png"
           alt="Handmade Nixie art dolls photographed beside a phone showing the Nixie Dolls Instagram feed"
           width="958" height="654" loading="lazy" decoding="async">
+        <img class="nixie-mobile-dolls" src="src/assets/mobile/nixie-doll/dolls.png"
+          alt="Two handmade Nixie art dolls, an adventurer and a fairy" width="391" height="279" loading="lazy"
+          decoding="async">
         <p class="nixie-collage-copy">Nixies are my collection of one of a kind handmade art dolls, created for
-          collectors who love character, imagination, and little stories. The collection explores two worlds, Fairy and
-          Adventures, with each Nixie given her own personality, style, and story.</p>
+          collectors who love character, imagination, and little stories.<span class="nixie-copy-break"></span> The
+          collection explores two worlds, Fairy and Adventures, with each Nixie given her own personality, style, and
+          story.</p>
+        <img class="nixie-mobile-phone" src="src/assets/mobile/nixie-doll/phone.png"
+          alt="A phone showing the Nixie Dolls Instagram feed" width="392" height="471" loading="lazy" decoding="async">
         <a class="nixie-collage-link" href="https://www.instagram.com/mojodesigncollection/" rel="me noopener"
           target="_blank">
           <svg viewBox="0 0 45 45" aria-hidden="true" focusable="false">
@@ -666,18 +714,14 @@
           <!-- Figma "Social-Media" (3387:4695): four 117 discs on a 53px gap at
                (230, 10448) — white disc, #A3C6CB glyph, Instagram 122 wide.
                These are the exported assets, not hand-drawn approximations. -->
-          <a href="mailto:mojgraphicdesign@gmail.com" aria-label="Email"><picture><source media="(max-width: 520px)"
-                srcset="src/assets/about/icons/email.svg"><img src="src/assets/contact/icons/email.png" alt=""
+          <a href="mailto:mojgraphicdesign@gmail.com" aria-label="Email"><picture><img src="src/assets/contact/icons/email.png" alt=""
                 width="117" height="117" loading="lazy" decoding="async"></picture></a>
-          <a class="is-wide" href="#" aria-label="Instagram"><picture><source media="(max-width: 520px)"
-                srcset="src/assets/about/icons/instagram.svg"><img src="src/assets/contact/icons/instagram.png" alt=""
+          <a class="is-wide" href="#" aria-label="Instagram"><picture><img src="src/assets/contact/icons/instagram.png" alt=""
                 width="123" height="117" loading="lazy" decoding="async"></picture></a>
-          <a href="#" aria-label="Telegram"><picture><source media="(max-width: 520px)"
-                srcset="src/assets/about/icons/telegram.svg"><img src="src/assets/contact/icons/telegram.png" alt=""
+          <a href="#" aria-label="Telegram"><picture><img src="src/assets/contact/icons/telegram.png" alt=""
                 width="117" height="117" loading="lazy" decoding="async"></picture></a>
           <a href="https://au.pinterest.com/mojodesigncollection/" aria-label="Pinterest" rel="me noopener"
-            target="_blank"><picture><source media="(max-width: 520px)"
-                srcset="src/assets/about/icons/pinterest.svg"><img src="src/assets/contact/icons/pinterest.png" alt=""
+            target="_blank"><picture><img src="src/assets/contact/icons/pinterest.png" alt=""
                 width="117" height="117" loading="lazy" decoding="async"></picture></a>
           </div>
         </div>

@@ -8,8 +8,7 @@ src/assets/<section>/<project>/<purpose>-NN.<ext>
 
 All lower kebab-case. No spaces, no capitals, no numeric-only folders. Section folders
 mirror the page's sections, so a path alone tells you which part of the site draws it.
-`ui/` holds chrome shared across sections; `mobile/` mirrors the same shape for the
-`@media (max-width: 900px)` cascade.
+`ui/` holds chrome shared across sections; `mobile/` mirrors the same shape for phones.
 
 ```
 ui/           logo-mojo.svg, og-image.jpg, floral.svg
@@ -28,8 +27,22 @@ posters/      <series>-NN.jpg
 illustration/ collage.png
 nixie-doll/   composite.png, instagram.png, hero-mobile.png, carousel/, story/
 contact/      icons/{email,instagram,telegram,pinterest}.png
-mobile/       the same shape again, for the mobile cascade only
+mobile/       the same shape again — phones (<= 520px) only, from Figma "Mobile-Final" (393 wide)
+  ui/         icons/{burger,close}.png (the nav + Read More panel), backgrounds/contact-band.jpg
+              (393 x 714, floral baked in); icons/carousel-{next,prev-disabled}.png and
+              nixie-doll/{nixie-hi,nixie-intro}.png still serve the 521-900 tablet layout
+  about/      portrait.png — the leaves without the baked-in role text
+  branding/   <project>/slide-01..06.jpg — 391 x 253 @2x; mostly the desktop slides, a few re-picked
+  posters/    slide-01..04.png — each carries its own teal r15 card
+  illustration/ collage.png — 393 x 660
+  nixie-doll/ dolls.png, phone.png (the Instagram handle over it is live text)
 ```
+
+Phones reuse the desktop artwork where it is the same thing at higher resolution: the vector
+`logos/marks/*.svg`, `about/icons/*.svg` and the 117px `contact/icons/*.png`. The
+`Mobile.zip` export's whole-card logo JPGs, heading SVGs and 1x arrow PNGs are not used —
+the site draws those as live text and CSS. Its `Slide-Minel-001.jpg` came at 1x, so that
+slide is the desktop original scaled to 782 x 506.
 
 Branding projects use their real names, never `01`–`06`:
 `minel, moji, shahrzad, curly, miss-broccoli, knight-coffee`.
