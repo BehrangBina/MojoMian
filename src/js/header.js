@@ -200,7 +200,8 @@ function setPanel(open, opener) {
   document.body.classList.toggle('panel-open', open);
   if (open) {
     panel.scrollTop = 0;
-    panelClose?.focus({ preventScroll: true });
+    // the dialog itself takes focus, so no ring is drawn on the X by default
+    panel.focus({ preventScroll: true });
   } else if (panelOpener) {
     panelOpener.focus({ preventScroll: true });
     panelOpener = null;

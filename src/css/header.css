@@ -3235,7 +3235,7 @@ body.panel-open {
   }
 
   .contact-copy {
-    width: 203px;
+    width: 213px;
     font-size: 18px;
     font-weight: 400;
     line-height: 21.6px;
@@ -3304,10 +3304,12 @@ body.panel-open {
     transition: transform 300ms ease;
   }
 
+  /* Figma's 276 column (x56 on the 393 frame) is centred here, so the space
+     either side is equal on any phone; the X keeps to its right edge. */
   .mobile-panel-close {
     position: absolute;
     top: 140px;
-    left: 282px;
+    left: calc(50% + 138px - 50px);
     width: 50px;
     height: 52px;
     padding: 0;
@@ -3323,7 +3325,13 @@ body.panel-open {
   }
 
   .mobile-panel-content {
-    padding: 302.2px 0 64px 56px;
+    width: 276px;
+    margin: 0 auto;
+    padding: 302.2px 0 64px;
+  }
+
+  .mobile-panel:focus {
+    outline: none;
   }
 
   .mobile-panel.is-about .mobile-panel-content {
@@ -3340,8 +3348,12 @@ body.panel-open {
     letter-spacing: 0;
   }
 
+  .mobile-panel-content h2 {
+    white-space: nowrap;
+  }
+
   .mobile-panel-body {
-    width: 276px;
+    width: 100%;
     margin-top: 24px;
     color: #000000;
     font-size: 16px;
