@@ -184,7 +184,8 @@ function setPanel(open, opener) {
   if (open) {
     const aboutCopy = opener.dataset.panelOpen === 'about' && panel.querySelector('[data-panel-about]');
     const section = opener.closest('section');
-    panelTitle.textContent = aboutCopy ? 'About Me' : section.querySelector('h2').textContent;
+    // innerText, not textContent: it drops what the phone hides ("Nixie Doll").
+    panelTitle.textContent = aboutCopy ? 'About Me' : section.querySelector('h2').innerText;
     panelBody.replaceChildren(aboutCopy
       ? aboutCopy.content.cloneNode(true)
       : section.querySelector('.logos-header-body p').cloneNode(true));

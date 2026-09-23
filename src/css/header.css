@@ -94,6 +94,7 @@
   --dur-logo-slide: 800ms;   /* Section-Logo Icon-Next-Logo        */
   --dur-slide: 350ms;        /* Branding + Posters Icon-Next-Logo  */
   --dur-project: 800ms;      /* Branding 02-06 SMART_ANIMATE GENTLE  */
+  --dur-menu: 300ms;         /* phone burger menu open / close       */
 }
 
 /* ---------------------------------------------------------------------------
@@ -168,6 +169,7 @@ body.is-preloading {
     --dur-logo-slide: 0ms;
     --dur-slide: 0ms;
     --dur-project: 0ms;
+    --dur-menu: 0ms;
   }
 
   .poster-card {
@@ -2399,11 +2401,13 @@ body.panel-open {
      60 / 80 w400 ls-3 small caps (so 49.4 on screen, 34.6 caps) at x48 on a
      100 pitch from y87, caps 25 into each row; Portfolio's dropdown lists the
      sections at 22 / 34 w400 ls-1.1, first cap 25 below its row. */
-  .primary-nav {
-    display: none;
-  }
-
-  .primary-nav.is-mobile-open {
+  /* The drop stays laid out while closed so it can animate both ways: it
+     fades and settles 16px down, then its rows follow 40ms apart. Visibility
+     flips only after a close has finished, so hidden links take no focus.
+     .is-collapsed is named because the desktop sticky-bar rule outranks a
+     bare .primary-nav. */
+  .primary-nav,
+  .primary-nav.is-collapsed {
     position: fixed;
     top: var(--header-height);
     left: 0;
@@ -2417,6 +2421,43 @@ body.panel-open {
     backdrop-filter: none;
     box-shadow: none;
     z-index: 25;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-16px);
+    transition: opacity var(--dur-menu) var(--ease-out),
+                transform var(--dur-menu) var(--ease-out),
+                visibility 0s linear var(--dur-menu);
+  }
+
+  .primary-nav.is-mobile-open {
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+    transition: opacity var(--dur-menu) var(--ease-out),
+                transform var(--dur-menu) var(--ease-out);
+  }
+
+  /* named, not `> *`: the desktop `.nav-menu a` colour transition outranks it */
+  .nav-menu > a,
+  .nav-menu > .nav-portfolio {
+    opacity: 0;
+    transform: translateY(-12px);
+    transition: opacity var(--dur-menu) var(--ease-out),
+                transform var(--dur-menu) var(--ease-out);
+  }
+
+  .primary-nav.is-mobile-open .nav-menu > a,
+  .primary-nav.is-mobile-open .nav-menu > .nav-portfolio {
+    opacity: 1;
+    transform: none;
+  }
+
+  .primary-nav.is-mobile-open .nav-menu > a[href="#about"] {
+    transition-delay: calc(var(--dur-menu) * 0.13);
+  }
+
+  .primary-nav.is-mobile-open .nav-menu > a[href="#contact"] {
+    transition-delay: calc(var(--dur-menu) * 0.27);
   }
 
   .primary-nav .back-to-top,
@@ -2424,7 +2465,7 @@ body.panel-open {
     display: none;
   }
 
-  .primary-nav.is-mobile-open .nav-menu {
+  .primary-nav .nav-menu {
     flex-direction: column;
     align-items: flex-start;
     gap: 0;
@@ -2434,8 +2475,21 @@ body.panel-open {
     overflow: visible;
   }
 
+  /* The dropdown opens on a 0fr -> 1fr row, so it grows to its own height
+     and pushes ABOUT ME / CONTACT ME down with it instead of jumping. */
   .nav-portfolio {
-    display: block;
+    display: grid;
+    grid-template-rows: auto 0fr;
+  }
+
+  .nav-menu > .nav-portfolio {
+    transition: opacity var(--dur-menu) var(--ease-out),
+                transform var(--dur-menu) var(--ease-out),
+                grid-template-rows var(--dur-menu) var(--ease-out);
+  }
+
+  .nav-portfolio.is-open {
+    grid-template-rows: auto 1fr;
   }
 
   .nav-menu > a,
@@ -2474,15 +2528,29 @@ body.panel-open {
     transform: rotate(180deg);
   }
 
+  /* The 25px above and below the list live on its first and last rows, not
+     on the list, so a closed (0fr) list really is 0 tall. */
   .nav-portfolio-list {
-    display: none;
-    margin: 14.6px 0 15.4px;
+    min-height: 0;
+    margin: 0;
     padding: 0;
+    overflow: hidden;
     list-style: none;
+    visibility: hidden;
+    transition: visibility 0s linear var(--dur-menu);
   }
 
   .nav-portfolio.is-open .nav-portfolio-list {
-    display: block;
+    visibility: visible;
+    transition: none;
+  }
+
+  .nav-portfolio-list li:first-child {
+    margin-top: 14.6px;
+  }
+
+  .nav-portfolio-list li:last-child {
+    margin-bottom: 15.4px;
   }
 
   .nav-portfolio-list a {
@@ -2718,6 +2786,25 @@ body.panel-open {
 
   .illustration-section .section-more {
     top: 68.8px;
+  }
+
+  /* Mobile-Final names this section "Nixie Doll"; with the desktop's "s" the
+     heading runs into Read More. */
+  .nixie-title-plural {
+    display: none;
+  }
+
+  /* Keyboard focus (e.g. back on Read More after Esc closes the panel): a
+     teal ring instead of the browser's black box. */
+  .section-more:focus-visible,
+  .about-read-more:focus-visible,
+  .mobile-panel-close:focus-visible,
+  .nav-portfolio-toggle:focus-visible,
+  .nav-menu a:focus-visible,
+  .mobile-menu-button:focus-visible {
+    outline: 1.5px solid var(--accent-strong);
+    outline-offset: 4px;
+    border-radius: 6px;
   }
 
   .section-more svg {
