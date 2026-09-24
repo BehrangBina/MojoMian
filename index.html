@@ -52,6 +52,16 @@
         sessionStorage.setItem('mojo-splash-seen', '1');
       }
     } catch (e) { /* private mode: just show it */ }
+
+    // Anything wider than a phone gets the 1512 desktop artboard, scaled to
+    // fit. Set before first paint so the page never flashes at full size.
+    window.fitDesktop = function () {
+      var width = document.documentElement.clientWidth;
+      var fit = width > 520 && width < 1512 ? width / 1512 : 1;
+      document.documentElement.style.setProperty('--fit', fit);
+      window.desktopFit = fit;
+    };
+    fitDesktop();
   </script>
   <link rel="stylesheet" href="src/css/header.css">
 

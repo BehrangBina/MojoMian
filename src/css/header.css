@@ -197,7 +197,10 @@ html {
   scroll-behavior: auto;
 }
 
+/* Between the phone breakpoint and the 1512 artboard the desktop design is
+   kept as drawn and scaled down to the window; --fit is set in <head>. */
 body {
+  zoom: var(--fit, 1);
   position: relative;
   margin: 0;
   min-height: 100vh;
@@ -1403,7 +1406,7 @@ body.panel-open {
 
 /* Below the desktop artboard the collage cannot hold its coordinates, so the
    v1 stack takes over again — this is the layout mobile has always rendered. */
-@media (max-width: 900px) {
+@media (max-width: 520px) {
   /* -------------------------------------------------------------------------
      v2 reset. Everything above this line is the 1512 Desktop-Final artboard and
      carries its absolute geometry. Release it here so the tablet and mobile
@@ -1934,7 +1937,7 @@ body.panel-open {
   white-space: nowrap;
 }
 
-@media (max-width: 900px) {
+@media (max-width: 520px) {
   :root {
     --header-height: 280px;
     --logo-width: 170px;
@@ -2310,7 +2313,7 @@ body.panel-open {
    which breaks a 100%-per-step track. This block is appended after them so the
    track geometry settles last.
    =========================================================================== */
-@media (max-width: 900px) {
+@media (max-width: 520px) {
   .posters-grid {
     display: block;
     min-height: 0;

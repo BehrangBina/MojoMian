@@ -38,7 +38,8 @@ const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 function syncCollapsedMenu() {
   if (!header || !nav) return;
 
-  const collapseAt = header.offsetHeight - nav.offsetHeight;
+  // offsetHeight is in the page's own (unscaled) px; scrollY is in window px.
+  const collapseAt = (header.offsetHeight - nav.offsetHeight) * (window.desktopFit || 1);
   nav.classList.toggle('is-collapsed', window.scrollY >= collapseAt);
 }
 
@@ -137,6 +138,7 @@ document.querySelectorAll('.back-to-top, .logo-link').forEach((link) => {
 // slides through the slides before it — so transitions pause while resizing.
 let resizeTimer = 0;
 window.addEventListener('resize', () => {
+  window.fitDesktop?.();
   document.documentElement.classList.add('is-resizing');
   clearTimeout(resizeTimer);
   resizeTimer = setTimeout(() => document.documentElement.classList.remove('is-resizing'), 200);
