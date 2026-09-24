@@ -132,6 +132,16 @@ document.querySelectorAll('.back-to-top, .logo-link').forEach((link) => {
   });
 });
 
+// A resize can change a carousel's pitch (px on desktop, 100% below 900) or
+// swap its image set at 520. Neither should animate, or the strip visibly
+// slides through the slides before it — so transitions pause while resizing.
+let resizeTimer = 0;
+window.addEventListener('resize', () => {
+  document.documentElement.classList.add('is-resizing');
+  clearTimeout(resizeTimer);
+  resizeTimer = setTimeout(() => document.documentElement.classList.remove('is-resizing'), 200);
+});
+
 window.addEventListener('scroll', syncCollapsedMenu, { passive: true });
 window.addEventListener('resize', syncCollapsedMenu);
 syncCollapsedMenu();
@@ -534,12 +544,18 @@ function initPostersCarousel() {
 
   prev?.addEventListener('click', () => renderPage(activePage - 1));
   next?.addEventListener('click', () => renderPage(activePage + 1));
+  // Swapping `src` in place keeps the old bitmap painted until the new file
+  // arrives, so the desktop poster would linger in the phone card. A fresh
+  // <img> starts empty instead. The page is kept: it is the same poster set.
   mobileMediaQuery.addEventListener?.('change', () => {
     track.querySelectorAll('img').forEach((image, i) => {
-      image.classList.remove('is-missing');
-      image.src = posterSrc(posterItems[i]);
+      const fresh = image.cloneNode(false);
+      fresh.classList.remove('is-missing');
+      fresh.src = posterSrc(posterItems[i]);
+      fresh.addEventListener('error', () => fresh.classList.add('is-missing'));
+      image.replaceWith(fresh);
     });
-    renderPage(0);
+    renderPage(activePage);
   });
   renderPage(0);
 }

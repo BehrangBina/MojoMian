@@ -1175,7 +1175,11 @@ body.panel-open {
 
 /* Switching project replaces the whole strip, so that one cross-fades on the
    GENTLE curve instead of sliding. */
-.branding-frame.is-rebuilding .branding-track {
+.branding-frame.is-rebuilding .branding-track,
+.is-resizing .logo-track,
+.is-resizing .branding-track,
+.is-resizing .posters-track,
+.is-resizing .branding-frame {
   transition: none;
 }
 
