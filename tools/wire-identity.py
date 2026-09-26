@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""One-off: wire Mojo Mian's real identity, location and profile links into index.html.
+"""One-off: wire Mojdeh Mian's real identity, location and profile links into index.html.
 
 Kept as a script (rather than hand edits) so the exact substitutions are reviewable.
 """
@@ -70,18 +70,18 @@ must(inserted == 2, 'expected to insert 2 LinkedIn icons, did %d' % inserted)
 # --- 3. Name + location in the visible metadata -------------------------------
 OLD_D = ('Portfolio of Mojdeh (Mojo) - graphic designer, illustrator and UI/UX designer '
          'with 15 years of experience in brand identity, logo design, illustration and character design.')
-NEW_D = ('Mojo Mian is a Melbourne-based graphic designer, illustrator and UI/UX designer with '
+NEW_D = ('Mojdeh Mian is a Melbourne-based graphic designer, illustrator and UI/UX designer with '
          '15 years of experience in brand identity, logo design, illustration and character design.')
 must(s.count(OLD_D) == 3, 'expected 3 description strings, found %d' % s.count(OLD_D))
 s = s.replace(OLD_D, NEW_D)
 
 OLD_T = 'Mojdeh | Graphic Designer, Illustrator &amp; UI/UX Designer'
-NEW_T = 'Mojo Mian | Graphic Designer, Illustrator &amp; UI/UX Designer'
+NEW_T = 'Mojdeh Mian | Graphic Designer, Illustrator &amp; UI/UX Designer'
 must(s.count(OLD_T) == 3, 'expected 3 title strings, found %d' % s.count(OLD_T))
 s = s.replace(OLD_T, NEW_T)
 
 s = s.replace('<meta name="author" content="Mojdeh">',
-              '<meta name="author" content="Mojo Mian">', 1)
+              '<meta name="author" content="Mojdeh Mian">', 1)
 
 # --- 4. Structured data: identity, sameAs, Melbourne --------------------------
 m = re.search(r'(<script type="application/ld\+json">)(.*?)(</script>)', s, re.S)
@@ -90,8 +90,8 @@ data = json.loads(m.group(2))
 graph = {o['@type']: o for o in data['@graph']}
 
 person = graph['Person']
-person['name'] = 'Mojo Mian'
-person['alternateName'] = ['Mojdeh Mian', 'Mojdeh', 'Mojo']
+person['name'] = 'Mojdeh Mian'
+person['alternateName'] = ['Mojo Mian', 'Mojdeh', 'Mojo']
 person['givenName'] = 'Mojdeh'
 person['familyName'] = 'Mian'
 person['sameAs'] = [LINKEDIN, PINTEREST, ETSY]
