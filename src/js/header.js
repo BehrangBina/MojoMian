@@ -483,10 +483,10 @@ initBrandingCarousel();
 // v2 "Folio Posters": four full-bleed 1060 x 706 slides, one per page. Phones
 // show Mobile-Final's 393 x 437 cards, which carry their own teal plate.
 const posterItems = [
-  { title: 'Poster 01', alt: 'Poster design exploring image and typography, Reza Shah series 1', image: 'src/assets/posters/reza-shah-01.jpg', mobileImage: 'src/assets/mobile/posters/slide-01.webp' },
-  { title: 'Poster 02', alt: 'Poster design exploring image and typography, Reza Shah series 2', image: 'src/assets/posters/reza-shah-02.jpg', mobileImage: 'src/assets/mobile/posters/slide-02.webp' },
-  { title: 'Poster 03', alt: 'Minimal illustrative poster 1 from the Mahsa Amini series', image: 'src/assets/posters/mahsa-amini-01.jpg', mobileImage: 'src/assets/mobile/posters/slide-03.webp' },
-  { title: 'Poster 04', alt: 'Minimal illustrative poster 2 from the Mahsa Amini series', image: 'src/assets/posters/mahsa-amini-02.jpg', mobileImage: 'src/assets/mobile/posters/slide-04.webp' }
+  { title: 'Poster 01', alt: 'Poster design exploring image and typography, Reza Shah series 1', image: 'src/assets/posters/reza-shah-01.jpg', mobileImage: 'src/assets/mobile/posters/slide-01.png' },
+  { title: 'Poster 02', alt: 'Poster design exploring image and typography, Reza Shah series 2', image: 'src/assets/posters/reza-shah-02.jpg', mobileImage: 'src/assets/mobile/posters/slide-02.png' },
+  { title: 'Poster 03', alt: 'Minimal illustrative poster 1 from the Mahsa Amini series', image: 'src/assets/posters/mahsa-amini-01.jpg', mobileImage: 'src/assets/mobile/posters/slide-03.png' },
+  { title: 'Poster 04', alt: 'Minimal illustrative poster 2 from the Mahsa Amini series', image: 'src/assets/posters/mahsa-amini-02.jpg', mobileImage: 'src/assets/mobile/posters/slide-04.png' }
 ];
 
 function initPostersCarousel() {

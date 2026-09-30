@@ -299,9 +299,8 @@
         <picture class="profile-picture">
           <!-- On phones the portrait is the largest thing in the first screen
                (Lighthouse's LCP element), so it loads eagerly at high priority. -->
-          <source media="(max-width: 520px)" srcset="src/assets/mobile/about/portrait.webp" type="image/webp" width="293" height="234">
           <source media="(max-width: 520px)" srcset="src/assets/mobile/about/portrait.png" width="293" height="234">
-          <source srcset="src/assets/about/portrait.webp" type="image/webp"><img
+          <img
             class="profile-photo" src="src/assets/about/portrait.png" alt="Mojdeh portrait" width="521" height="417" fetchpriority="high" decoding="async">
         </picture>
         <h2>I&rsquo;m Mojdeh</h2>
@@ -598,11 +597,8 @@
 
       <div class="illustration-collage" aria-label="Illustration collection">
         <picture>
-          <source media="(max-width: 520px)" srcset="src/assets/mobile/illustration/collage.webp" type="image/webp"
-            width="393" height="660">
           <source media="(max-width: 520px)" srcset="src/assets/mobile/illustration/collage.png" width="393"
-            height="660">
-          <source srcset="src/assets/illustration/collage.webp" type="image/webp"><img src="src/assets/illustration/collage.png" alt="Whimsical illustration collection"
+            height="660"><img src="src/assets/illustration/collage.png" alt="Whimsical illustration collection"
             width="956" height="670" loading="lazy" decoding="async">
         </picture>
       </div>

@@ -229,7 +229,7 @@ body::before {
   content: "";
   position: fixed;
   inset: 0;
-  background: var(--white) url("../assets/ui/backgrounds/hero-blur.webp") center top / cover no-repeat;
+  background: var(--white) url("../assets/ui/backgrounds/hero-blur.jpg") center top / cover no-repeat;
   z-index: -1;
   pointer-events: none;
 }
