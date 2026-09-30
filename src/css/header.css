@@ -495,9 +495,15 @@ select {
   margin: 0 0 30px -53.5px;
 }
 
-/* v2 drops the 90px "I'm Mojdeh" heading; the role line carries the column. */
+/* v2 drops the 90px "I'm Mojdeh" heading; the role line carries the column.
+   Kept for screen readers so the About headings don't jump from h1 to h3. */
 .about-left h2 {
-  display: none;
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
 }
 
 /* "Graphic Designer & Branding Specialist" — 24 / 28.8 w500, sentence case */
@@ -2626,9 +2632,17 @@ body.panel-open {
     display: contents;
   }
 
-  .about-left h2,
   .about-copy {
     display: none;
+  }
+
+  .about-left h2 {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
   }
 
   .profile-picture {

@@ -355,7 +355,7 @@ function initBrandingCarousel() {
     button.type = 'button';
     button.className = 'branding-index-button';
     button.textContent = String(index + 1).padStart(2, '0');
-    button.setAttribute('aria-label', `Show ${project.project}`);
+    button.setAttribute('aria-label', `${button.textContent} ${project.project}`);
     button.addEventListener('click', () => setBrandingProject(index));
     indexEl.append(button);
   });
@@ -372,6 +372,7 @@ function initBrandingCarousel() {
       swatch.className = 'branding-swatch';
       swatch.style.backgroundColor = color;
       swatch.title = color;
+      swatch.setAttribute('role', 'img');
       swatch.setAttribute('aria-label', color);
 
       if (color.toLowerCase() === '#f8fbf9' || color.toLowerCase() === '#ffffff') {
