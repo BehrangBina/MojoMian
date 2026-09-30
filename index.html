@@ -39,9 +39,13 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
+  <!-- Loaded without blocking first paint; text shows in the fallback font
+       until Barlow arrives (display=swap does the same once it's parsed). -->
+  <link rel="preload" as="style"
     href="https://fonts.googleapis.com/css2?family=Barlow:wght@300;400;500;600&display=swap"
-    rel="stylesheet">
+    onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Barlow:wght@300;400;500;600&display=swap"></noscript>
   <script>
     // Show the splash once per browsing session only. Runs before first paint,
     // so a repeat visit never flashes the overlay.
@@ -293,8 +297,12 @@
     <section id="about" class="about-section">
       <div class="about-left">
         <picture class="profile-picture">
-          <source media="(max-width: 520px)" srcset="src/assets/mobile/about/portrait.png" width="293" height="234"><img
-            class="profile-photo" src="src/assets/about/portrait.png" alt="Mojdeh portrait" width="521" height="417" loading="lazy" decoding="async">
+          <!-- On phones the portrait is the largest thing in the first screen
+               (Lighthouse's LCP element), so it loads eagerly at high priority. -->
+          <source media="(max-width: 520px)" srcset="src/assets/mobile/about/portrait.webp" type="image/webp" width="293" height="234">
+          <source media="(max-width: 520px)" srcset="src/assets/mobile/about/portrait.png" width="293" height="234">
+          <source srcset="src/assets/about/portrait.webp" type="image/webp"><img
+            class="profile-photo" src="src/assets/about/portrait.png" alt="Mojdeh portrait" width="521" height="417" fetchpriority="high" decoding="async">
         </picture>
         <h2>I&rsquo;m Mojdeh</h2>
         <p class="about-role">Graphic Designer &amp; Branding Specialist</p>
@@ -590,8 +598,11 @@
 
       <div class="illustration-collage" aria-label="Illustration collection">
         <picture>
+          <source media="(max-width: 520px)" srcset="src/assets/mobile/illustration/collage.webp" type="image/webp"
+            width="393" height="660">
           <source media="(max-width: 520px)" srcset="src/assets/mobile/illustration/collage.png" width="393"
-            height="660"><img src="src/assets/illustration/collage.png" alt="Whimsical illustration collection"
+            height="660">
+          <source srcset="src/assets/illustration/collage.webp" type="image/webp"><img src="src/assets/illustration/collage.png" alt="Whimsical illustration collection"
             width="956" height="670" loading="lazy" decoding="async">
         </picture>
       </div>
@@ -648,7 +659,7 @@
           <img src="src/assets/ui/icons/angle-up.svg" alt="Previous" width="30" height="30" loading="lazy" decoding="async">
         </button>
         <figure class="nixie-frame">
-          <img data-nixie-image alt="Nixie Dolls slide 1">
+          <img data-nixie-image alt="Nixie Dolls slide 1" loading="lazy" decoding="async">
           <figcaption data-nixie-fallback>Nixie Dolls image pending</figcaption>
         </figure>
         <p class="nixie-mobile-caption">Every Nixie begins with concept exploration and visual storytelling.</p>

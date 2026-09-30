@@ -402,10 +402,11 @@ function initBrandingCarousel() {
     trackEl.innerHTML = '';
     getBrandingSlides(project).forEach((src, i) => {
       const img = document.createElement('img');
+      // loading/decoding before src: a src set first starts the download at once.
+      img.loading = 'lazy';
+      img.decoding = 'async';
       img.src = src;
       img.alt = `${project.project} branding project slide ${i + 1}`;
-      img.loading = i === 0 ? 'eager' : 'lazy';
-      img.decoding = 'async';
       img.addEventListener('error', () => img.classList.add('is-missing'));
       trackEl.append(img);
     });
@@ -482,10 +483,10 @@ initBrandingCarousel();
 // v2 "Folio Posters": four full-bleed 1060 x 706 slides, one per page. Phones
 // show Mobile-Final's 393 x 437 cards, which carry their own teal plate.
 const posterItems = [
-  { title: 'Poster 01', alt: 'Poster design exploring image and typography, Reza Shah series 1', image: 'src/assets/posters/reza-shah-01.jpg', mobileImage: 'src/assets/mobile/posters/slide-01.png' },
-  { title: 'Poster 02', alt: 'Poster design exploring image and typography, Reza Shah series 2', image: 'src/assets/posters/reza-shah-02.jpg', mobileImage: 'src/assets/mobile/posters/slide-02.png' },
-  { title: 'Poster 03', alt: 'Minimal illustrative poster 1 from the Mahsa Amini series', image: 'src/assets/posters/mahsa-amini-01.jpg', mobileImage: 'src/assets/mobile/posters/slide-03.png' },
-  { title: 'Poster 04', alt: 'Minimal illustrative poster 2 from the Mahsa Amini series', image: 'src/assets/posters/mahsa-amini-02.jpg', mobileImage: 'src/assets/mobile/posters/slide-04.png' }
+  { title: 'Poster 01', alt: 'Poster design exploring image and typography, Reza Shah series 1', image: 'src/assets/posters/reza-shah-01.jpg', mobileImage: 'src/assets/mobile/posters/slide-01.webp' },
+  { title: 'Poster 02', alt: 'Poster design exploring image and typography, Reza Shah series 2', image: 'src/assets/posters/reza-shah-02.jpg', mobileImage: 'src/assets/mobile/posters/slide-02.webp' },
+  { title: 'Poster 03', alt: 'Minimal illustrative poster 1 from the Mahsa Amini series', image: 'src/assets/posters/mahsa-amini-01.jpg', mobileImage: 'src/assets/mobile/posters/slide-03.webp' },
+  { title: 'Poster 04', alt: 'Minimal illustrative poster 2 from the Mahsa Amini series', image: 'src/assets/posters/mahsa-amini-02.jpg', mobileImage: 'src/assets/mobile/posters/slide-04.webp' }
 ];
 
 function initPostersCarousel() {
@@ -515,10 +516,10 @@ function initPostersCarousel() {
     card.className = 'poster-card';
 
     const image = document.createElement('img');
+    image.loading = 'lazy';
+    image.decoding = 'async';
     image.src = posterSrc(item);
     image.alt = item.alt || item.title;
-    image.loading = i === 0 ? 'eager' : 'lazy';
-    image.decoding = 'async';
     image.addEventListener('error', () => image.classList.add('is-missing'));
 
     const sheet = document.createElement('figcaption');
@@ -668,10 +669,10 @@ function initNixieGalleryCarousel() {
       card.className = 'nixie-gallery-card';
 
       const image = document.createElement('img');
-      image.src = item.image;
-      image.alt = item.title;
       image.loading = 'lazy';
       image.decoding = 'async';
+      image.src = item.image;
+      image.alt = item.title;
       image.addEventListener('error', () => image.classList.add('is-missing'));
 
       const caption = document.createElement('figcaption');
