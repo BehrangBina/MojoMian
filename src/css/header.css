@@ -548,6 +548,11 @@ body.panel-open {
   margin: 0;
 }
 
+/* One empty line between paragraphs. */
+.about-copy p + p {
+  margin-top: 1lh;
+}
+
 /* Icons are 46 square on a 67px pitch, 60px below Figma's biography block —
    45 here, since the copy sets one line taller in the browser. */
 .social-links {
@@ -1449,10 +1454,6 @@ body.panel-open {
 
   .about-panel {
     padding-top: 8px;
-  }
-
-  .about-copy p {
-    margin: 0 0 12px;
   }
 
   .logos-header {
@@ -3376,5 +3377,9 @@ body.panel-open {
     margin: 0;
     color: inherit;
     font: inherit;
+  }
+
+  .mobile-panel.is-about .mobile-panel-body p + p {
+    margin-top: 1lh;
   }
 }
