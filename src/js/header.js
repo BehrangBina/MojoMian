@@ -297,7 +297,7 @@ const brandingProjects = [
   {
     id: 'curly',
     project: 'Curly',
-    industry: 'Fashion',
+    industry: 'Jewellery',
     slug: 'curly',
     slideCount: 6,
     colors: ['#A8644B', '#E8E8E8', '#E5D6C4'],
