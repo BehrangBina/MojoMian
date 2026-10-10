@@ -32,7 +32,7 @@
 const header = document.querySelector('.site-header');
 const nav = document.querySelector('.primary-nav');
 const internalLinks = document.querySelectorAll('.nav-menu a, .portfolio-list a, .back-to-index, .main-button');
-const mobileMediaQuery = window.matchMedia('(max-width: 520px)');
+const mobileMediaQuery = window.matchMedia('(max-width: 900px)');
 const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 
 function syncCollapsedMenu() {
@@ -114,8 +114,10 @@ internalLinks.forEach((link) => {
 
     event.preventDefault();
     const [duration, easing] = scrollMotionFor(link);
-    // The phone header is fixed, so a section has to stop below it.
-    const offset = mobileMediaQuery.matches && header && target !== document.body ? header.offsetHeight : 0;
+    // The phone header is fixed, so a section has to stop below it. Its
+    // offsetHeight is unscaled; tablets zoom the page, so scale it to window px.
+    const offset = mobileMediaQuery.matches && header && target !== document.body
+      ? header.offsetHeight * (window.desktopFit || 1) : 0;
     animateScrollTo(target.getBoundingClientRect().top + window.scrollY - offset, duration, easing);
     history.pushState(null, '', href);
   });
@@ -134,7 +136,7 @@ document.querySelectorAll('.back-to-top, .logo-link').forEach((link) => {
 });
 
 // A resize can change a carousel's pitch (px on desktop, 100% below 900) or
-// swap its image set at 520. Neither should animate, or the strip visibly
+// swap its image set at 900. Neither should animate, or the strip visibly
 // slides through the slides before it — so transitions pause while resizing.
 let resizeTimer = 0;
 window.addEventListener('resize', () => {

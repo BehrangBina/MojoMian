@@ -57,11 +57,18 @@
       }
     } catch (e) { /* private mode: just show it */ }
 
-    // Anything wider than a phone gets the 1512 desktop artboard, scaled to
-    // fit. Set before first paint so the page never flashes at full size.
+    // Above 900 the 1512 desktop artboard is scaled down to fit. Tablets
+    // (601-900) get the phone layout scaled up as if it were 600 wide, so
+    // type and tap targets grow with the screen. Set before first paint so
+    // the page never flashes at the wrong size.
     window.fitDesktop = function () {
+      // The layout switch uses the same media query as the CSS, so the two
+      // agree on whether the scrollbar counts; the scale uses the usable width.
       var width = document.documentElement.clientWidth;
-      var fit = width > 520 && width < 1512 ? width / 1512 : 1;
+      var isPhoneLayout = window.matchMedia('(max-width: 900px)').matches;
+      var fit = 1;
+      if (!isPhoneLayout && width < 1512) fit = width / 1512;
+      else if (isPhoneLayout && width > 600) fit = width / 600;
       document.documentElement.style.setProperty('--fit', fit);
       window.desktopFit = fit;
     };
@@ -303,7 +310,7 @@
         <picture class="profile-picture">
           <!-- On phones the portrait is the largest thing in the first screen
                (Lighthouse's LCP element), so it loads eagerly at high priority. -->
-          <source media="(max-width: 520px)" srcset="src/assets/mobile/about/portrait.png" width="293" height="234">
+          <source media="(max-width: 900px)" srcset="src/assets/mobile/about/portrait.png" width="293" height="234">
           <img
             class="profile-photo" src="src/assets/about/portrait.png" alt="Mojdeh portrait" width="521" height="417" fetchpriority="high" decoding="async">
         </picture>
@@ -602,7 +609,7 @@
 
       <div class="illustration-collage" aria-label="Illustration collection">
         <picture>
-          <source media="(max-width: 520px)" srcset="src/assets/mobile/illustration/collage.png" width="393"
+          <source media="(max-width: 900px)" srcset="src/assets/mobile/illustration/collage.png" width="393"
             height="660"><img src="src/assets/illustration/collage.png" alt="Whimsical illustration collection"
             width="956" height="670" loading="lazy" decoding="async">
         </picture>
