@@ -2288,6 +2288,15 @@ body.panel-open {
     text-align: left;
   }
 
+  /* Tablets: a fixed 110 left leaves the block well left of centre on a wider
+     screen, so keep its centre at the phone board's proportion (222.5 / 393).
+     At 393 this is exactly 110. */
+  @media (min-width: 601px) {
+    .home-content {
+      left: calc(100 * var(--vw) * 222.5 / 393 - 112.5px);
+    }
+  }
+
   .home-content h1 {
     width: 225px;
     font-size: calc(48px * var(--sc-scale));
