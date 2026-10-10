@@ -1221,18 +1221,6 @@ body.panel-open {
   display: none;
 }
 
-.branding-image-fallback {
-  display: none;
-  color: rgba(65, 64, 66, 0.54);
-  font-size: 32px;
-  font-weight: 300;
-  text-transform: uppercase;
-}
-
-.branding-frame img.is-missing + .branding-image-fallback {
-  display: block;
-}
-
 /* The 53.7 arrows sit inside the card at its slide column's outer edges */
 .branding-arrow {
   --arrow-size: 53.7px;
@@ -1338,9 +1326,6 @@ body.panel-open {
    and gallery with one composed still: a gradient panel, two photographs, a
    phone mockup, the story copy and the Instagram handle. Every piece keeps its
    artboard coordinate, so the whole thing is one 1512-wide stage.
-
-   The v1 carousels underneath are kept in the markup and hidden here — they are
-   still what the untouched mobile layout renders.
    --------------------------------------------------------------------------- */
 .nixie-section {
   overflow: hidden;
@@ -1405,14 +1390,6 @@ body.panel-open {
 .nixie-collage-link:focus-visible {
   color: var(--accent-strong);
   outline: none;
-}
-
-/* v1 blocks: mobile only. Scoped to the section so they win over the v1 rules
-   further down this file. */
-.nixie-section .nixie-carousel,
-.nixie-section .nixie-detail-picture,
-.nixie-section .nixie-gallery-block {
-  display: none;
 }
 
 /* Below the desktop artboard the collage cannot hold its coordinates, so the
@@ -1625,193 +1602,6 @@ body.panel-open {
   .nixie-section {
     overflow: visible;
   }
-
-  .nixie-section .nixie-carousel,
-  .nixie-section .nixie-gallery-block {
-    display: block;
-  }
-
-  .nixie-section .nixie-detail-picture {
-    display: inline;
-  }
-}
-
-.nixie-carousel {
-  position: relative;
-  width: min(100%, 1226px);
-  margin: 90px auto 0;
-  padding: 0;
-}
-
-/* Figma: the image ("Nixie-001") is 1061 x 597 at x225; the 1226 span quoted on
-   .nixie-carousel is the image plus the two 57.33 arrows sitting outside it. */
-.nixie-frame {
-  position: relative;
-  display: grid;
-  place-items: center;
-  width: 1061px;
-  max-width: 100%;
-  height: 597px;
-  margin: 0 auto;
-  overflow: visible;
-  background: rgba(255, 255, 255, 0.42);
-}
-
-.nixie-frame img {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  object-position: center;
-}
-
-.nixie-frame img.is-missing {
-  display: none;
-}
-
-.nixie-frame figcaption {
-  display: none;
-  color: rgba(65, 64, 66, 0.5);
-  font-size: 32px;
-  font-weight: 300;
-  text-transform: uppercase;
-}
-
-.nixie-frame img.is-missing + figcaption {
-  display: block;
-}
-
-.nixie-button {
-  position: absolute;
-  top: 50%;
-  display: grid;
-  place-items: center;
-  width: 57.33px;
-  height: 57.33px;
-  padding: 0;
-  border: 0;
-  border-radius: 50%;
-  background: var(--accent);
-  transform: translateY(-50%);
-  cursor: pointer;
-   
-}
-
-.nixie-button:disabled {
-  background: var(--muted);
-  cursor: default;
-}
-
-.nixie-button img {
-  display: block;
-  width: 22px;
-  height: 22px;
-  object-fit: contain;
-  filter: brightness(0) invert(1);
-  
-}
-
-.nixie-button-prev {
-  left: -82px;
-}
-
-.nixie-button-next {
-  right: -82px;
-}
-
-.nixie-button-prev img {
-  transform: rotate(-90deg);
-}
-
-.nixie-button-next img {
-  transform: rotate(90deg);
-}
-.nixie-mobile-caption {
-  display: none;
-}
-
-.nixie-detail-image {
-  display: block;
-  width: min(100%, 1062px);
-  height: auto;
-  margin: 64px auto 0;
-  padding-top: 100px;
-}
-
-/* Figma: "Dolls" grid 737 @x225 + 61 gap + copy column 264 @x1023 = 1062 */
-.nixie-gallery-block {
-  display: grid;
-  grid-template-columns: 737px 264px;
-  column-gap: 61px;
-  align-items: start;
-  width: min(100%, var(--container-max));
-  margin: 140px auto 0;
-}
-
-.nixie-gallery-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 8px;
-}
-
-.nixie-gallery-card {
-  position: relative;
-  display: grid;
-  place-items: center;
-  width: 100%;
-  height: 300px;
-  margin: 0;
-  overflow: hidden;
-  background: rgba(255, 255, 255, 0.45);
-}
-
-.nixie-gallery-card img {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.nixie-gallery-card img.is-missing {
-  display: none;
-}
-
-.nixie-gallery-card figcaption {
-  display: none;
-  color: rgba(65, 64, 66, 0.5);
-  font-size: 18px;
-  font-weight: 300;
-  text-transform: uppercase;
-}
-
-.nixie-gallery-card img.is-missing + figcaption {
-  display: block;
-}
-
-.nixie-gallery-controls {
-  width: 100%;
-  margin-top: 18px;
-}
-
-.nixie-gallery-progress {
-  --branding-steps: 2;
-  --branding-active: 0;
-}
-
-.nixie-gallery-copy {
-  color: var(--ink);
-  font-size: var(--fs-body-sm);
-  font-weight: 300;
-  line-height: 1.2;
-}
-
-.nixie-gallery-copy p {
-  margin: 0;
-}
-
-.nixie-gallery-link {
-  margin-top: 52px !important;
-  color: #76acb2;
 }
 
 /* ---------------------------------------------------------------------------
@@ -2086,12 +1876,6 @@ body.panel-open {
     height: auto;
   }
 
-  .carousel-button,
-  .carousel-button img {
-    width: 54px;
-    height: 54px;
-  }
-
   .branding-section {
     min-height: 760px;
   }
@@ -2113,14 +1897,8 @@ body.panel-open {
 
   .branding-main,
   .branding-frame,
-  .branding-controls,
   .branding-description {
     width: 100%;
-  }
-
-  .branding-progress {
-    flex-basis: 216px;
-    width: 216px;
   }
 
   .branding-index {
@@ -2178,60 +1956,6 @@ body.panel-open {
     width: 100%;
   }
 
-  .nixie-carousel {
-    width: 100%;
-    margin-top: 56px;
-    padding: 0 48px;
-  }
-
-  .nixie-frame {
-    width: 100%;
-    height: auto;
-    aspect-ratio: 1226 / 597;
-  }
-
-  .nixie-button {
-    width: 40px;
-    height: 40px;
-  }
-
-  .nixie-button-prev {
-    left: 0;
-  }
-
-  .nixie-button-next {
-    right: 0;
-  }
-
-  .nixie-mobile-caption {
-  display: none;
-}
-
-.nixie-detail-image {
-    width: 100%;
-    margin-top: 40px;
-  }
-  .nixie-gallery-block {
-    grid-template-columns: 1fr;
-    row-gap: 32px;
-    width: 100%;
-    margin-top: 72px;
-  }
-
-  .nixie-gallery-grid {
-    grid-template-columns: 1fr;
-    justify-items: center;
-    gap: 18px;
-  }
-
-  .nixie-gallery-card {
-    width: min(100%, 320px);
-    height: 360px;
-  }
-
-  .nixie-gallery-copy {
-    font-size: 16px;
-  }
   .contact-section {
     min-height: 520px;
     padding: 72px 24px;
@@ -2263,46 +1987,6 @@ body.panel-open {
     width: 100%;
     margin-left: 0;
   }
-}
-
-/* Mobile Nixie Detail Picture */
-.nixie-detail-picture {
-  display: block;
-}
-
-/* Nixie Social Follow Block */
-.nixie-hi-image {
-  display: none;
-}
-
-.nixie-gallery-link-row {
-  margin-top: 52px;
-}
-
-.nixie-social-links {
-  display: flex;
-  align-items: center;
-  gap: 28px;
-  margin-top: 18px;
-  color: #a3c6cb;
-}
-
-.nixie-social-links a {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 46px;
-  height: 46px;
-  color: inherit;
-  text-decoration: none;
-}
-
-/* Nixie Social Image Assets */
-.nixie-social-links img {
-  display: block;
-  width: 46px;
-  height: 46px;
-  object-fit: contain;
 }
 
 /* Contact Social Image Assets */
@@ -3151,10 +2835,7 @@ body.panel-open {
 
   /* --- Nixie: dolls 391 x 279 at (2, 5173), copy cap (15, 5455) 16 / 19.2
      w300 in 365, phone 392 x 471 at (2, 5614) with the Instagram handle on it
-     at (43, 5997). The v1 carousels stay for the tablet only. */
-  .nixie-section .nixie-carousel,
-  .nixie-section .nixie-detail-picture,
-  .nixie-section .nixie-gallery-block,
+     at (43, 5997). */
   .nixie-composite {
     display: none;
   }

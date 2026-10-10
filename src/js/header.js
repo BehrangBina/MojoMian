@@ -225,7 +225,14 @@ document.querySelectorAll('[data-panel-open]').forEach((opener) => {
 });
 panelClose?.addEventListener('click', () => setPanel(false));
 window.addEventListener('keydown', (event) => {
-  if (event.key === 'Escape' && panel?.classList.contains('is-open')) setPanel(false);
+  if (!panel?.classList.contains('is-open')) return;
+  if (event.key === 'Escape') setPanel(false);
+  // aria-modal promises focus stays in the dialog; the X is its only control,
+  // so Tab and Shift+Tab both land there.
+  if (event.key === 'Tab') {
+    event.preventDefault();
+    panelClose?.focus();
+  }
 });
 mobileMediaQuery.addEventListener('change', (event) => {
   if (!event.matches && panel?.classList.contains('is-open')) setPanel(false);
@@ -274,11 +281,11 @@ const brandingProjects = [
     slug: 'minel',
     slideCount: 6,
     colors: ['#DFD3B3', '#F8FBF9', '#000000'],
-    description: 'MINEL required a modern and minimal brand identity that matched the elegance of the fashion industry. I created a clean logo and visual style using a colour palette to achieve a sophisticated, timeless, and premium look.'
+    description: 'MINEL required a modern and minimal brand identity that matched the elegance of the fashion industry. I created a clean logo and visual style using a palette of soft beige, off-white and black to achieve a sophisticated, timeless, and premium look.'
   },
   {
     id: 'moji',
-    project: 'Moji brow artist',
+    project: 'Moji Brow Artist',
     industry: 'Beauty',
     slug: 'moji',
     slideCount: 6,
@@ -305,7 +312,7 @@ const brandingProjects = [
   },
   {
     id: 'miss-broccoli',
-    project: 'Miss-Broccoli',
+    project: 'Miss Broccoli',
     industry: 'Food',
     slug: 'miss-broccoli',
     slideCount: 6,
@@ -314,7 +321,7 @@ const brandingProjects = [
   },
   {
     id: 'knight',
-    project: 'Knight',
+    project: 'Knight Coffee',
     industry: 'Food',
     slug: 'knight-coffee',
     slideCount: 6,
@@ -341,12 +348,10 @@ function initBrandingCarousel() {
   const projectEl = root.querySelector('[data-branding-project]');
   const industryEl = root.querySelector('[data-branding-industry]');
   const swatchesEl = root.querySelector('[data-branding-swatches]');
-  const fallbackEl = root.querySelector('[data-branding-fallback]');
   const descriptionEl = root.querySelector('[data-branding-description]');
   const indexEl = root.querySelector('[data-branding-index]');
   const prev = root.querySelector('[data-branding-prev]');
   const next = root.querySelector('[data-branding-next]');
-  const bar = root.querySelector('[data-branding-bar]');
   let activeProject = 0;
   let activeSlide = 0;
 
@@ -367,13 +372,13 @@ function initBrandingCarousel() {
 
   function renderSwatches(colors) {
     swatchesEl.innerHTML = '';
-    colors.forEach((color) => {
+    colors.forEach((color, i) => {
       const swatch = document.createElement('span');
       swatch.className = 'branding-swatch';
       swatch.style.backgroundColor = color;
       swatch.title = color;
       swatch.setAttribute('role', 'img');
-      swatch.setAttribute('aria-label', color);
+      swatch.setAttribute('aria-label', `Brand colour ${i + 1} of ${colors.length}`);
 
       if (color.toLowerCase() === '#f8fbf9' || color.toLowerCase() === '#ffffff') {
         swatch.classList.add('is-light');
@@ -424,14 +429,6 @@ function initBrandingCarousel() {
       if (kind === 'project') {
         requestAnimationFrame(() => frameEl?.classList.remove('is-rebuilding'));
       }
-    }
-    fallbackEl.textContent = `${project.project} image ${String(activeSlide + 1).padStart(2, '0')} pending`;
-
-    if (bar) {
-      const steps = Math.max(slideCount, 2);
-      bar.style.setProperty('--branding-active', activeSlide);
-      bar.style.setProperty('--branding-steps', steps);
-      bar.setAttribute('aria-label', `Slide ${activeSlide + 1} of ${slideCount}`);
     }
 
     setArrowState(prev, activeSlide === 0);
@@ -496,9 +493,7 @@ function initPostersCarousel() {
   const grid = root.querySelector('[data-posters-grid]');
   const prev = root.querySelector('[data-posters-prev]');
   const next = root.querySelector('[data-posters-next]');
-  const bar = root.querySelector('[data-posters-bar]');
-  const perPage = 1;
-  let pageCount = Math.ceil(posterItems.length / perPage);
+  const pageCount = posterItems.length;
   let activePage = 0;
 
   // v2 draws the arrows in CSS, so only the disabled state has to be set.
@@ -536,12 +531,6 @@ function initPostersCarousel() {
     activePage = Math.max(0, Math.min(index, pageCount - 1));
     track.style.setProperty('--index', activePage);
 
-    if (bar) {
-      bar.style.setProperty('--branding-active', activePage);
-      bar.style.setProperty('--branding-steps', Math.max(pageCount, 2));
-      bar.setAttribute('aria-label', `Page ${activePage + 1} of ${pageCount}`);
-    }
-
     setArrowState(prev, activePage === 0);
     setArrowState(next, activePage === pageCount - 1);
   }
@@ -565,137 +554,7 @@ function initPostersCarousel() {
 }
 
 initPostersCarousel();
-document.querySelectorAll('.illustration-item img, .illustration-heading-icon').forEach((image) => {
-  image.addEventListener('error', () => {
-    image.classList.add('is-missing');
-  });
+
+document.querySelectorAll('[data-year]').forEach((el) => {
+  el.textContent = new Date().getFullYear();
 });
-const nixieSlides = [
-  {
-    image: 'src/assets/nixie-doll/story/slide-01.jpg',
-    caption: 'Every Nixie begins with concept exploration and visual storytelling.'
-  },
-  {
-    image: 'src/assets/nixie-doll/story/slide-02.jpg',
-    caption: "Careful material selection reinforces the character's visual identity."
-  },
-  {
-    image: 'src/assets/nixie-doll/story/slide-03.jpg',
-    caption: 'Colour is intentionally balanced to create harmony and mood.'
-  },
-  {
-    image: 'src/assets/nixie-doll/story/slide-04.jpg',
-    caption: 'Custom-dyed wools ensure every colour supports the original concept.'
-  },
-  {
-    image: 'src/assets/nixie-doll/story/slide-05.jpg',
-    caption: 'Attention to detail transforms ideas into a cohesive final design.'
-  },
-  {
-    image: 'src/assets/nixie-doll/story/slide-06.jpg',
-    caption: 'The finished piece reflects the same design principles applied to branding and visual communication.'
-  }
-];
-
-function initNixieCarousel() {
-  const root = document.querySelector('[data-nixie-carousel]');
-  if (!root) return;
-
-  const image = root.querySelector('[data-nixie-image]');
-  const fallback = root.querySelector('[data-nixie-fallback]');
-  const caption = root.querySelector('.nixie-mobile-caption');
-  const prev = root.querySelector('[data-nixie-prev]');
-  const next = root.querySelector('[data-nixie-next]');
-  let activeSlide = 0;
-
-  function setSlide(index) {
-    activeSlide = Math.max(0, Math.min(index, nixieSlides.length - 1));
-    image.classList.remove('is-missing');
-    image.src = nixieSlides[activeSlide].image;
-    image.alt = `Nixie Dolls slide ${activeSlide + 1}`;
-    if (caption) caption.textContent = nixieSlides[activeSlide].caption;
-    fallback.textContent = `Nixie Dolls image ${String(activeSlide + 1).padStart(2, '0')} pending`;
-
-    if (prev) prev.disabled = activeSlide === 0;
-    if (next) next.disabled = activeSlide === nixieSlides.length - 1;
-  }
-
-  image.addEventListener('error', () => {
-    image.classList.add('is-missing');
-  });
-
-  prev?.addEventListener('click', () => setSlide(activeSlide - 1));
-  next?.addEventListener('click', () => setSlide(activeSlide + 1));
-  setSlide(0);
-}
-
-initNixieCarousel();
-const nixieGalleryItems = Array.from({ length: 9 }, (_, index) => ({
-  title: `Nixie Doll ${String(index + 1).padStart(2, '0')}`,
-  image: 'src/assets/nixie-doll/carousel/slide-' + String(index + 1).padStart(2, '0') + '.jpg'
-}));
-
-function initNixieGalleryCarousel() {
-  const root = document.querySelector('[data-nixie-gallery-carousel]');
-  if (!root) return;
-
-  const grid = root.querySelector('[data-nixie-gallery-grid]');
-  const prev = root.querySelector('[data-nixie-gallery-prev]');
-  const next = root.querySelector('[data-nixie-gallery-next]');
-  const bar = root.querySelector('[data-nixie-gallery-bar]');
-  let perPage = mobileMediaQuery.matches ? 2 : 3;
-  let pageCount = Math.ceil(nixieGalleryItems.length / perPage);
-  let activePage = 0;
-
-  // v2 draws the arrows in CSS, so only the disabled state has to be set.
-  function setArrowState(button, isDisabled) {
-    if (button) button.disabled = isDisabled;
-  }
-
-  function syncGalleryPaging() {
-    perPage = mobileMediaQuery.matches ? 2 : 3;
-    pageCount = Math.ceil(nixieGalleryItems.length / perPage);
-    activePage = Math.min(activePage, pageCount - 1);
-  }
-
-  function renderPage(index) {
-    syncGalleryPaging();
-    activePage = Math.max(0, Math.min(index, pageCount - 1));
-    const pageItems = nixieGalleryItems.slice(activePage * perPage, activePage * perPage + perPage);
-
-    grid.innerHTML = '';
-    pageItems.forEach((item) => {
-      const card = document.createElement('figure');
-      card.className = 'nixie-gallery-card';
-
-      const image = document.createElement('img');
-      image.loading = 'lazy';
-      image.decoding = 'async';
-      image.src = item.image;
-      image.alt = item.title;
-      image.addEventListener('error', () => image.classList.add('is-missing'));
-
-      const caption = document.createElement('figcaption');
-      caption.textContent = item.title;
-
-      card.append(image, caption);
-      grid.append(card);
-    });
-
-    if (bar) {
-      bar.style.setProperty('--branding-active', activePage);
-      bar.style.setProperty('--branding-steps', Math.max(pageCount, 2));
-      bar.setAttribute('aria-label', `Page ${activePage + 1} of ${pageCount}`);
-    }
-
-    setArrowState(prev, activePage === 0);
-    setArrowState(next, activePage === pageCount - 1);
-  }
-
-  prev?.addEventListener('click', () => renderPage(activePage - 1));
-  next?.addEventListener('click', () => renderPage(activePage + 1));
-  mobileMediaQuery.addEventListener?.('change', () => renderPage(0));
-  renderPage(0);
-}
-
-initNixieGalleryCarousel();

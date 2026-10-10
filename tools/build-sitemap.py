@@ -26,9 +26,10 @@ EXTRAS = [
 ]
 
 # Chrome, swatches and index glyphs are UI, not portfolio work. The desktop
-# images are the canonical ones, so the mobile duplicates stay out too.
-SKIP_DIRS = ('index', 'marks', 'mobile')
-SKIP_FILES = ('brand-colors.png', 'instagram.png')
+# images are the canonical ones, so the mobile duplicates stay out too. The
+# Nixie story/carousel sets and hero are no longer on the page.
+SKIP_DIRS = ('index', 'marks', 'mobile', 'story', 'carousel')
+SKIP_FILES = ('brand-colors.png', 'instagram.png', 'hero-mobile.png')
 EXTS = ('.jpg', '.jpeg', '.png')
 
 
